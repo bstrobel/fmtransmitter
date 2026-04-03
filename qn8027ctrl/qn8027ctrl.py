@@ -2,6 +2,8 @@ import board
 import digitalio
 import busio
 import math
+import time
+from enum import Enum
 
 class qn8027:
 
@@ -9,21 +11,29 @@ class qn8027:
 
     REG_SYSTEM=0x00
     REG_SYSTEM_SWRST_BIT = 7 # Reset all registers to default values
-    REG_SYSTEM_SWRST_KEEP = 0 # Keep the current value.
-    REG_SYSTEM_SWRST_RESET = 1 # Reset to default values.
-    REG_SYSTEM_RECAL_NO = 0 # No reset. FSM runs normally.
-    REG_SYSTEM_RECAL_DORECAL = 1 # Reset the FSM. After this bit is de-asserted, FSM will go through all the power up and calibration sequence.
+    class SWRST(Enum):
+        KEEP = 0 # Keep the current value.
+        RESET = 1 # Reset to default values.
     REG_SYSTEM_RECAL_BIT = 6 # Reset the state to initial states and recalibrate all blocks.
+    class RECAL(Enum):
+        NO_RECAL = 0 # No reset. FSM runs normally.
+        DO_RECAL = 1 # Reset the FSM. After this bit is de-asserted, FSM will go through all the power up and calibration sequence.
     REG_SYSTEM_TXREQ_BIT = 5 # Transmission request
-    REG_SYSTEM_TXREQ_IDLE = 0 # Stay in IDLE mode.
-    REG_SYSTEM_TXREQ_TRANSMIT = 1 # Enter Transmit mode.
+    class TXREQ(Enum):
+        IDLE = 0 # Stay in IDLE mode.
+        TRANSMIT = 1 # Enter Transmit mode.
     REG_SYSTEM_MONO_BIT = 4 # Force MONO mode for transmission
-    REG_SYSTEM_MONO_DOSTEREO = 0 # Stereo mode.
-    REG_SYSTEM_MONO_DOMONO = 1 # MONO mode.
+    class MONO(Enum):
+        STEREO = 0 # Stereo mode.
+        MONO = 1 # MONO mode.
     REG_SYSTEM_MUTE_BIT = 3 # Audio Mute enable
-    REG_SYSTEM_MUTE_OFF = 0 # Not Mute
-    REG_SYSTEM_MUTE_ON = 1 # Mute
+    class MUTE(Enum):
+        OFF = 0 # Not Mute
+        ON = 1 # Mute
     REG_SYSTEM_RDSRDY_BIT = 2 # RDS transmitting ready
+    class RDSRDY(Enum):
+        IDLE = 0
+        DOSEND = 1
     REG_SYSTEM_CH_BIT = 0 # Highest 2 bits of 10-bit channel index: Channel freq is (76+CH*0.05) MHz
     REG_SYSTEM_CH_88_8MHZ = 1 # default
 
@@ -32,47 +42,65 @@ class qn8027:
 
     REG_GPLT=0x02
     REG_GPLT_TC_BIT = 7 # Pre-emphasis time constant
-    REG_GPLT_TC_50US = 0
-    REG_GPLT_TC_75US = 1 # default
+    class TC(Enum):
+        TC_50US = 0
+        TC_75US = 1 # default
     REG_GPLT_PRIVEN_BIT = 6 # Enable the privacy mode (audio scramble and RDS encryption)
-    REG_GPLT_PRIVEN_ENABLE = 1
-    REG_GPLT_PRIVEN_DISABLE = 0 # default
+    class PRIVEN(Enum):
+        PRIVEN_ENABLE = 1
+        PRIVEN_DISABLE = 0 # default
     REG_GPLT_T1MSEL_BIT = 4 # Selection of 1 minute time for PA off when no audio. The real time is (58+t1m_sel) seconds
-    REG_GPLT_T1MSEL_58s = 0
-    REG_GPLT_T1MSEL_59s = 1
-    REG_GPLT_T1MSEL_60s = 2 #default
-    REG_GPLT_T1MSEL_INFINITY = 3
+    class GPLT_T1MSEL(Enum):
+        T1MSEL_58s = 0
+        T1MSEL_59s = 1
+        T1MSEL_60s = 2 #default
+        T1MSEL_INFINITY = 3
     REG_GPLT_GAINTXPLT_BIT = 0 # Gain of TX pilot to adjust pilot frequency deviation. Refer to peak frequency deviation of MPX signal when audio input is full scale.
-    REG_GPLT_GAINTXPLT_7PCT = 7
-    REG_GPLT_GAINTXPLT_8PCT = 8
-    REG_GPLT_GAINTXPLT_9PCT = 9 # default
-    REG_GPLT_GAINTXPLT_10PCT = 10
+    class GPLT_GAINTXPLT(Enum):
+        GAINTXPLT_7PCT = 7
+        GAINTXPLT_8PCT = 8
+        GAINTXPLT_9PCT = 9 # default
+        GAINTXPLT_10PCT = 10
 
     REG_XTL=0x03
     REG_XTL_XINJ_BIT = 6 # Select the reference clock source
-    REG_XTL_XINJ_USE_CRYSTAL = 0 # default - Use crystal on XTAL1/XTAL2
-    REG_XTL_XINJ_EXT_CLOCK_ON_XTAL1 = 1 # Inject digital clock from XTAL1
-    REG_XTL_XINJ_EXT_SINE_CLOCK_ON_XTAL1 = 2 # Single end sine-wave injection on XTAL1
-    REG_XTL_XINJ_EXT_DIFFERENTIAL_SINE_CLOCK = 3 # Differential sine-wave injection on XTAL1/2
+    class XTL_XINJ(Enum):
+        USE_CRYSTAL = 0 # default - Use crystal on XTAL1/XTAL2
+        EXT_CLOCK_ON_XTAL1 = 1 # Inject digital clock from XTAL1
+        EXT_SINE_CLOCK_ON_XTAL1 = 2 # Single end sine-wave injection on XTAL1
+        EXT_DIFFERENTIAL_SINE_CLOCK = 3 # Differential sine-wave injection on XTAL1/2
     REG_XTL_XISEL_BIT = 0 # Crystal oscillator current control. 6.25uA*XISEL[5:0], 0-400uA when use crystal on XTAL1/XTAL2.
     REG_XTL_XISEL_CURRENT_100uA = 0b01000 # default
 
     REG_VGA=0x04
     REG_VGA_XSEL_BIT=7 # Crystal frequency selection
-    REG_VGA_XSEL_12MHZXTAL = 0
-    REG_VGA_XSEL_24MHZXTAL = 1 # default
+    class VGA_XSEL(Enum):
+        XTAL_12MHZ = 0
+        XTAL_24MHZ = 1 # default
     REG_VGA_GVGA_BIT = 4 # TX input buffer gain (dB), actual value depends on RIN, see documentation
     REG_VGA_GVGA_DEFAULT = 3 # 0 dB - RIN = 20 (default RIN)
     REG_VGA_GDB_BIT = 2
-    REG_VGA_GDB_0DB = 0b00
-    REG_VGA_GDB_1DB = 0b01
-    REG_VGA_GDB_2DB = 0b10
-    REG_VGA_GDB_RESERVED = 0b11
+    class VGA_GDB(Enum):
+        GDB_0DB = 0b00
+        GDB_1DB = 0b01
+        GDB_2DB = 0b10
+        GDB_RESERVED = 0b11
     REG_VGA_RIN_BIT = 0 # TX mode input impedance for both L/R channels.
-    REG_VGA_RIN_5KOHM = 0b00
-    REG_VGA_RIN_10KOHM = 0b01
-    REG_VGA_RIN_20KOHM = 0b10 # default
-    REG_VGA_RIN_40KOHM = 0b11
+    class VGA_R_IN(Enum):
+        RIN_5KOHM = 0b00
+        RIN_10KOHM = 0b01
+        RIN_20KOHM = 0b10 # default
+        RIN_40KOHM = 0b11
+    TX_BUFFER_GAIN_MX = [
+        [3,-3, -9, -15],
+        [6, 0, -6, -9],
+        [9, 3, -3, -9],
+        [12, 6, 0, -6],
+        [15, 9, 3, -3],
+        [18, 12, 6, 0]
+    ]
+        
+
 
     REG_CID1=0x05
     REG_CID1_CID0_BIT = 5 # reserved
@@ -88,15 +116,19 @@ class qn8027:
     REG_STATUS=0x07
     REG_STATUS_AUDPK_BIT = 4 # Audio peak value at ADC input is aud_pk[3:0]*45mV
     REG_STATUS_RDSUPD_BIT = 3 # RDS TX: To transmit the 8 bytes in RDS0~RDS7, the user should toggle the register bit RDSRDY. Then the chip internally fetches these bytes after completing transmitting the current group. Once the chip has internally fetched these bytes, it will toggle this bit, and the user can write in another group.
+    class RDSUPD(Enum):
+        OFF = 0
+        ON = 1
     REG_STATUS_FSM_BIT = 0 # Top FSM state code
-    REG_STATUS_FSM_RESET = 0b000 # in RESET state
-    REG_STATUS_FSM_CALI = 0b001 # in CALI state
-    REG_STATUS_FSM_IDLE = 0b010 # in IDLE state
-    REG_STATUS_FSM_TXRSTB = 0b011 # in TX_RSTB state
-    REG_STATUS_FSM_PA_CALIB = 0b100 # PA calibration
-    REG_STATUS_FSM_TRANSMIT = 0b101 # Transmit
-    REG_STATUS_FSM_PA_OFF = 0b110 # PA_OFF
-    REG_STATUS_FSM_RESERVED = 0b111 # Reserved
+    class FSM(Enum):
+        RESET = 0b000 # in RESET state
+        CALI = 0b001 # in CALI state
+        IDLE = 0b010 # in IDLE state
+        TXRSTB = 0b011 # in TX_RSTB state
+        PA_CALIB = 0b100 # PA calibration
+        TRANSMIT = 0b101 # Transmit
+        PA_OFF = 0b110 # PA_OFF
+        RESERVED = 0b111 # Reserved
 
     # RDS data byte0 to be sent: Data written into RDSD0~RDSD7 can not be sent out if user didn’t toggle RDSRDY to allow the data to be loaded into the internal transmitting buffer.
     REG_RDS0=0x08
@@ -118,9 +150,9 @@ class qn8027:
 
     REG_RDS=0x12
     REG_RDS_RDSEN_BIT = 7 # RDS enable
-    REG_RDS_RDSEN_OFF = 0
-    REG_RDS_RDSEN_ON = 1
-
+    class RDS(Enum):
+        DISABLED = 0
+        ENABLED = 1
     REG_RDS_RDSFDEV_BIT = 0 # Specify RDS frequency deviation: RDS frequency deviation = 0.35KHz*RDSFDEV.
     REG_RDS_RDSFDEV_2_1KHZ = 0b0000110 # default 2.1kHz
 
@@ -148,43 +180,30 @@ class qn8027:
     def reset_chip(self):
         self.send_cmd(self.REG_SYSTEM,1 << self.REG_SYSTEM_SWRST_RESET)
         self.get_state()
-        
+
+    def recalibrate_fsm(self):
+        self.get_state()
+        # flip the rcal bit for 10ms
+        self.dbg_print_reg_status(True)
+        self.dbg_print_reg_system(True)
+        self.send_cmd(self.REG_SYSTEM, 1 << self.REG_SYSTEM_RECAL_BIT)
+        time.sleep(1)
+        self.send_cmd(self.REG_SYSTEM, self.state[self.REG_SYSTEM] & ~(1 << self.REG_SYSTEM_RECAL_BIT))
+        self.dbg_print_reg_status(True)
+        self.dbg_print_reg_system(True)
+
 
     def get_state(self):
         self.i2c.writeto_then_readfrom(self.I2C_ADDR, bytes([self.REG_SYSTEM]), self.state)
 
     def dbg_print_reg_system(self,hexvals=False):
         reg_system_val = self.state[self.REG_SYSTEM]
-        swrst = 'UNKNOWN'
-        recal = 'UNKNOWN'
-        txreq = 'UNKNOWN'
-        mono = 'UNKNOWN'
-        mute = 'UNKNOWN'
-        rdsrdy = 'UNKNOWN'
-        if (reg_system_val >> self.REG_SYSTEM_SWRST_BIT) & 0b00000001 == self.REG_SYSTEM_SWRST_RESET:
-            swrst = 'RESET'
-        else:
-            swrst = 'KEEP'
-        if (reg_system_val >> self.REG_SYSTEM_RECAL_BIT) & 0b00000001 == self.REG_SYSTEM_RECAL_DORECAL:
-            recal = 'DORECAL'
-        else:
-            recal = 'NO'
-        if (reg_system_val >> self.REG_SYSTEM_TXREQ_BIT) & 0b00000001 == self.REG_SYSTEM_TXREQ_TRANSMIT:
-            txreq = 'TRANSMIT'
-        else:
-            txreq = 'IDLE'
-        if (reg_system_val >> self.REG_SYSTEM_MONO_BIT) & 0b00000001 == self.REG_SYSTEM_MONO_DOMONO:
-            mono = 'DOMONO'
-        else:
-            mono = 'STEREO'
-        if (reg_system_val >> self.REG_SYSTEM_MUTE_BIT) & 0b00000001 == self.REG_SYSTEM_MUTE_ON:
-            mute = 'ON'
-        else:
-            mute = 'OFF'
-        if (reg_system_val >> self.REG_SYSTEM_RDSRDY_BIT) & 0b00000001 == 0b00000001:
-            rdsrdy = '1'
-        else:
-            rdsrdy = '0'
+        swrst = self.SWRST((reg_system_val >> self.REG_SYSTEM_SWRST_BIT) & 0b00000001).name
+        recal = self.RECAL((reg_system_val >> self.REG_SYSTEM_RECAL_BIT) & 0b00000001).name
+        txreq = self.TXREQ((reg_system_val >> self.REG_SYSTEM_TXREQ_BIT) & 0b00000001 ).name
+        mono = self.MONO((reg_system_val >> self.REG_SYSTEM_MONO_BIT) & 0b00000001).name
+        mute = self.MUTE((reg_system_val >> self.REG_SYSTEM_MUTE_BIT) & 0b00000001).name
+        rdsrdy = self.RDSRDY((reg_system_val >> self.REG_SYSTEM_RDSRDY_BIT) & 0b00000001).name
         ch = str((reg_system_val & 0b00000011) * 256 * 0.05 + 76)
         if (hexvals):
             print(f'[REG_SYSTEM] 0x{reg_system_val:02x} {reg_system_val:2d} 0b{reg_system_val:08b}')
@@ -199,50 +218,21 @@ class qn8027:
     
     def dbg_print_reg_gplt(self,hexvals=False):
         reg_gplt_val = self.state[self.REG_GPLT]
-        tc = 'UNKNOWN'
-        priv_en = 'UNKOWN'
-        t1m_sel = 'UNKOWN'
-        gain_txplt = 'UNKOWN'
-        if (reg_gplt_val >> self.REG_GPLT_TC_BIT) & 0b00000001 == self.REG_GPLT_TC_75US:
-            tc = '75us'
+        tc = self.TC((reg_gplt_val >> self.REG_GPLT_TC_BIT) & 0b00000001).name
+        priv_en = self.PRIVEN((reg_gplt_val >> self.REG_GPLT_PRIVEN_BIT) & 0b00000001).name
+        t1m_sel = self.GPLT_T1MSEL((reg_gplt_val >> self.REG_GPLT_T1MSEL_BIT) & 0b00000011).name
+        gain_txplt_val = (reg_gplt_val & 0b00001111)
+        if (self.GPLT_GAINTXPLT.__contains__(gain_txplt_val)):
+            gain_txplt = self.GPLT_GAINTXPLT(gain_txplt_val).name
         else:
-            tc = '50us'
-        if (reg_gplt_val >> self.REG_GPLT_PRIVEN_BIT) & 0b00000001 == self.REG_GPLT_PRIVEN_ENABLE:
-            priv_en = 'PRIV_ENABLE'
-        else:
-            priv_en = 'PRIV_DISABLE'
-        if (reg_gplt_val >> self.REG_GPLT_T1MSEL_BIT) & 0b00000011 == self.REG_GPLT_T1MSEL_INFINITY:
-            t1m_sel = 'INFINITY'
-        else:
-            t1m_sel = str(58 + ((reg_gplt_val >> self.REG_GPLT_T1MSEL_BIT) & 0b00000011))
-        match (reg_gplt_val & 0b00001111):
-            case self.REG_GPLT_GAINTXPLT_7PCT:
-                gain_txplt = '7%*75kHz'
-            case self.REG_GPLT_GAINTXPLT_8PCT:
-                gain_txplt = '8%*75kHz'
-            case self.REG_GPLT_GAINTXPLT_9PCT:
-                gain_txplt = '9%*75kHz'
-            case self.REG_GPLT_GAINTXPLT_10PCT:
-                gain_txplt = '10%*75kHz'
-            case _:
-                gain_txplt = f'invalid:{str(reg_gplt_val & 0b00001111)}'
+            gain_txplt = f'invalid:{str(gain_txplt_val)}'
         if (hexvals):
             print(f'[REG_GPLT] 0x{reg_gplt_val:02x} {reg_gplt_val:2d} 0b{reg_gplt_val:08b}')
         print(f'[REG_GPLT] tc={tc} priv_en={priv_en} t1m_sel={t1m_sel} gain_txplt={gain_txplt}')
 
     def dbg_print_reg_xtl(self,hexvals=False):
         reg_xtl_val = self.state[self.REG_XTL]
-        xinj = 'UNKNOWN'
-        xisel = 'UNKNOWN'
-        match (reg_xtl_val >> self.REG_XTL_XINJ_BIT) & 0b00000011:
-            case self.REG_XTL_XINJ_USE_CRYSTAL:
-                xinj = 'USE_CRYSTAL'
-            case self.REG_XTL_XINJ_EXT_CLOCK_ON_XTAL1:
-                xinj = 'EXT_CLOCK_ON_XTAL1'
-            case self.REG_XTL_XINJ_EXT_SINE_CLOCK_ON_XTAL1:
-                xinj = 'EXT_SINE_CLOCK_ON_XTAL1'
-            case self.REG_XTL_XINJ_EXT_DIFFERENTIAL_SINE_CLOCK:
-                xinj = 'EXT_DIFFERENTIAL_SINE_CLOCK'
+        xinj = self.XTL_XINJ((reg_xtl_val >> self.REG_XTL_XINJ_BIT) & 0b00000011).name
         xisel = str((reg_xtl_val & 0b0011111) * 6.25)
         if (hexvals):
             print(f'[REG_XTL] 0x{reg_xtl_val:02x} {reg_xtl_val:2d} 0b{reg_xtl_val:08b}')
@@ -250,46 +240,15 @@ class qn8027:
 
     def dbg_print_reg_vga(self,hexvals=False):
         reg_vga_val = self.state[self.REG_VGA]
-        xsel = 'UNKNOWN'
-        tx_buffer_gain = 'UNKNOWN'
-        gdb = 'UNKNOWN'
-        rin = 'UNKNOWN'
-        if (reg_vga_val >> self.REG_VGA_XSEL_BIT) & 0b00000001 == self.REG_VGA_XSEL_24MHZXTAL:
-            xsel = 'XSEL_24MHZXTAL'
-        else:
-            xsel = 'XSEL_12MHZXTAL'
-        tx_buffer_gain_mx = [
-            [3,-3, -9, -15],
-            [6, 0, -6, -9],
-            [9, 3, -3, -9],
-            [12, 6, 0, -6],
-            [15, 9, 3, -3],
-            [18, 12, 6, 0]
-        ]
+        xsel = self.VGA_XSEL((reg_vga_val >> self.REG_VGA_XSEL_BIT) & 0b00000001).name
         rin_val = reg_vga_val & 0b00000011
         gvga_val = (reg_vga_val >> self.REG_VGA_GVGA_BIT) &0b00000111
         if gvga_val < 0b00000110:
-            tx_buffer_gain = tx_buffer_gain_mx[gvga_val][rin_val]
+            tx_buffer_gain = self.TX_BUFFER_GAIN_MX[gvga_val][rin_val]
         else:
             tx_buffer_gain = 'reserved'
-        match (reg_vga_val >> self.REG_VGA_GDB_BIT) & 0b00000011:
-            case self.REG_VGA_GDB_0DB:
-                gdb = '0dB'
-            case self.REG_VGA_GDB_1DB:
-                gdb = '1dB'
-            case self.REG_VGA_GDB_2DB:
-                gdb = '2dB'
-            case _:
-                gdb = 'RESERVED'
-        match (rin_val):
-            case self.REG_VGA_RIN_5KOHM:
-                rin = '5kOhm'
-            case self.REG_VGA_RIN_10KOHM:
-                rin = '10kOhm'
-            case self.REG_VGA_RIN_20KOHM:
-                rin = '20kOhm'
-            case self.REG_VGA_RIN_40KOHM:
-                rin = '40kOhm'
+        gdb = self.VGA_GDB(gvga_val).name
+        rin = self.VGA_R_IN(rin_val).name
         if (hexvals):
             print(f'[REG_VGA] 0x{reg_vga_val:02x} {reg_vga_val:2d} 0b{reg_vga_val:08b}')
         print(f'[REG_VGA] xsel={xsel} tx_buffer_gain={tx_buffer_gain} gdb={gdb} rin={rin}')
@@ -320,33 +279,12 @@ class qn8027:
 
     def dbg_print_reg_status(self,hexvals=False):
         reg_status_val = self.state[self.REG_STATUS]
-        fsmstate = 'UNKNOWN'
-        rds_upd = 'UNKNOWN'
-        match  reg_status_val & 0b00000111:
-            case 0b000:
-                fsmstate = 'RESET'
-            case 0b001:
-                fsmstate = 'CALI'
-            case 0b010:
-                fsmstate = 'IDLE'
-            case 0b011:
-                fsmstate = 'TX_RSTB'
-            case 0b100:
-                fsmstate = 'PA Calibration'
-            case 0b101:
-                fsmstate = 'Transmit'
-            case 0b110:
-                fsmstate = 'PA_OFF'
-            case 0b111:
-                fsmstate = 'reserved'
-        if (reg_status_val >> self.REG_STATUS_RDSUPD_BIT) & 0b00000001 == 0b00000001:
-            rds_upd = '1'
-        else:
-            rds_upd = '0'
-        aud_pk = str((reg_status_val >> self.REG_STATUS_AUDPK_BIT) & 0b00001111)
+        fsmstate = self.FSM(reg_status_val & 0b00000111).name
+        rds_upd = self.RDSUPD((reg_status_val >> self.REG_STATUS_RDSUPD_BIT) & 0b00000001).name
+        aud_pk = str(((reg_status_val >> self.REG_STATUS_AUDPK_BIT) & 0b00001111) * 45)
         if (hexvals):
             print(f'[REG_STATUS] 0x{reg_status_val:02x} {reg_status_val:2d} 0b{reg_status_val:08b}')
-        print(f'[REG_STATUS] fsmstate={fsmstate} rds_upd={rds_upd} aud_pk={aud_pk}')
+        print(f'[REG_STATUS] fsmstate={fsmstate} rds_upd={rds_upd} aud_pk={aud_pk}mV')
 
     def dbg_print_reg_pac(self,hexvals=False):
         reg_pac_val = self.state[self.REG_PAC]
@@ -365,11 +303,7 @@ class qn8027:
 
     def dbg_print_reg_rds(self,hexvals=False):
         reg_rds_val = self.state[self.REG_RDS]
-        rdsen = 'UNKNOWN'
-        if (reg_rds_val >> self.REG_RDS_RDSEN_BIT) & 0b00000001 == self.REG_RDS_RDSEN_ON:
-            rdsen = 'RDS_ENABLED'
-        else:
-            rdsen = 'RDS_DISABLED'
+        rdsen = self.RDS((reg_rds_val >> self.REG_RDS_RDSEN_BIT) & 0b00000001).name
         rdsfdev = 0.35 * (reg_rds_val & 0b01111111)
         if (hexvals):
             print(f'[REG_RDS] 0x{reg_rds_val:02x} {reg_rds_val:2d} 0b{reg_rds_val:08b}')
@@ -433,16 +367,19 @@ class qn8027:
 def main():
     q = qn8027()
     print('>>>>>')
-    q.dbg_print_reg_system()
-    q.set_enable_tx()
-    q.dbg_print_reg_system()
-    q.set_enable_tx(False)
-    q.dbg_print_reg_system()
+    # q.dbg_print_reg_system()
+    # q.dbg_print_reg_status()
+    # q.set_enable_tx()
+    # q.dbg_print_reg_system()
+    # q.dbg_print_reg_status()
+    # q.set_enable_tx(False)
+    # q.dbg_print_reg_system()
+    # q.dbg_print_reg_status()
     # q.set_freq(97.3)
     # q.dbg_print_freq()
     # print('#### Resetting chip')
     # q.reset_chip()
-    # q.dbg_print_state()
+    q.dbg_print_state()
     # print('++++ Sending original init')
     # q.send_org_init()
     # q.set_freq(91.2)

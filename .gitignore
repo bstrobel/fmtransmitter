@@ -2,4 +2,5 @@
 __pycache__/
 *.py[codz]
 *$py.class
-qn8027ctrl/fmtvenv
+.lgd-nfy*
+qn8027ctrl/fmtrans/**
