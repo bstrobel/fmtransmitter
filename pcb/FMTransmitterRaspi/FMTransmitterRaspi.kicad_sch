@@ -14130,12 +14130,6 @@
 		(uuid "127679a9-3981-4934-815e-896a4e3ff56e")
 	)
 	(junction
-		(at 229.87 115.57)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "180b267f-3a27-49ab-9e7d-0d327254b536")
-	)
-	(junction
 		(at 76.2 68.58)
 		(diameter 1.016)
 		(color 0 0 0 0)
@@ -14184,6 +14178,12 @@
 		(uuid "340c92af-f0fa-4142-b420-31591d5792a9")
 	)
 	(junction
+		(at 229.87 115.57)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "341091de-6efb-426c-8995-c44a80435e9d")
+	)
+	(junction
 		(at 165.1 27.94)
 		(diameter 1.016)
 		(color 0 0 0 0)
@@ -14220,12 +14220,6 @@
 		(uuid "472e09bd-165d-4e9c-9559-88ce52f2a716")
 	)
 	(junction
-		(at 227.33 137.16)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "48245d3b-6837-4992-8a5c-f8ec2a1ab302")
-	)
-	(junction
 		(at 58.42 58.42)
 		(diameter 1.016)
 		(color 0 0 0 0)
@@ -14260,6 +14254,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "64705267-84ab-40ff-97d8-5fe0e7684b62")
+	)
+	(junction
+		(at 227.33 137.16)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6abd48c2-29f4-4c68-88d5-4adf86e771d1")
 	)
 	(junction
 		(at 76.2 50.8)
@@ -14464,6 +14464,16 @@
 			(type default)
 		)
 		(uuid "038559c8-b7fc-40fb-9045-0d0515b7e3e0")
+	)
+	(wire
+		(pts
+			(xy 227.33 137.16) (xy 232.41 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "05c6bbeb-73b0-4ea8-aa10-18c035a2a4b2")
 	)
 	(wire
 		(pts
@@ -15427,16 +15437,6 @@
 	)
 	(wire
 		(pts
-			(xy 229.87 115.57) (xy 242.57 115.57)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6031583b-aaa9-4a5f-a953-80de8c5387ea")
-	)
-	(wire
-		(pts
 			(xy 152.4 93.98) (xy 152.4 96.52)
 		)
 		(stroke
@@ -15754,16 +15754,6 @@
 			(type solid)
 		)
 		(uuid "7cbca09f-6666-4b8b-a41e-c1fabe7e0ed1")
-	)
-	(wire
-		(pts
-			(xy 227.33 137.16) (xy 245.11 137.16)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7ce1edb2-e562-49bc-a1e1-0c1310523a1b")
 	)
 	(wire
 		(pts
@@ -16447,6 +16437,16 @@
 	)
 	(wire
 		(pts
+			(xy 240.03 115.57) (xy 242.57 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c2aedd5a-604f-4c44-8cae-ed7b8db0952a")
+	)
+	(wire
+		(pts
 			(xy 217.17 83.82) (xy 212.09 83.82)
 		)
 		(stroke
@@ -16827,6 +16827,16 @@
 	)
 	(wire
 		(pts
+			(xy 229.87 115.57) (xy 232.41 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e501ff54-3ea7-4889-ae7e-294eb2bcde40")
+	)
+	(wire
+		(pts
 			(xy 245.11 137.16) (xy 245.11 88.9)
 		)
 		(stroke
@@ -17014,6 +17024,16 @@
 			(type default)
 		)
 		(uuid "f7959b7e-799a-405d-9fa8-9678fc2b50fa")
+	)
+	(wire
+		(pts
+			(xy 240.03 137.16) (xy 245.11 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f802ca9b-6a29-4378-b24f-0ab8597c6e34")
 	)
 	(wire
 		(pts
@@ -21648,6 +21668,86 @@
 	)
 	(symbol
 		(lib_id "Device:C")
+		(at 236.22 137.16 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c779d0ba-dfed-4e77-a024-5f7f38633fc2")
+		(property "Reference" "C22"
+			(at 236.22 129.54 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4u7"
+			(at 236.22 132.08 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 240.03 136.1948 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 236.22 137.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 236.22 137.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4e802756-937d-42b5-914e-6b1043234e3d")
+		)
+		(pin "2"
+			(uuid "0036aaf5-374d-4d99-ae3c-8d40a08b658b")
+		)
+		(instances
+			(project "FMTransmitterRaspi"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "C22")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
 		(at 123.19 180.34 0)
 		(unit 1)
 		(body_style 1)
@@ -22019,6 +22119,86 @@
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "U1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 236.22 115.57 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d516ea35-67b2-4594-9853-b8ca810001c2")
+		(property "Reference" "C21"
+			(at 236.22 107.95 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4u7"
+			(at 236.22 110.49 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 240.03 114.6048 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 236.22 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 236.22 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "c8aa3e9a-f5a2-40f0-862f-d176b16157f8")
+		)
+		(pin "1"
+			(uuid "973ad9f9-9c9b-4447-8f1f-b2e77099503f")
+		)
+		(instances
+			(project "FMTransmitterRaspi"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "C21")
 					(unit 1)
 				)
 			)
