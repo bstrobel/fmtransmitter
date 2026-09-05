@@ -468,7 +468,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Connector:Conn_01x01_Socket"
+		(symbol "Connector:Conn_01x03_Pin"
 			(pin_names
 				(offset 1.016)
 				(hide yes)
@@ -479,7 +479,7 @@
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "J"
-				(at 0 2.54 0)
+				(at 0 5.08 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -488,8 +488,8 @@
 					)
 				)
 			)
-			(property "Value" "Conn_01x01_Socket"
-				(at 0 -2.54 0)
+			(property "Value" "Conn_01x03_Pin"
+				(at 0 -5.08 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -520,7 +520,7 @@
 					)
 				)
 			)
-			(property "Description" "Generic connector, single row, 01x01, script generated"
+			(property "Description" "Generic connector, single row, 01x03, script generated"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -563,10 +563,43 @@
 					)
 				)
 			)
-			(symbol "Conn_01x01_Socket_1_1"
+			(symbol "Conn_01x03_Pin_1_1"
+				(rectangle
+					(start 0.8636 2.667)
+					(end 0 2.413)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
 				(polyline
 					(pts
-						(xy -1.27 0) (xy -0.508 0)
+						(xy 1.27 2.54) (xy 0.8636 2.54)
 					)
 					(stroke
 						(width 0.1524)
@@ -576,10 +609,22 @@
 						(type none)
 					)
 				)
-				(arc
-					(start 0 -0.508)
-					(mid -0.5058 0)
-					(end 0 0.508)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy 0.8636 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -2.54) (xy 0.8636 -2.54)
+					)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -589,7 +634,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 0 0)
+					(at 5.08 2.54 180)
 					(length 3.81)
 					(name "Pin_1"
 						(effects
@@ -606,10 +651,46 @@
 						)
 					)
 				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Connector:Screw_Terminal_01x02"
+		(symbol "Connector:Screw_Terminal_01x03"
 			(pin_names
 				(offset 1.016)
 				(hide yes)
@@ -620,7 +701,7 @@
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "J"
-				(at 0 2.54 0)
+				(at 0 5.08 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -629,7 +710,7 @@
 					)
 				)
 			)
-			(property "Value" "Screw_Terminal_01x02"
+			(property "Value" "Screw_Terminal_01x03"
 				(at 0 -5.08 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -661,7 +742,7 @@
 					)
 				)
 			)
-			(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(property "Description" "Generic screw terminal, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -694,9 +775,9 @@
 					)
 				)
 			)
-			(symbol "Screw_Terminal_01x02_1_1"
+			(symbol "Screw_Terminal_01x03_1_1"
 				(rectangle
-					(start -1.27 1.27)
+					(start -1.27 3.81)
 					(end 1.27 -3.81)
 					(stroke
 						(width 0.254)
@@ -704,6 +785,18 @@
 					)
 					(fill
 						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.5334 2.8702) (xy 0.3302 2.032)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
 					)
 				)
 				(polyline
@@ -721,6 +814,18 @@
 				(polyline
 					(pts
 						(xy -0.5334 -2.2098) (xy 0.3302 -3.048)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.3556 3.048) (xy 0.508 2.2098)
 					)
 					(stroke
 						(width 0.1524)
@@ -755,6 +860,17 @@
 					)
 				)
 				(circle
+					(center 0 2.54)
+					(radius 0.635)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
 					(center 0 0)
 					(radius 0.635)
 					(stroke
@@ -777,7 +893,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 0 0)
+					(at -5.08 2.54 0)
 					(length 3.81)
 					(name "Pin_1"
 						(effects
@@ -795,7 +911,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 -2.54 0)
+					(at -5.08 0 0)
 					(length 3.81)
 					(name "Pin_2"
 						(effects
@@ -805,6 +921,489 @@
 						)
 					)
 					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Connector:USB_C_Receptacle_PowerOnly_6P"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "J"
+				(at 0 16.51 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+				)
+			)
+			(property "Value" "USB_C_Receptacle_PowerOnly_6P"
+				(at 0 13.97 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+				)
+			)
+			(property "Footprint" ""
+				(at 3.81 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.usb.org/sites/default/files/documents/usb_type-c.zip"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "USB Power-Only 6P Type-C Receptacle connector"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "usb universal serial bus type-C power-only charging-only 6P 6C"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "USB*C*Receptacle*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "USB_C_Receptacle_PowerOnly_6P_0_0"
+				(rectangle
+					(start -0.254 -12.7)
+					(end 0.254 -11.684)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 10.16 7.874)
+					(end 9.144 7.366)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 10.16 -4.826)
+					(end 9.144 -5.334)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 10.16 -7.366)
+					(end 9.144 -7.874)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "USB_C_Receptacle_PowerOnly_6P_0_1"
+				(rectangle
+					(start -10.16 12.7)
+					(end 10.16 -12.7)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -8.89 -1.27) (xy -8.89 6.35)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -7.62 -1.27)
+					(end -6.35 6.35)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(arc
+					(start -7.62 6.35)
+					(mid -6.985 6.9823)
+					(end -6.35 6.35)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start -7.62 6.35)
+					(mid -6.985 6.9823)
+					(end -6.35 6.35)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(arc
+					(start -8.89 6.35)
+					(mid -6.985 8.2467)
+					(end -5.08 6.35)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start -5.08 -1.27)
+					(mid -6.985 -3.1667)
+					(end -8.89 -1.27)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start -6.35 -1.27)
+					(mid -6.985 -1.9023)
+					(end -7.62 -1.27)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start -6.35 -1.27)
+					(mid -6.985 -1.9023)
+					(end -7.62 -1.27)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy -5.08 6.35) (xy -5.08 -1.27)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center -2.54 3.683)
+					(radius 0.635)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 6.858) (xy 0 9.398) (xy 1.27 6.858) (xy -1.27 6.858)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0.508) (xy 2.54 3.048) (xy 2.54 4.318)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -0.762) (xy -2.54 1.778) (xy -2.54 3.048)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -3.302) (xy 0 6.858)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0 -3.302)
+					(radius 1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 1.905 4.318)
+					(end 3.175 5.588)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+			)
+			(symbol "USB_C_Receptacle_PowerOnly_6P_1_1"
+				(pin bidirectional line
+					(at 15.24 -5.08 180)
+					(length 5.08)
+					(name "CC1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "A5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 7.62 180)
+					(length 5.08)
+					(name "VBUS"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "A9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -17.78 90)
+					(length 5.08)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "A12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 15.24 -7.62 180)
+					(length 5.08)
+					(name "CC2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "B5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 7.62 180)
+					(length 5.08)
+					(hide yes)
+					(name "VBUS"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "B9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -17.78 90)
+					(length 5.08)
+					(hide yes)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "B12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -7.62 -17.78 90)
+					(length 5.08)
+					(name "SHIELD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "SH"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -14052,6 +14651,16 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "Y1 and Y2 are alternative."
+		(exclude_from_sim no)
+		(at 232.41 49.022 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "08e05fa9-bbca-453c-accb-961ef165c135")
+	)
 	(text "Itx max 13.8mA"
 		(exclude_from_sim no)
 		(at 187.198 92.456 0)
@@ -14100,12 +14709,6 @@
 		(uuid "0250a085-1cd5-47c8-8e1d-e8fa6cf0bfbd")
 	)
 	(junction
-		(at 127 93.98)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "06caba01-eb39-4339-9eaa-35d586f5fa52")
-	)
-	(junction
 		(at 127 107.95)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -14142,16 +14745,22 @@
 		(uuid "1f8a50ed-a4d9-4563-855a-6836960f6ee2")
 	)
 	(junction
+		(at 224.79 128.27)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2599e257-1f37-447d-83ec-9adae7b33568")
+	)
+	(junction
+		(at 58.42 135.89)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "25a30844-b3c4-4e73-9c2d-fd15452a9e69")
+	)
+	(junction
 		(at 186.69 137.16)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "28c89420-db56-4263-9630-d5479b1adec2")
-	)
-	(junction
-		(at 157.48 106.68)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "2bb73604-0dc3-41bc-8c46-6b20c1b4e4da")
 	)
 	(junction
 		(at 114.3 105.41)
@@ -14190,34 +14799,22 @@
 		(uuid "346f73c6-859b-4ea4-8012-84d9903c90cb")
 	)
 	(junction
-		(at 228.6 62.23)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "35afd9a7-e0a9-4d68-91ff-450100348ca5")
-	)
-	(junction
-		(at 152.4 93.98)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "3b36e92a-8c7e-42ea-ab5f-d917b326ef42")
-	)
-	(junction
 		(at 124.46 146.05)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3c726cef-56dc-4b9c-88d0-8033d6f1bf51")
 	)
 	(junction
+		(at 229.87 128.27)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3e4bfe04-0fef-4cf9-aa7a-a5cdd37d9070")
+	)
+	(junction
 		(at 165.1 43.18)
 		(diameter 1.016)
 		(color 0 0 0 0)
 		(uuid "3fb158a1-2fbe-4fa2-9b5c-5fdc070cbacb")
-	)
-	(junction
-		(at 234.95 49.53)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "472e09bd-165d-4e9c-9559-88ce52f2a716")
 	)
 	(junction
 		(at 58.42 58.42)
@@ -14248,6 +14845,18 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4ddd9749-e5ec-44cc-875c-98566976ce01")
+	)
+	(junction
+		(at 224.79 64.77)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4e1ca45e-65fb-4128-a4e5-e27ad736c8e7")
+	)
+	(junction
+		(at 261.62 64.77)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5db72041-8737-47f7-b4ed-ddd955a64b6c")
 	)
 	(junction
 		(at 256.54 86.36)
@@ -14292,6 +14901,12 @@
 		(uuid "8174b4de-74b1-48db-ab8e-c8432251095b")
 	)
 	(junction
+		(at 224.79 52.07)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "855f36b3-ed75-4054-ab0f-99aec8320f16")
+	)
+	(junction
 		(at 147.32 76.2)
 		(diameter 1.016)
 		(color 0 0 0 0)
@@ -14316,6 +14931,12 @@
 		(uuid "ba8af12d-7583-4d2c-b887-91c0a42a6958")
 	)
 	(junction
+		(at 240.03 64.77)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bb2b4dfe-a696-4f21-817b-e020fd97b561")
+	)
+	(junction
 		(at 165.1 50.8)
 		(diameter 1.016)
 		(color 0 0 0 0)
@@ -14326,6 +14947,12 @@
 		(diameter 1.016)
 		(color 0 0 0 0)
 		(uuid "c8cf2fbe-191b-4775-9e2f-b4b6660773c9")
+	)
+	(junction
+		(at 69.85 123.19)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ca6011b8-4fa5-45e3-9b46-35ca232bc78e")
 	)
 	(junction
 		(at 154.94 135.89)
@@ -14382,16 +15009,22 @@
 		(uuid "ef018456-adc9-4e0a-9185-ad05a9e18351")
 	)
 	(junction
+		(at 50.8 135.89)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f5a84be5-480a-4c33-8b07-508f1b716132")
+	)
+	(junction
 		(at 58.42 76.2)
 		(diameter 1.016)
 		(color 0 0 0 0)
 		(uuid "f71da641-16e6-4257-80c3-0b9d804fee4f")
 	)
 	(junction
-		(at 222.25 49.53)
+		(at 240.03 52.07)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "f92a776b-4f8b-4a66-8b1d-375976d80ec9")
+		(uuid "fb756746-e317-40c6-9216-ac5bc61a555a")
 	)
 	(junction
 		(at 76.2 27.94)
@@ -14447,13 +15080,33 @@
 	)
 	(wire
 		(pts
-			(xy 224.79 26.67) (xy 209.55 26.67)
+			(xy 162.56 40.64) (xy 189.23 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "02654a54-0c4e-45f8-922b-e729c371e6ae")
+	)
+	(wire
+		(pts
+			(xy 224.79 33.02) (xy 209.55 33.02)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "02af7193-2bbe-47fc-b3d9-be91d69e97a4")
+	)
+	(wire
+		(pts
+			(xy 223.52 147.32) (xy 229.87 147.32)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "02f099b1-b951-41ca-94ca-3a7cceff6cfc")
 	)
 	(wire
 		(pts
@@ -14487,6 +15140,16 @@
 	)
 	(wire
 		(pts
+			(xy 99.06 115.57) (xy 99.06 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "06a0ac6e-2486-4172-857b-0112459752d9")
+	)
+	(wire
+		(pts
 			(xy 165.1 33.02) (xy 162.56 33.02)
 		)
 		(stroke
@@ -14494,6 +15157,16 @@
 			(type solid)
 		)
 		(uuid "07697dda-7580-41a3-9ff5-1fd84feddf6d")
+	)
+	(wire
+		(pts
+			(xy 58.42 135.89) (xy 69.85 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "07b87124-313e-4a41-8d4e-798e663f545a")
 	)
 	(wire
 		(pts
@@ -14557,6 +15230,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 78.74) (xy 30.48 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0f50eb2e-92c9-40a9-9d68-df48ebb9582f")
+	)
+	(wire
+		(pts
 			(xy 165.1 33.02) (xy 165.1 43.18)
 		)
 		(stroke
@@ -14577,6 +15260,16 @@
 	)
 	(wire
 		(pts
+			(xy 240.03 52.07) (xy 251.46 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "116f0cf4-7aa4-448a-be5b-0030c8b53cfa")
+	)
+	(wire
+		(pts
 			(xy 120.65 45.72) (xy 149.86 45.72)
 		)
 		(stroke
@@ -14587,23 +15280,13 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 49.53) (xy 224.79 49.53)
+			(xy 66.04 107.95) (xy 69.85 107.95)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "12f94e49-0ee3-430d-9f60-7961e7a37b81")
-	)
-	(wire
-		(pts
-			(xy 29.21 115.57) (xy 29.21 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "13ead45f-f091-4d8d-a623-f5ed5bf7cad3")
+		(uuid "14f98d8e-eabd-47d1-b61f-dbe1f96f9d2d")
 	)
 	(wire
 		(pts
@@ -14767,7 +15450,17 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 99.06) (xy 49.53 95.25)
+			(xy 227.33 152.4) (xy 227.33 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "25760d80-5191-4d24-80de-7b3208790118")
+	)
+	(wire
+		(pts
+			(xy 247.65 30.48) (xy 247.65 26.67)
 		)
 		(stroke
 			(width 0)
@@ -14804,6 +15497,16 @@
 			(type solid)
 		)
 		(uuid "29651976-85fe-45df-9d6a-4d640774cbbc")
+	)
+	(wire
+		(pts
+			(xy 220.98 130.81) (xy 224.79 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2b702a42-7b36-4ee7-84d1-bd0c34eeb221")
 	)
 	(wire
 		(pts
@@ -14887,7 +15590,7 @@
 	)
 	(wire
 		(pts
-			(xy 53.34 99.06) (xy 49.53 99.06)
+			(xy 247.65 30.48) (xy 252.73 30.48)
 		)
 		(stroke
 			(width 0)
@@ -14934,6 +15637,16 @@
 			(type solid)
 		)
 		(uuid "3522f983-faf4-44f4-900c-086a3d364c60")
+	)
+	(wire
+		(pts
+			(xy 50.8 135.89) (xy 58.42 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "35c4c323-b8e9-435c-8991-0afb5d56bcd4")
 	)
 	(wire
 		(pts
@@ -15017,6 +15730,16 @@
 	)
 	(wire
 		(pts
+			(xy 229.87 147.32) (xy 229.87 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3db7ba91-8ed6-430b-b6dc-c106c0a9364b")
+	)
+	(wire
+		(pts
 			(xy 128.27 172.72) (xy 130.81 172.72)
 		)
 		(stroke
@@ -15034,16 +15757,6 @@
 			(type solid)
 		)
 		(uuid "419dca83-9b05-4d94-859b-8d098c646da7")
-	)
-	(wire
-		(pts
-			(xy 234.95 38.1) (xy 234.95 49.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "425c79f1-189c-4761-a244-5e78b5d0145c")
 	)
 	(wire
 		(pts
@@ -15074,6 +15787,16 @@
 			(type default)
 		)
 		(uuid "44d28712-4557-4d9b-a120-2f48704593ec")
+	)
+	(wire
+		(pts
+			(xy 261.62 64.77) (xy 261.62 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "453264d8-d00f-45c0-96f2-f2568fa4dbb3")
 	)
 	(wire
 		(pts
@@ -15117,23 +15840,13 @@
 	)
 	(wire
 		(pts
-			(xy 152.4 104.14) (xy 152.4 106.68)
+			(xy 255.27 38.1) (xy 252.73 38.1)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "471c02a5-eaa2-4c46-b70a-34123929da8b")
-	)
-	(wire
-		(pts
-			(xy 157.48 106.68) (xy 157.48 109.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "48455cbc-7627-4ce2-b1f7-19453faafa13")
+		(uuid "479406fe-27d5-409c-a174-1e46831d2525")
 	)
 	(wire
 		(pts
@@ -15177,6 +15890,16 @@
 	)
 	(wire
 		(pts
+			(xy 240.03 62.23) (xy 240.03 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4d217d2f-e835-4bca-8d01-12a59872e7a6")
+	)
+	(wire
+		(pts
 			(xy 120.65 43.18) (xy 149.86 43.18)
 		)
 		(stroke
@@ -15194,16 +15917,6 @@
 			(type default)
 		)
 		(uuid "4e7984a2-515b-4169-8e92-d06a6366ec30")
-	)
-	(wire
-		(pts
-			(xy 222.25 52.07) (xy 222.25 49.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4e7f37ff-63ab-4160-b422-8e0f96542104")
 	)
 	(wire
 		(pts
@@ -15227,16 +15940,6 @@
 	)
 	(wire
 		(pts
-			(xy 212.09 83.82) (xy 212.09 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4ef2902e-ba53-4aa8-8025-25e18525dbbc")
-	)
-	(wire
-		(pts
 			(xy 111.76 133.35) (xy 106.68 133.35)
 		)
 		(stroke
@@ -15244,6 +15947,16 @@
 			(type default)
 		)
 		(uuid "51fd0580-f0ed-4a1c-8137-c4fd5685b045")
+	)
+	(wire
+		(pts
+			(xy 66.04 120.65) (xy 69.85 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5211d259-63e3-4239-a5c6-2b6ad0299288")
 	)
 	(wire
 		(pts
@@ -15297,7 +16010,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 93.98) (xy 127 107.95)
+			(xy 127 92.71) (xy 127 107.95)
 		)
 		(stroke
 			(width 0)
@@ -15337,26 +16050,6 @@
 	)
 	(wire
 		(pts
-			(xy 111.76 115.57) (xy 29.21 115.57)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "591f1447-63d2-44b7-b454-758e7dae2780")
-	)
-	(wire
-		(pts
-			(xy 228.6 62.23) (xy 234.95 62.23)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5947a7ba-2b9f-42b6-9e78-033c1f4f53e4")
-	)
-	(wire
-		(pts
 			(xy 109.22 135.89) (xy 111.76 135.89)
 		)
 		(stroke
@@ -15367,7 +16060,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 71.12) (xy 60.96 71.12)
+			(xy 30.48 71.12) (xy 60.96 71.12)
 		)
 		(stroke
 			(width 0)
@@ -15384,6 +16077,16 @@
 			(type solid)
 		)
 		(uuid "59e94039-cf38-4bc0-9741-a82ef455352a")
+	)
+	(wire
+		(pts
+			(xy 224.79 52.07) (xy 240.03 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5abbede7-c4a0-4bfe-b11c-f7436ca3372c")
 	)
 	(wire
 		(pts
@@ -15417,6 +16120,16 @@
 	)
 	(wire
 		(pts
+			(xy 224.79 130.81) (xy 224.79 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5de8a970-8325-404b-839f-a1919eaf7a17")
+	)
+	(wire
+		(pts
 			(xy 250.19 81.28) (xy 250.19 160.02)
 		)
 		(stroke
@@ -15437,16 +16150,6 @@
 	)
 	(wire
 		(pts
-			(xy 152.4 93.98) (xy 152.4 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "626adf8c-14c6-46df-8dc3-18580878676b")
-	)
-	(wire
-		(pts
 			(xy 96.52 121.92) (xy 96.52 125.73)
 		)
 		(stroke
@@ -15464,6 +16167,16 @@
 			(type solid)
 		)
 		(uuid "62f43b49-7566-4f4c-b16f-9b95531f6d28")
+	)
+	(wire
+		(pts
+			(xy 224.79 52.07) (xy 224.79 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "63509b55-2bc8-4523-bd2f-fbfb7925ff63")
 	)
 	(wire
 		(pts
@@ -15494,6 +16207,16 @@
 			(type default)
 		)
 		(uuid "64c91270-d71e-4f70-9011-21e540921994")
+	)
+	(wire
+		(pts
+			(xy 240.03 64.77) (xy 251.46 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "659e3270-158a-4e58-96d3-b72d3ea3593c")
 	)
 	(wire
 		(pts
@@ -15534,26 +16257,6 @@
 			(type default)
 		)
 		(uuid "6d292eb0-4d8a-4ee5-ac8a-d1b0b047a079")
-	)
-	(wire
-		(pts
-			(xy 232.41 49.53) (xy 234.95 49.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6d4f7e63-31f2-45a7-bcb8-c5b261bdabe3")
-	)
-	(wire
-		(pts
-			(xy 127 92.71) (xy 127 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6da68276-a2d3-43ab-b2f4-cdd3cfba027e")
 	)
 	(wire
 		(pts
@@ -15617,7 +16320,7 @@
 	)
 	(wire
 		(pts
-			(xy 214.63 81.28) (xy 214.63 49.53)
+			(xy 214.63 81.28) (xy 214.63 64.77)
 		)
 		(stroke
 			(width 0)
@@ -15637,7 +16340,7 @@
 	)
 	(wire
 		(pts
-			(xy 209.55 26.67) (xy 209.55 91.44)
+			(xy 209.55 33.02) (xy 209.55 91.44)
 		)
 		(stroke
 			(width 0)
@@ -15677,16 +16380,6 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 96.52) (xy 162.56 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "75a9f7d8-618f-444d-8bd4-567c04dc74ca")
-	)
-	(wire
-		(pts
 			(xy 76.2 27.94) (xy 76.2 30.48)
 		)
 		(stroke
@@ -15694,16 +16387,6 @@
 			(type solid)
 		)
 		(uuid "7645e45b-ebbd-4531-92c9-9c38081bbf8d")
-	)
-	(wire
-		(pts
-			(xy 234.95 49.53) (xy 234.95 52.07)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "78b89007-211d-42c9-8027-ee5fbc22ef43")
 	)
 	(wire
 		(pts
@@ -15717,6 +16400,16 @@
 	)
 	(wire
 		(pts
+			(xy 162.56 76.2) (xy 189.23 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "79543861-032b-4b12-9d34-e40ff1488b0d")
+	)
+	(wire
+		(pts
 			(xy 76.2 43.18) (xy 76.2 50.8)
 		)
 		(stroke
@@ -15724,16 +16417,6 @@
 			(type solid)
 		)
 		(uuid "7aed86fe-31d5-4139-a0b1-020ce61800b6")
-	)
-	(wire
-		(pts
-			(xy 228.6 62.23) (xy 228.6 64.77)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7c9dbf9a-114d-44fd-ad68-126d88bbadb6")
 	)
 	(wire
 		(pts
@@ -15814,6 +16497,16 @@
 			(type solid)
 		)
 		(uuid "833827a1-bd7b-42ed-a501-bcc4cb8d9c86")
+	)
+	(wire
+		(pts
+			(xy 223.52 152.4) (xy 227.33 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "844d7af1-f832-4c2e-9f96-b6625782411f")
 	)
 	(wire
 		(pts
@@ -15947,23 +16640,13 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 62.23) (xy 228.6 62.23)
+			(xy 224.79 128.27) (xy 229.87 128.27)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "945fe60f-5228-408c-ba25-bfeb79890e74")
-	)
-	(wire
-		(pts
-			(xy 152.4 93.98) (xy 127 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "95383c83-ec55-46cd-bd72-c899e0f979c7")
+		(uuid "95e55c65-f19d-47bd-a808-ae7b5283119b")
 	)
 	(wire
 		(pts
@@ -15987,6 +16670,16 @@
 	)
 	(wire
 		(pts
+			(xy 212.09 83.82) (xy 212.09 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9722bfa3-ae4f-4400-ad06-9c788ea0ab12")
+	)
+	(wire
+		(pts
 			(xy 31.75 53.34) (xy 60.96 53.34)
 		)
 		(stroke
@@ -16007,6 +16700,16 @@
 	)
 	(wire
 		(pts
+			(xy 69.85 134.62) (xy 69.85 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9a85b125-433c-4364-aa1b-b4ea8d3ef5cc")
+	)
+	(wire
+		(pts
 			(xy 147.32 38.1) (xy 149.86 38.1)
 		)
 		(stroke
@@ -16017,13 +16720,13 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 59.69) (xy 222.25 62.23)
+			(xy 214.63 64.77) (xy 224.79 64.77)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "9c1dc512-0076-4726-b459-654de7d16ac4")
+		(uuid "9c8f0ca7-a990-46c2-a7b0-4e5b8f5342ca")
 	)
 	(wire
 		(pts
@@ -16037,7 +16740,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 101.6) (xy 53.34 101.6)
+			(xy 247.65 35.56) (xy 255.27 35.56)
 		)
 		(stroke
 			(width 0)
@@ -16074,6 +16777,16 @@
 			(type default)
 		)
 		(uuid "9fb72eae-8fd8-4851-9d4f-5ea71b166259")
+	)
+	(wire
+		(pts
+			(xy 261.62 52.07) (xy 259.08 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a0983084-eef9-4111-b1b3-9e13d3215aeb")
 	)
 	(wire
 		(pts
@@ -16177,6 +16890,16 @@
 	)
 	(wire
 		(pts
+			(xy 259.08 64.77) (xy 261.62 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a9d11450-68b9-4a0f-9d2f-4120e3f01108")
+	)
+	(wire
+		(pts
 			(xy 207.01 100.33) (xy 200.66 100.33)
 		)
 		(stroke
@@ -16207,6 +16930,16 @@
 	)
 	(wire
 		(pts
+			(xy 43.18 133.35) (xy 43.18 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ad8238ac-7058-45e4-a379-275ccc4e4e2e")
+	)
+	(wire
+		(pts
 			(xy 167.64 135.89) (xy 167.64 138.43)
 		)
 		(stroke
@@ -16217,6 +16950,16 @@
 	)
 	(wire
 		(pts
+			(xy 223.52 149.86) (xy 229.87 149.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "afd63884-c68f-4a56-8b8b-65893a66ffd7")
+	)
+	(wire
+		(pts
 			(xy 165.1 27.94) (xy 165.1 30.48)
 		)
 		(stroke
@@ -16224,6 +16967,16 @@
 			(type solid)
 		)
 		(uuid "b0906907-8542-4bfd-bc7d-f1790c37645b")
+	)
+	(wire
+		(pts
+			(xy 229.87 152.4) (xy 229.87 149.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b18f423e-9263-494d-9d24-da9783ae34ce")
 	)
 	(wire
 		(pts
@@ -16277,7 +17030,7 @@
 	)
 	(wire
 		(pts
-			(xy 232.41 26.67) (xy 251.46 26.67)
+			(xy 232.41 33.02) (xy 255.27 33.02)
 		)
 		(stroke
 			(width 0)
@@ -16314,16 +17067,6 @@
 			(type default)
 		)
 		(uuid "b867717a-9a1a-4dba-ae2a-59a1fb67a437")
-	)
-	(wire
-		(pts
-			(xy 162.56 106.68) (xy 162.56 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b8947c1a-a2b0-467e-a893-a2bb59779ad5")
 	)
 	(wire
 		(pts
@@ -16387,6 +17130,16 @@
 	)
 	(wire
 		(pts
+			(xy 69.85 101.6) (xy 69.85 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bd40c5ea-abf4-4278-9687-cb8b6b354a1f")
+	)
+	(wire
+		(pts
 			(xy 200.66 97.79) (xy 204.47 97.79)
 		)
 		(stroke
@@ -16414,6 +17167,16 @@
 			(type default)
 		)
 		(uuid "bff5d63c-29a9-40c4-9af0-0cb929c6b68f")
+	)
+	(wire
+		(pts
+			(xy 252.73 38.1) (xy 252.73 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c0f008bb-0240-43e7-87b2-19700110f038")
 	)
 	(wire
 		(pts
@@ -16487,7 +17250,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 104.14) (xy 49.53 101.6)
+			(xy 247.65 38.1) (xy 247.65 35.56)
 		)
 		(stroke
 			(width 0)
@@ -16497,7 +17260,7 @@
 	)
 	(wire
 		(pts
-			(xy 217.17 81.28) (xy 214.63 81.28)
+			(xy 214.63 81.28) (xy 217.17 81.28)
 		)
 		(stroke
 			(width 0)
@@ -16547,16 +17310,6 @@
 	)
 	(wire
 		(pts
-			(xy 157.48 106.68) (xy 162.56 106.68)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c96dbbd9-59da-48ac-81b6-2cdbb90b7b5c")
-	)
-	(wire
-		(pts
 			(xy 163.83 176.53) (xy 163.83 172.72)
 		)
 		(stroke
@@ -16564,6 +17317,26 @@
 			(type default)
 		)
 		(uuid "cbbeb359-80a5-4154-983f-e101ef5f97cf")
+	)
+	(wire
+		(pts
+			(xy 69.85 123.19) (xy 69.85 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cbff94f4-a330-4356-980c-978fdd574f3a")
+	)
+	(wire
+		(pts
+			(xy 99.06 78.74) (xy 30.48 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cd386cf9-7aa4-4e73-a070-79e1e3ddc621")
 	)
 	(wire
 		(pts
@@ -16637,6 +17410,16 @@
 	)
 	(wire
 		(pts
+			(xy 50.8 133.35) (xy 50.8 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d2d557c5-87c8-4335-b666-4d28b36f221a")
+	)
+	(wire
+		(pts
 			(xy 242.57 115.57) (xy 242.57 91.44)
 		)
 		(stroke
@@ -16677,16 +17460,6 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 93.98) (xy 152.4 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d722a64a-d775-4d49-86d2-54438dd777a9")
-	)
-	(wire
-		(pts
 			(xy 149.86 50.8) (xy 120.65 50.8)
 		)
 		(stroke
@@ -16694,16 +17467,6 @@
 			(type solid)
 		)
 		(uuid "d84709ad-9be1-426d-963f-f59117ceb5ec")
-	)
-	(wire
-		(pts
-			(xy 152.4 106.68) (xy 157.48 106.68)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d8f1f60b-4b61-4af1-893d-059cb74ef8ec")
 	)
 	(wire
 		(pts
@@ -16717,13 +17480,13 @@
 	)
 	(wire
 		(pts
-			(xy 234.95 62.23) (xy 234.95 59.69)
+			(xy 69.85 120.65) (xy 69.85 123.19)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "dcd09fda-76f0-4524-ad6e-371d7e990279")
+		(uuid "daa707f0-1550-4978-a1b4-b6996d980dc1")
 	)
 	(wire
 		(pts
@@ -16734,6 +17497,16 @@
 			(type default)
 		)
 		(uuid "dd08d248-f69a-4e10-8a55-375496db02dd")
+	)
+	(wire
+		(pts
+			(xy 261.62 64.77) (xy 261.62 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd3131db-1eba-4152-850f-656433b7b4bd")
 	)
 	(wire
 		(pts
@@ -16837,6 +17610,16 @@
 	)
 	(wire
 		(pts
+			(xy 43.18 135.89) (xy 50.8 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e624ad1c-72d3-4afc-a94a-3333699225c2")
+	)
+	(wire
+		(pts
 			(xy 245.11 137.16) (xy 245.11 88.9)
 		)
 		(stroke
@@ -16907,16 +17690,6 @@
 	)
 	(wire
 		(pts
-			(xy 212.09 38.1) (xy 234.95 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ec650674-7efe-48bd-a76c-9c7d03122971")
-	)
-	(wire
-		(pts
 			(xy 55.88 27.94) (xy 60.96 27.94)
 		)
 		(stroke
@@ -16927,7 +17700,27 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 128.27) (xy 229.87 128.27)
+			(xy 111.76 115.57) (xy 99.06 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ee797f55-fa9f-4aca-9aba-8320590ad426")
+	)
+	(wire
+		(pts
+			(xy 58.42 139.7) (xy 58.42 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ee954b57-121a-445a-bb2e-1a56686a7434")
+	)
+	(wire
+		(pts
+			(xy 220.98 128.27) (xy 224.79 128.27)
 		)
 		(stroke
 			(width 0)
@@ -16954,6 +17747,16 @@
 			(type solid)
 		)
 		(uuid "f04cb752-0e9c-4690-9c10-8242df752961")
+	)
+	(wire
+		(pts
+			(xy 240.03 52.07) (xy 240.03 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f0da7697-5db4-4a55-ad55-b5fc1d91127e")
 	)
 	(wire
 		(pts
@@ -16997,13 +17800,13 @@
 	)
 	(wire
 		(pts
-			(xy 214.63 49.53) (xy 222.25 49.53)
+			(xy 224.79 64.77) (xy 240.03 64.77)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "f4639d39-a192-40f7-ba94-b5017b996405")
+		(uuid "f3483022-0c7c-4f76-9e48-663402235125")
 	)
 	(wire
 		(pts
@@ -17014,6 +17817,26 @@
 			(type default)
 		)
 		(uuid "f691c7aa-d5b1-4bbf-ade5-daea660bdf48")
+	)
+	(wire
+		(pts
+			(xy 66.04 123.19) (xy 69.85 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f6f8bbc2-1969-4087-9829-06355f2aa05e")
+	)
+	(wire
+		(pts
+			(xy 212.09 52.07) (xy 224.79 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f718b85f-5d21-4108-b97d-d6387da1d42d")
 	)
 	(wire
 		(pts
@@ -17094,6 +17917,16 @@
 			(type default)
 		)
 		(uuid "ff833923-9393-4a91-9fa7-da6be83207d5")
+	)
+	(wire
+		(pts
+			(xy 224.79 62.23) (xy 224.79 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fff21113-f1e3-4bfc-8034-6afca092a650")
 	)
 	(label "GPIO20{slash}PCM.DIN"
 		(at 189.23 73.66 180)
@@ -17264,6 +18097,16 @@
 			(justify left bottom)
 		)
 		(uuid "3911220d-b117-4874-8479-50c0285caa70")
+	)
+	(label "+5V"
+		(at 247.65 30.48 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4266583e-f89c-4378-8d40-2d6ffed502e2")
 	)
 	(label "GPIO23"
 		(at 100.33 45.72 180)
@@ -17545,6 +18388,16 @@
 		)
 		(uuid "a71264c9-fc91-4a23-b70a-fcd5a5d3aad7")
 	)
+	(label "Antenna"
+		(at 237.49 33.02 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a80ac72a-a34f-456c-a710-18c0e8d5ab93")
+	)
 	(label "GPIO12{slash}PWM0"
 		(at 100.33 66.04 180)
 		(effects
@@ -17636,7 +18489,7 @@
 		(uuid "c7e01846-d187-423c-8cfb-8caca60d1a69")
 	)
 	(label "GPIO19{slash}PCM.FS"
-		(at 81.28 115.57 0)
+		(at 99.06 104.14 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -17644,6 +18497,16 @@
 			(justify left bottom)
 		)
 		(uuid "c9d0939a-81c4-4b0c-a759-d643217a3bf9")
+	)
+	(label "GND"
+		(at 247.65 35.56 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "cc0639d1-b76c-48ba-8e31-31ee1ae5a846")
 	)
 	(label "GPIO10{slash}SPI0.MOSI"
 		(at 120.65 50.8 0)
@@ -17716,7 +18579,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-0000580c1b61")
-		(property "Reference" "#PWR01"
+		(property "Reference" "#PWR02"
 			(at 76.2 27.94 0)
 			(hide yes)
 			(show_name no)
@@ -17774,7 +18637,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR01")
+					(reference "#PWR02")
 					(unit 1)
 				)
 			)
@@ -17791,7 +18654,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-0000580c1bc1")
-		(property "Reference" "#PWR04"
+		(property "Reference" "#PWR01"
 			(at 55.88 27.94 0)
 			(hide yes)
 			(show_name no)
@@ -17849,7 +18712,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR04")
+					(reference "#PWR01")
 					(unit 1)
 				)
 			)
@@ -17866,7 +18729,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-0000580c1d11")
-		(property "Reference" "#PWR02"
+		(property "Reference" "#PWR09"
 			(at 76.2 86.36 0)
 			(hide yes)
 			(show_name no)
@@ -17924,7 +18787,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR02")
+					(reference "#PWR09")
 					(unit 1)
 				)
 			)
@@ -17941,7 +18804,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-0000580c1e01")
-		(property "Reference" "#PWR03"
+		(property "Reference" "#PWR08"
 			(at 58.42 86.36 0)
 			(hide yes)
 			(show_name no)
@@ -17999,7 +18862,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR03")
+					(reference "#PWR08")
 					(unit 1)
 				)
 			)
@@ -18016,7 +18879,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-000059ad464a")
-		(property "Reference" "J1"
+		(property "Reference" "J2"
 			(at 67.31 22.4598 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18036,7 +18899,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical"
+		(property "Footprint" "Library:PinSocket_2x20_P2.54mm_Vertical"
 			(at -57.15 74.93 0)
 			(hide yes)
 			(show_name no)
@@ -18192,7 +19055,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "J1")
+					(reference "J2")
 					(unit 1)
 				)
 			)
@@ -18210,7 +19073,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "01b27687-3f06-4dae-9bf3-be01e5d222ce")
-		(property "Reference" "R2"
+		(property "Reference" "R3"
 			(at 177.8 130.81 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18272,7 +19135,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "R2")
+					(reference "R3")
 					(unit 1)
 				)
 			)
@@ -18290,7 +19153,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "02f3a618-e2db-4d43-8fcf-b9803568ed75")
-		(property "Reference" "#PWR013"
+		(property "Reference" "#PWR029"
 			(at 138.43 196.85 0)
 			(hide yes)
 			(show_name no)
@@ -18350,7 +19213,90 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR013")
+					(reference "#PWR029")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x03_Pin")
+		(at 218.44 149.86 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "03bb4e26-5b25-4fe3-b7cb-a4a62d126ca6")
+		(property "Reference" "J6"
+			(at 219.075 142.24 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Line In/Out 2"
+			(at 219.075 144.78 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
+			(at 218.44 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 218.44 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x03, script generated"
+			(at 218.44 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "6afa9195-8f70-4f46-98d6-8dd60eda74e7")
+		)
+		(pin "1"
+			(uuid "ad8eac37-f2c3-49b8-93ea-e78b02995e4d")
+		)
+		(pin "3"
+			(uuid "1922de75-f38e-4d07-a00f-55992dd88e4e")
+		)
+		(instances
+			(project "FMTransmitterRaspi"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "J6")
 					(unit 1)
 				)
 			)
@@ -18368,7 +19314,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0948c24f-703d-4ccc-ba3a-6e6354749579")
-		(property "Reference" "#PWR09"
+		(property "Reference" "#PWR027"
 			(at 123.19 173.99 0)
 			(hide yes)
 			(show_name no)
@@ -18428,7 +19374,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR09")
+					(reference "#PWR027")
 					(unit 1)
 				)
 			)
@@ -18446,7 +19392,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0aaa36ee-6aa5-4724-9568-066e670a540c")
-		(property "Reference" "C6"
+		(property "Reference" "C13"
 			(at 100.33 128.2699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18510,7 +19456,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C6")
+					(reference "C13")
 					(unit 1)
 				)
 			)
@@ -18528,7 +19474,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0b312190-6de6-4e2d-afff-ef72c93ccc4b")
-		(property "Reference" "C3"
+		(property "Reference" "C21"
 			(at 157.48 179.0699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18592,7 +19538,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C3")
+					(reference "C21")
 					(unit 1)
 				)
 			)
@@ -18610,7 +19556,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0c3446bd-f53d-4dff-9e88-0025c027fea7")
-		(property "Reference" "C5"
+		(property "Reference" "C12"
 			(at 90.17 128.2699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18674,7 +19620,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C5")
+					(reference "C12")
 					(unit 1)
 				)
 			)
@@ -18691,7 +19637,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "11c163d6-17f0-4883-9cf6-5371483e8a9a")
-		(property "Reference" "#PWR016"
+		(property "Reference" "#PWR012"
 			(at 256.54 83.82 0)
 			(hide yes)
 			(show_name no)
@@ -18749,7 +19695,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR016")
+					(reference "#PWR012")
 					(unit 1)
 				)
 			)
@@ -18757,7 +19703,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 157.48 109.22 0)
+		(at 58.42 139.7 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18766,9 +19712,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "16b86151-7932-4587-bc60-42a2cf91f171")
-		(property "Reference" "#PWR015"
-			(at 157.48 115.57 0)
+		(uuid "1319b4cd-4b96-4b8d-96f5-bc2ab34793f0")
+		(property "Reference" "#PWR024"
+			(at 58.42 146.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18779,7 +19725,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 157.48 114.3 0)
+			(at 58.42 144.78 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18789,7 +19735,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 157.48 109.22 0)
+			(at 58.42 139.7 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18800,7 +19746,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 157.48 109.22 0)
+			(at 58.42 139.7 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18811,7 +19757,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 157.48 109.22 0)
+			(at 58.42 139.7 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18822,12 +19768,94 @@
 			)
 		)
 		(pin "1"
-			(uuid "b3bf4ca4-dc80-4e77-aa28-628a8e9cfce4")
+			(uuid "20fdc702-a8fd-4b56-b3e3-33259ad55f2d")
 		)
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR015")
+					(reference "#PWR024")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 69.85 130.81 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1ff8c9de-5990-41a4-a470-d7c693d025b7")
+		(property "Reference" "R2"
+			(at 72.39 129.5399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "5k1"
+			(at 72.39 132.0799 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+			(at 68.072 130.81 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 69.85 130.81 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 69.85 130.81 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "24b050cf-6951-41ee-9e80-74f404815abe")
+		)
+		(pin "1"
+			(uuid "fd66b658-29dc-4623-9599-5e866c5fe1a0")
+		)
+		(instances
+			(project "FMTransmitterRaspi"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "R2")
 					(unit 1)
 				)
 			)
@@ -18845,7 +19873,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "20cdccb1-f098-4864-87f7-5d79473ad359")
-		(property "Reference" "C12"
+		(property "Reference" "C18"
 			(at 190.5 142.2399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18909,7 +19937,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C12")
+					(reference "C18")
 					(unit 1)
 				)
 			)
@@ -18927,7 +19955,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "244e9e65-4071-467c-966c-571372c6f896")
-		(property "Reference" "#PWR011"
+		(property "Reference" "#PWR020"
 			(at 200.66 115.57 0)
 			(hide yes)
 			(show_name no)
@@ -18987,7 +20015,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR011")
+					(reference "#PWR020")
 					(unit 1)
 				)
 			)
@@ -19005,7 +20033,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "24ff41e3-683f-4db9-85fd-24155cd82615")
-		(property "Reference" "#PWR019"
+		(property "Reference" "#PWR026"
 			(at 186.69 156.21 0)
 			(hide yes)
 			(show_name no)
@@ -19065,7 +20093,89 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR019")
+					(reference "#PWR026")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:Crystal")
+		(at 224.79 58.42 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "293c45a9-e938-43d4-8ae9-29e76ec451ea")
+		(property "Reference" "Y1"
+			(at 228.6 57.1499 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "24MHz"
+			(at 228.6 59.6899 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Crystal:Crystal_HC18-U_Vertical"
+			(at 224.79 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 224.79 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Two pin crystal"
+			(at 224.79 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "3babf0cd-7c3a-49cd-81bc-fb5f5a5c3877")
+		)
+		(pin "2"
+			(uuid "df91eb5a-20c5-46d7-9dee-9d0773001ce7")
+		)
+		(instances
+			(project "FMTransmitterRaspi"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "Y1")
 					(unit 1)
 				)
 			)
@@ -19083,7 +20193,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2b957d56-d680-4716-8fb5-eac8116bfb67")
-		(property "Reference" "#PWR020"
+		(property "Reference" "#PWR023"
 			(at 91.44 144.78 0)
 			(hide yes)
 			(show_name no)
@@ -19143,7 +20253,102 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR020")
+					(reference "#PWR023")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:USB_C_Receptacle_PowerOnly_6P")
+		(at 50.8 115.57 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "368d4dbb-1f5d-4a4c-91f4-3949fc0da9c4")
+		(property "Reference" "J4"
+			(at 50.8 97.79 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "USB-C Power"
+			(at 50.8 100.33 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-17"
+			(at 54.61 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.usb.org/sites/default/files/documents/usb_type-c.zip"
+			(at 50.8 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "USB Power-Only 6P Type-C Receptacle connector"
+			(at 50.8 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "B9"
+			(uuid "a32eb508-cf1e-49e0-b9e1-9d9b24dc789c")
+		)
+		(pin "A9"
+			(uuid "119563f4-f7f8-4c18-a9c1-a949f83623c5")
+		)
+		(pin "B12"
+			(uuid "695a8738-bd3e-461f-9ea3-c3c5da82920d")
+		)
+		(pin "A5"
+			(uuid "8ecec7c3-b768-4543-99da-a754ce8f635f")
+		)
+		(pin "A12"
+			(uuid "cf116e03-edae-4e99-8156-8ece585e26bf")
+		)
+		(pin "B5"
+			(uuid "3d67efe0-3278-4c3c-b2da-92539de6fa29")
+		)
+		(pin "SH"
+			(uuid "eea1caf9-d6e8-4a91-8d7d-7a7f6b2cbd7b")
+		)
+		(instances
+			(project "FMTransmitterRaspi"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "J4")
 					(unit 1)
 				)
 			)
@@ -19160,7 +20365,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "3b014799-0d5f-455d-8893-b689416ab177")
-		(property "Reference" "#PWR012"
+		(property "Reference" "#PWR015"
 			(at 200.66 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -19220,7 +20425,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR012")
+					(reference "#PWR015")
 					(unit 1)
 				)
 			)
@@ -19228,7 +20433,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 234.95 55.88 0)
+		(at 255.27 52.07 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19238,30 +20443,28 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3b39b0d2-894b-40e2-89ef-e43972055bca")
-		(property "Reference" "C14"
-			(at 238.76 54.6099 0)
+		(property "Reference" "C2"
+			(at 255.27 44.45 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "20p"
-			(at 238.76 57.1499 0)
+			(at 255.27 46.99 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
-			(at 235.9152 59.69 0)
+			(at 259.08 51.1048 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19272,7 +20475,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 234.95 55.88 0)
+			(at 255.27 52.07 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19283,7 +20486,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 234.95 55.88 0)
+			(at 255.27 52.07 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19302,7 +20505,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C14")
+					(reference "C2")
 					(unit 1)
 				)
 			)
@@ -19320,7 +20523,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3b89d9e9-c412-4719-be5e-71c93e9e34f7")
-		(property "Reference" "C16"
+		(property "Reference" "C17"
 			(at 171.45 140.9699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19384,7 +20587,84 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C16")
+					(reference "C17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 229.87 152.4 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "4050df8b-e48a-4339-a0b9-e76d8f8808b9")
+		(property "Reference" "#PWR030"
+			(at 229.87 158.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 234.188 154.178 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 229.87 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 229.87 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 229.87 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f9ed4145-1501-406d-b724-1669fc0b4e73")
+		)
+		(instances
+			(project "FMTransmitterRaspi"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR030")
 					(unit 1)
 				)
 			)
@@ -19471,88 +20751,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 152.4 100.33 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "55220da1-b092-4a57-9e7c-aa789abe5522")
-		(property "Reference" "C7"
-			(at 156.21 99.0599 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10u"
-			(at 156.21 101.5999 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
-			(at 153.3652 104.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 152.4 100.33 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 152.4 100.33 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d097a595-b1cd-495f-9f13-80fbb154113f")
-		)
-		(pin "2"
-			(uuid "ce4e730c-6d90-41b0-ade2-0960f85de00a")
-		)
-		(instances
-			(project "FMTransmitterRaspi"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C7")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 147.32 80.01 0)
 		(unit 1)
@@ -19563,7 +20761,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "616d82ed-be04-40e0-9d91-120ab2bb40f6")
-		(property "Reference" "#PWR025"
+		(property "Reference" "#PWR010"
 			(at 147.32 86.36 0)
 			(hide yes)
 			(show_name no)
@@ -19621,86 +20819,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR025")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x01_Socket")
-		(at 256.54 26.67 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "620d07ca-34a3-4731-98fd-2fcb74edf175")
-		(property "Reference" "J3"
-			(at 257.81 25.3999 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "Antenna"
-			(at 257.81 27.9399 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 256.54 26.67 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 256.54 26.67 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 256.54 26.67 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "474ea296-1f7c-4d03-ac4e-18c4118b3590")
-		)
-		(instances
-			(project "FMTransmitterRaspi"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "J3")
+					(reference "#PWR010")
 					(unit 1)
 				)
 			)
@@ -19708,7 +20827,7 @@
 	)
 	(symbol
 		(lib_id "Device:Crystal")
-		(at 228.6 49.53 0)
+		(at 240.03 58.42 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19718,28 +20837,30 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6a109aa1-20e0-4e73-936f-e209a2759480")
-		(property "Reference" "Y1"
-			(at 228.6 41.91 0)
+		(property "Reference" "Y2"
+			(at 243.84 57.1499 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Value" "12MHz"
-			(at 228.6 44.45 0)
+			(at 243.84 59.6899 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 228.6 49.53 0)
+		(property "Footprint" "Crystal:Crystal_DS15_D1.5mm_L5.0mm_Horizontal_1EP_style1"
+			(at 240.03 58.42 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19750,7 +20871,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 228.6 49.53 0)
+			(at 240.03 58.42 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19761,7 +20882,7 @@
 			)
 		)
 		(property "Description" "Two pin crystal"
-			(at 228.6 49.53 0)
+			(at 240.03 58.42 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19780,7 +20901,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "Y1")
+					(reference "Y2")
 					(unit 1)
 				)
 			)
@@ -19798,7 +20919,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "73ebfef3-5a12-4da6-80df-8f2e163a0e3a")
-		(property "Reference" "#PWR023"
+		(property "Reference" "#PWR016"
 			(at 256.54 105.41 0)
 			(hide yes)
 			(show_name no)
@@ -19858,7 +20979,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR023")
+					(reference "#PWR016")
 					(unit 1)
 				)
 			)
@@ -19876,7 +20997,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "74983865-22ad-4626-8b9f-7d6a894ae6ac")
-		(property "Reference" "C9"
+		(property "Reference" "C11"
 			(at 146.05 125.7299 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19887,7 +21008,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2.2u"
+		(property "Value" "2u2"
 			(at 146.05 128.2699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19940,7 +21061,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C9")
+					(reference "C11")
 					(unit 1)
 				)
 			)
@@ -19958,7 +21079,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7a309240-6637-4e44-9c71-04a828eb553d")
-		(property "Reference" "C4"
+		(property "Reference" "C22"
 			(at 167.64 179.0699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20022,7 +21143,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C4")
+					(reference "C22")
 					(unit 1)
 				)
 			)
@@ -20039,7 +21160,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "7ac3e29f-3aa2-45b1-9643-395242e2521c")
-		(property "Reference" "#PWR010"
+		(property "Reference" "#PWR013"
 			(at 114.3 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -20097,7 +21218,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR010")
+					(reference "#PWR013")
 					(unit 1)
 				)
 			)
@@ -20115,7 +21236,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7ac91330-2b8b-4780-8793-6310a45d7e56")
-		(property "Reference" "C19"
+		(property "Reference" "C4"
 			(at 260.35 91.4399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20179,7 +21300,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C19")
+					(reference "C4")
 					(unit 1)
 				)
 			)
@@ -20285,7 +21406,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "8bcc3a30-0f43-48e2-868b-2ce4d6acaf14")
-		(property "Reference" "#PWR08"
+		(property "Reference" "#PWR014"
 			(at 127 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -20345,7 +21466,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR08")
+					(reference "#PWR014")
 					(unit 1)
 				)
 			)
@@ -20363,7 +21484,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9133a3f4-89a5-4aed-b0ff-0a7aaf09b28f")
-		(property "Reference" "C10"
+		(property "Reference" "C15"
 			(at 146.05 140.9699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20374,7 +21495,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2.2u"
+		(property "Value" "2u2"
 			(at 146.05 143.5099 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20427,7 +21548,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C10")
+					(reference "C15")
 					(unit 1)
 				)
 			)
@@ -20445,7 +21566,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9205345b-62a4-4fb3-8f49-134670a050b6")
-		(property "Reference" "C17"
+		(property "Reference" "C7"
 			(at 182.88 99.0599 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20509,7 +21630,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C17")
+					(reference "C7")
 					(unit 1)
 				)
 			)
@@ -20527,7 +21648,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a07fdae8-8411-4ed8-bca0-68293afbb267")
-		(property "Reference" "C11"
+		(property "Reference" "C10"
 			(at 190.5 120.6499 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20591,7 +21712,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C11")
+					(reference "C10")
 					(unit 1)
 				)
 			)
@@ -20680,88 +21801,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 162.56 100.33 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "a42095ca-be42-4471-b94a-2d872e42c15c")
-		(property "Reference" "C8"
-			(at 166.37 99.0599 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100n"
-			(at 166.37 101.5999 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
-			(at 163.5252 104.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 162.56 100.33 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 162.56 100.33 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "531816eb-244b-4137-8891-21a57c661b2b")
-		)
-		(pin "2"
-			(uuid "a3c2b1b7-b37d-4194-a92e-5563ab29d1ff")
-		)
-		(instances
-			(project "FMTransmitterRaspi"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Connector_Audio:AudioJack3_SwitchT")
 		(at 215.9 123.19 0)
 		(unit 1)
@@ -20773,7 +21812,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a5d7c9c8-b1da-4c24-8c23-c02fe9fe3176")
-		(property "Reference" "J2"
+		(property "Reference" "J5"
 			(at 213.995 114.3 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20793,7 +21832,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Library:Jack_3.5mm_PJ327A_Horizontal"
 			(at 215.9 123.19 0)
 			(hide yes)
 			(show_name no)
@@ -20841,7 +21880,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "J2")
+					(reference "J5")
 					(unit 1)
 				)
 			)
@@ -20858,7 +21897,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "a6489c4a-12d5-4ec5-9ab1-9ab20c006efd")
-		(property "Reference" "#PWR027"
+		(property "Reference" "#PWR011"
 			(at 165.1 86.36 0)
 			(hide yes)
 			(show_name no)
@@ -20916,7 +21955,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR027")
+					(reference "#PWR011")
 					(unit 1)
 				)
 			)
@@ -20934,7 +21973,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a7e9488b-3c63-4499-bab2-aac53ab383b1")
-		(property "Reference" "#PWR018"
+		(property "Reference" "#PWR022"
 			(at 186.69 134.62 0)
 			(hide yes)
 			(show_name no)
@@ -20994,7 +22033,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR018")
+					(reference "#PWR022")
 					(unit 1)
 				)
 			)
@@ -21002,7 +22041,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 222.25 55.88 0)
+		(at 255.27 64.77 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -21012,30 +22051,28 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a95a0188-320d-4f96-a3a1-996e5a330ca9")
-		(property "Reference" "C13"
-			(at 226.06 54.6099 0)
+		(property "Reference" "C3"
+			(at 255.27 57.15 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "20p"
-			(at 226.06 57.1499 0)
+			(at 255.27 59.69 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
-			(at 223.2152 59.69 0)
+			(at 259.08 63.8048 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21046,7 +22083,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 222.25 55.88 0)
+			(at 255.27 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21057,7 +22094,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 222.25 55.88 0)
+			(at 255.27 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21076,7 +22113,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C13")
+					(reference "C3")
 					(unit 1)
 				)
 			)
@@ -21084,7 +22121,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 49.53 95.25 0)
+		(at 247.65 26.67 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -21094,8 +22131,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "aba8ba93-1519-4d2e-8af5-4b98e04798d9")
-		(property "Reference" "#PWR06"
-			(at 49.53 99.06 0)
+		(property "Reference" "#PWR05"
+			(at 247.65 30.48 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21106,7 +22143,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 49.53 90.17 0)
+			(at 247.65 21.59 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -21116,7 +22153,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 49.53 95.25 0)
+			(at 247.65 26.67 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21127,7 +22164,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 49.53 95.25 0)
+			(at 247.65 26.67 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21138,7 +22175,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 49.53 95.25 0)
+			(at 247.65 26.67 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21154,7 +22191,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR06")
+					(reference "#PWR05")
 					(unit 1)
 				)
 			)
@@ -21171,7 +22208,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "b652c326-eae2-42e7-a5b0-f0166c6175b4")
-		(property "Reference" "#PWR026"
+		(property "Reference" "#PWR04"
 			(at 165.1 27.94 0)
 			(hide yes)
 			(show_name no)
@@ -21229,7 +22266,85 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR026")
+					(reference "#PWR04")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 69.85 101.6 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bb4f92d9-b48b-49b2-a316-4cef8476a3ce")
+		(property "Reference" "#PWR017"
+			(at 69.85 105.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+5V"
+			(at 69.85 96.52 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 69.85 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 69.85 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 69.85 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "11c9806f-d7ae-4878-9ee0-7c67c5a40b95")
+		)
+		(instances
+			(project "FMTransmitterRaspi"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR017")
 					(unit 1)
 				)
 			)
@@ -21247,7 +22362,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bfa5f29d-bb17-4a63-a534-16714feab17c")
-		(property "Reference" "#PWR022"
+		(property "Reference" "#PWR021"
 			(at 232.41 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -21307,7 +22422,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR022")
+					(reference "#PWR021")
 					(unit 1)
 				)
 			)
@@ -21325,7 +22440,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c2ef5b1b-10d0-40a6-b632-4bd5945a753b")
-		(property "Reference" "#PWR07"
+		(property "Reference" "#PWR028"
 			(at 153.67 173.99 0)
 			(hide yes)
 			(show_name no)
@@ -21385,7 +22500,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR07")
+					(reference "#PWR028")
 					(unit 1)
 				)
 			)
@@ -21403,7 +22518,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c63a175b-84c4-4ff3-8baf-8e3013aed6dd")
-		(property "Reference" "C15"
+		(property "Reference" "C16"
 			(at 158.75 140.9699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21467,7 +22582,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C15")
+					(reference "C16")
 					(unit 1)
 				)
 			)
@@ -21484,7 +22599,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "c6574eef-c772-4740-ac4b-790f6b40d85d")
-		(property "Reference" "J4"
+		(property "Reference" "J3"
 			(at 156.21 22.4598 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21660,7 +22775,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "J4")
+					(reference "J3")
 					(unit 1)
 				)
 			)
@@ -21678,7 +22793,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c779d0ba-dfed-4e77-a024-5f7f38633fc2")
-		(property "Reference" "C22"
+		(property "Reference" "C14"
 			(at 236.22 129.54 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21688,7 +22803,7 @@
 				)
 			)
 		)
-		(property "Value" "4u7"
+		(property "Value" "2u2"
 			(at 236.22 132.08 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21698,7 +22813,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:C_Rect_L7.2mm_W6.0mm_P5.00mm"
 			(at 240.03 136.1948 0)
 			(hide yes)
 			(show_name no)
@@ -21740,7 +22855,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C22")
+					(reference "C14")
 					(unit 1)
 				)
 			)
@@ -21758,7 +22873,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cc629e40-4257-4f8c-8715-d6f54a8aadc4")
-		(property "Reference" "C2"
+		(property "Reference" "C20"
 			(at 127 179.0699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21822,7 +22937,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C2")
+					(reference "C20")
 					(unit 1)
 				)
 			)
@@ -21830,7 +22945,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 49.53 104.14 0)
+		(at 247.65 38.1 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -21840,8 +22955,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cebddb12-bc4f-4bef-8fd1-7163fe1544fd")
-		(property "Reference" "#PWR05"
-			(at 49.53 110.49 0)
+		(property "Reference" "#PWR06"
+			(at 247.65 44.45 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21852,7 +22967,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 49.53 109.22 0)
+			(at 247.65 43.18 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -21862,7 +22977,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 49.53 104.14 0)
+			(at 247.65 38.1 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21873,7 +22988,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 49.53 104.14 0)
+			(at 247.65 38.1 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21884,7 +22999,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 49.53 104.14 0)
+			(at 247.65 38.1 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21900,89 +23015,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR05")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Screw_Terminal_01x02")
-		(at 58.42 99.06 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "cf0dd9dc-950e-40f6-a9df-1cd1018bee43")
-		(property "Reference" "J5"
-			(at 60.96 99.0599 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "External PSU 5V"
-			(at 60.96 101.5999 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 58.42 99.06 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 58.42 99.06 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 58.42 99.06 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "ed920d5b-2b96-41c9-aa12-d6fe82d22aa1")
-		)
-		(pin "2"
-			(uuid "197c24bd-cd07-4e54-9af5-eeca9f71f0c0")
-		)
-		(instances
-			(project "FMTransmitterRaspi"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "J5")
+					(reference "#PWR06")
 					(unit 1)
 				)
 			)
@@ -22000,7 +23033,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d4a79579-6ab0-42ce-8922-42f254eb1cdc")
-		(property "Reference" "U1"
+		(property "Reference" "U2"
 			(at 129.1433 107.95 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22118,7 +23151,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "U1")
+					(reference "U2")
 					(unit 1)
 				)
 			)
@@ -22136,7 +23169,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d516ea35-67b2-4594-9853-b8ca810001c2")
-		(property "Reference" "C21"
+		(property "Reference" "C9"
 			(at 236.22 107.95 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22146,7 +23179,7 @@
 				)
 			)
 		)
-		(property "Value" "4u7"
+		(property "Value" "2u2"
 			(at 236.22 110.49 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22156,7 +23189,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:C_Rect_L7.2mm_W6.0mm_P5.00mm"
 			(at 240.03 114.6048 0)
 			(hide yes)
 			(show_name no)
@@ -22198,7 +23231,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C21")
+					(reference "C9")
 					(unit 1)
 				)
 			)
@@ -22206,7 +23239,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 228.6 26.67 90)
+		(at 228.6 33.02 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -22216,8 +23249,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "db958e90-7dfb-4801-97ab-7680d12ab7e7")
-		(property "Reference" "C20"
-			(at 228.6 19.05 90)
+		(property "Reference" "C1"
+			(at 228.6 25.4 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22227,7 +23260,7 @@
 			)
 		)
 		(property "Value" "1n"
-			(at 228.6 21.59 90)
+			(at 228.6 27.94 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22237,7 +23270,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
-			(at 232.41 25.7048 0)
+			(at 232.41 32.0548 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22248,7 +23281,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 228.6 26.67 0)
+			(at 228.6 33.02 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22259,7 +23292,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 228.6 26.67 0)
+			(at 228.6 33.02 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22278,7 +23311,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C20")
+					(reference "C1")
 					(unit 1)
 				)
 			)
@@ -22296,7 +23329,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e24067b3-ac8c-4fc9-8543-5bd3d5658634")
-		(property "Reference" "#PWR017"
+		(property "Reference" "#PWR018"
 			(at 214.63 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -22356,7 +23389,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR017")
+					(reference "#PWR018")
 					(unit 1)
 				)
 			)
@@ -22364,7 +23397,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 228.6 64.77 0)
+		(at 261.62 67.31 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -22374,8 +23407,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e5583b3c-33ce-4edf-aca0-ddf47d8fffe7")
-		(property "Reference" "#PWR021"
-			(at 228.6 71.12 0)
+		(property "Reference" "#PWR07"
+			(at 261.62 73.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22386,7 +23419,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 228.6 69.85 0)
+			(at 261.62 72.39 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22396,7 +23429,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 228.6 64.77 0)
+			(at 261.62 67.31 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22407,7 +23440,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 228.6 64.77 0)
+			(at 261.62 67.31 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22418,7 +23451,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 228.6 64.77 0)
+			(at 261.62 67.31 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22434,7 +23467,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR021")
+					(reference "#PWR07")
 					(unit 1)
 				)
 			)
@@ -22452,7 +23485,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e92f5b01-e6a0-4b11-9d2a-8bb848f36dcc")
-		(property "Reference" "U2"
+		(property "Reference" "U1"
 			(at 228.6 73.66 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22538,7 +23571,91 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "U2")
+					(reference "U1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Screw_Terminal_01x03")
+		(at 260.35 35.56 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "eb99a399-183e-40ae-b2c7-e7426c5fdc0d")
+		(property "Reference" "J1"
+			(at 262.89 34.2899 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Antenna/External Power"
+			(at 256.54 29.21 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TerminalBlock:TerminalBlock_MaiXu_MX126-5.0-03P_1x03_P5.00mm"
+			(at 260.35 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 260.35 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic screw terminal, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 260.35 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "5cdd8db3-33ab-4cc3-af76-33361147b444")
+		)
+		(pin "3"
+			(uuid "d9cf51a8-d1ac-4f92-84fc-f07a1d618da9")
+		)
+		(pin "1"
+			(uuid "d57a8f21-4a2e-41e3-9637-556a43dcc88c")
+		)
+		(instances
+			(project "FMTransmitterRaspi"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "J1")
 					(unit 1)
 				)
 			)
@@ -22555,7 +23672,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "ee5ccb64-d3fc-4ecf-bf42-652b8cadf2d2")
-		(property "Reference" "#PWR024"
+		(property "Reference" "#PWR03"
 			(at 144.78 27.94 0)
 			(hide yes)
 			(show_name no)
@@ -22613,7 +23730,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR024")
+					(reference "#PWR03")
 					(unit 1)
 				)
 			)
@@ -22631,7 +23748,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f795cf6a-2497-422f-af19-947864969225")
-		(property "Reference" "C18"
+		(property "Reference" "C8"
 			(at 194.31 99.0599 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22695,7 +23812,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C18")
+					(reference "C8")
 					(unit 1)
 				)
 			)
@@ -22713,7 +23830,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f9dfaff4-0a9b-4833-8159-d6064b1d5983")
-		(property "Reference" "C1"
+		(property "Reference" "C19"
 			(at 116.84 179.0699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22777,7 +23894,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C1")
+					(reference "C19")
 					(unit 1)
 				)
 			)
@@ -22795,7 +23912,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fe937b3e-d19e-4453-8a8c-4f58c8a7c98d")
-		(property "Reference" "#PWR014"
+		(property "Reference" "#PWR025"
 			(at 124.46 156.21 0)
 			(hide yes)
 			(show_name no)
@@ -22855,7 +23972,7 @@
 		(instances
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR014")
+					(reference "#PWR025")
 					(unit 1)
 				)
 			)
