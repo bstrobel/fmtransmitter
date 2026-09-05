@@ -10331,20 +10331,20 @@
 		(uuid "10e74994-8990-4e66-9786-9e7469135f1c")
 	)
 	(segment
-		(start 105.588 123.368)
-		(end 103.302 123.368)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "+3V3")
-		(uuid "17e2e2ae-7681-4a22-9c7a-f3ed3747a647")
-	)
-	(segment
 		(start 132.5345 144.7265)
 		(end 132.5345 142.037487)
 		(width 0.2)
 		(layer "F.Cu")
 		(net "+3V3")
 		(uuid "1bc24ae3-5227-4dea-acea-b1c287a982fe")
+	)
+	(segment
+		(start 103.302 123.368)
+		(end 105.588 123.368)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "+3V3")
+		(uuid "1f567705-16d9-4beb-bc06-da8dd75755c8")
 	)
 	(segment
 		(start 127.611 142.583)
