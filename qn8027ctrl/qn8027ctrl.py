@@ -163,24 +163,30 @@ class RDS(Enum):
 REG_RDS_RDSFDEV_BIT = 0 # Specify RDS frequency deviation: RDS frequency deviation = 0.35KHz*RDSFDEV.
 REG_RDS_RDSFDEV_2_1KHZ = 0b0000110 # default 2.1kHz
 
+REG_30_ANTENNA=0x1e # See QN8027 HW Application Note page 9
+# Set the RF frequency of 76MHz and read the reg30 value, then set RF frequency of 108MHz
+# and read reg30 value, if both two reg30 values are in range 0x1f~0x00, it means the inductor 
+# can cover the full span. Otherwise, it is necessary to change the inductor value to cover the full span.
+# Read only
+
 # default values for initializing the chip
 DEFAULT_RIN = VGA_R_IN.RIN_10KOHM
 DEFAULT_VGA_LEVEL = VGA_GVGA_LEVEL.L2
 DEFAULT_GDB = VGA_GDB.GDB_0DB
-DEFAULT_XTAL = VGA_XSEL.XTAL_12MHZ
+DEFAULT_XTAL = VGA_XSEL.XTAL_24MHZ
 DEFAULT_XINJ = XTL_XINJ.USE_CRYSTAL
 DEFAULT_XISEL = REG_XTL_XISEL_CURRENT_100uA
-DEFAULT_TC = TC.TC_75US
+DEFAULT_TC = TC.TC_50US # Wikipedia says 75US in USA and 50US everywhere else
 DEFAULT_T1MSEL = GPLT_T1MSEL.T1MSEL_INFINITY
 DEFAULT_GAINTXPLT = GPLT_GAINTXPLT.GAINTXPLT_9PCT
 DEFAULT_PRIVEN = PRIVEN.PRIVEN_DISABLE
-DEFAULT_PA_TARGET = 50
+DEFAULT_PA_TARGET = 29 # Minimal value where SDR connect does not display OVERLOAD
 DEFAULT_FREQ = 90.9
 
 class qn8027:
     def __init__(self):
         self.i2c = busio.I2C(board.SCL, board.SDA)
-        self.state = bytearray(0x13)
+        self.state = bytearray(REG_30_ANTENNA + 1)
         self.get_state()
 
     def send_cmd(self,reg,val):
@@ -309,6 +315,9 @@ class qn8027:
             print(f'[REG_RDS] 0x{self.state[REG_RDS]:02x} {self.state[REG_RDS]:2d} 0b{self.state[REG_RDS]:08b}')
         print(f'[REG_RDS] rdsen={self.rdsen.name} rdsfdev={self.rdsfdev}kHz')
 
+    def dbg_print_reg_30(self):
+        print(f'[REG_30_ANTENNA] 0x{self.state[REG_30_ANTENNA]}')
+
     def dbg_print_state(self, hexvals=False):
         self.get_state()
         self.dbg_print_reg_system(hexvals)
@@ -319,6 +328,7 @@ class qn8027:
         self.dbg_print_cid(hexvals)
         self.dbg_print_reg_status(hexvals)
         self.dbg_print_reg_pac(hexvals)
+        self.dbg_print_reg_30()
         self.dbg_print_reg_fdev(hexvals)
         self.dbg_print_reg_rds(hexvals)
 
