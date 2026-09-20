@@ -168,7 +168,7 @@
 			(pin input line
 				(at 11.43 -5.08 180)
 				(length 2.54)
-				(name "ALI"
+				(name "SCL"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -183,10 +183,10 @@
 					)
 				)
 			)
-			(pin output line
+			(pin bidirectional line
 				(at 11.43 -2.54 180)
 				(length 2.54)
-				(name "ARI"
+				(name "SDA"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -219,10 +219,10 @@
 					)
 				)
 			)
-			(pin bidirectional line
+			(pin output line
 				(at 11.43 2.54 180)
 				(length 2.54)
-				(name "SDA"
+				(name "ARI"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -240,7 +240,7 @@
 			(pin input line
 				(at 11.43 5.08 180)
 				(length 2.54)
-				(name "SCL"
+				(name "ALI"
 					(effects
 						(font
 							(size 1.27 1.27)
