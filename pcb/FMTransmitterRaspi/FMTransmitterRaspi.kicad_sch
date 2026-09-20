@@ -22803,7 +22803,7 @@
 				)
 			)
 		)
-		(property "Value" "2u2"
+		(property "Value" "470n"
 			(at 236.22 132.08 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23179,7 +23179,7 @@
 				)
 			)
 		)
-		(property "Value" "2u2"
+		(property "Value" "470n"
 			(at 236.22 110.49 90)
 			(show_name no)
 			(do_not_autoplace no)
