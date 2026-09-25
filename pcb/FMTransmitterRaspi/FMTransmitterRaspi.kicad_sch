@@ -14925,6 +14925,12 @@
 		(uuid "aa5e1cef-01ef-4400-b4d5-87413c3be816")
 	)
 	(junction
+		(at 241.3 137.16)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b316809d-a7a5-4b1b-ba50-7ab679e1d3ba")
+	)
+	(junction
 		(at 190.5 106.68)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -15007,6 +15013,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ef018456-adc9-4e0a-9185-ad05a9e18351")
+	)
+	(junction
+		(at 241.3 115.57)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "efc37a19-3b1b-4400-a244-923ea8c45d80")
 	)
 	(junction
 		(at 50.8 135.89)
@@ -15290,6 +15302,16 @@
 	)
 	(wire
 		(pts
+			(xy 265.43 81.28) (xy 240.03 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "16bd7565-b70c-48fc-a1c4-b4d1431881f3")
+	)
+	(wire
+		(pts
 			(xy 114.3 105.41) (xy 124.46 105.41)
 		)
 		(stroke
@@ -15400,6 +15422,16 @@
 	)
 	(wire
 		(pts
+			(xy 240.03 83.82) (xy 262.89 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "234fefdc-9b0f-4b43-beb7-c7a32b9648c1")
+	)
+	(wire
+		(pts
 			(xy 137.16 123.19) (xy 142.24 123.19)
 		)
 		(stroke
@@ -15447,16 +15479,6 @@
 			(type solid)
 		)
 		(uuid "252c2642-5979-4a84-8d39-11da2e3821fe")
-	)
-	(wire
-		(pts
-			(xy 240.03 81.28) (xy 242.57 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "256c311e-a939-41dc-aeda-bddf46e30d1a")
 	)
 	(wire
 		(pts
@@ -16160,6 +16182,16 @@
 	)
 	(wire
 		(pts
+			(xy 241.3 147.32) (xy 241.3 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5fe67d68-0d78-4b37-b7da-d88f80652649")
+	)
+	(wire
+		(pts
 			(xy 96.52 121.92) (xy 96.52 125.73)
 		)
 		(stroke
@@ -16207,6 +16239,16 @@
 			(type default)
 		)
 		(uuid "645b5c75-aaf5-4e5a-ae0a-3a3f8e4f89cf")
+	)
+	(wire
+		(pts
+			(xy 241.3 137.16) (xy 241.3 139.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "649c93dd-05dc-47c9-bb5e-9d53f4b03cb4")
 	)
 	(wire
 		(pts
@@ -16470,6 +16512,16 @@
 	)
 	(wire
 		(pts
+			(xy 262.89 83.82) (xy 262.89 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7f6e78c3-4b4f-4753-8385-897daa4cac8b")
+	)
+	(wire
+		(pts
 			(xy 154.94 146.05) (xy 167.64 146.05)
 		)
 		(stroke
@@ -16570,6 +16622,16 @@
 	)
 	(wire
 		(pts
+			(xy 240.03 115.57) (xy 241.3 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8861f192-929d-4731-99aa-13be8bda7646")
+	)
+	(wire
+		(pts
 			(xy 55.88 27.94) (xy 55.88 48.26)
 		)
 		(stroke
@@ -16607,6 +16669,16 @@
 			(type solid)
 		)
 		(uuid "8ccbbafc-2cdc-415a-ac78-6ccd25489208")
+	)
+	(wire
+		(pts
+			(xy 265.43 115.57) (xy 265.43 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8db6a3bb-7bfe-4197-8fdf-e6b2a4cc8613")
 	)
 	(wire
 		(pts
@@ -16837,6 +16909,16 @@
 			(type solid)
 		)
 		(uuid "a571c038-3cc2-4848-b404-365f2f7338be")
+	)
+	(wire
+		(pts
+			(xy 260.35 115.57) (xy 265.43 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a6ae8940-c788-4d4c-932e-7ea300d0e386")
 	)
 	(wire
 		(pts
@@ -17200,16 +17282,6 @@
 	)
 	(wire
 		(pts
-			(xy 240.03 115.57) (xy 242.57 115.57)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c2aedd5a-604f-4c44-8cae-ed7b8db0952a")
-	)
-	(wire
-		(pts
 			(xy 217.17 83.82) (xy 212.09 83.82)
 		)
 		(stroke
@@ -17380,6 +17452,16 @@
 	)
 	(wire
 		(pts
+			(xy 241.3 115.57) (xy 252.73 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cf609055-c13a-41af-948a-d9fc863565a8")
+	)
+	(wire
+		(pts
 			(xy 163.83 186.69) (xy 153.67 186.69)
 		)
 		(stroke
@@ -17430,16 +17512,6 @@
 	)
 	(wire
 		(pts
-			(xy 242.57 81.28) (xy 242.57 115.57)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d3f0e445-9d1d-4b38-9704-3e94407b36ef")
-	)
-	(wire
-		(pts
 			(xy 256.54 80.01) (xy 256.54 86.36)
 		)
 		(stroke
@@ -17467,16 +17539,6 @@
 			(type default)
 		)
 		(uuid "d7139071-19d6-4ecd-b7e9-ee63292d28ad")
-	)
-	(wire
-		(pts
-			(xy 240.03 83.82) (xy 245.11 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d7986dc8-dcf0-403f-99f7-02af85e0f1bd")
 	)
 	(wire
 		(pts
@@ -17510,6 +17572,16 @@
 	)
 	(wire
 		(pts
+			(xy 260.35 137.16) (xy 262.89 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "db857c79-5bbf-4f16-9f3f-30d10e135ba5")
+	)
+	(wire
+		(pts
 			(xy 261.62 64.77) (xy 261.62 67.31)
 		)
 		(stroke
@@ -17517,6 +17589,16 @@
 			(type default)
 		)
 		(uuid "dd3131db-1eba-4152-850f-656433b7b4bd")
+	)
+	(wire
+		(pts
+			(xy 241.3 137.16) (xy 252.73 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd6aaae4-2bc0-4c90-a744-c42f1e97d7e0")
 	)
 	(wire
 		(pts
@@ -17627,16 +17709,6 @@
 			(type default)
 		)
 		(uuid "e624ad1c-72d3-4afc-a94a-3333699225c2")
-	)
-	(wire
-		(pts
-			(xy 245.11 83.82) (xy 245.11 137.16)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e7ad71f7-2b83-4279-b69d-762945166329")
 	)
 	(wire
 		(pts
@@ -17780,6 +17852,16 @@
 	)
 	(wire
 		(pts
+			(xy 241.3 115.57) (xy 241.3 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f1f57491-49c9-42f7-8113-da08348ea31d")
+	)
+	(wire
+		(pts
 			(xy 256.54 96.52) (xy 256.54 99.06)
 		)
 		(stroke
@@ -17850,7 +17932,7 @@
 	)
 	(wire
 		(pts
-			(xy 240.03 137.16) (xy 245.11 137.16)
+			(xy 240.03 137.16) (xy 241.3 137.16)
 		)
 		(stroke
 			(width 0)
@@ -21307,6 +21389,86 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 236.22 115.57 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7c7b8489-1df7-4deb-83fc-9b5405dc8eec")
+		(property "Reference" "R4"
+			(at 236.22 109.22 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4k7"
+			(at 236.22 111.76 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+			(at 236.22 117.348 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 236.22 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 236.22 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "300572e0-1a41-4293-95ee-2f1f037491f3")
+		)
+		(pin "2"
+			(uuid "f3c781f7-08ea-41c6-b599-2b52ac8c31cf")
+		)
+		(instances
+			(project "FMTransmitterRaspi"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "R4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Regulator_Linear:ME6211C33M5")
 		(at 138.43 175.26 0)
 		(unit 1)
@@ -22040,6 +22202,84 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 241.3 125.73 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a7f0f89b-2434-4253-bc19-4ab53017ae71")
+		(property "Reference" "#PWR031"
+			(at 241.3 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 241.3 130.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 241.3 125.73 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 241.3 125.73 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 241.3 125.73 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "638fd127-0e01-48c9-a8e0-668f53a2eb84")
+		)
+		(instances
+			(project "FMTransmitterRaspi"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR031")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 255.27 64.77 90)
 		(unit 1)
@@ -22192,6 +22432,88 @@
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "#PWR05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 241.3 143.51 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b4e9a3fa-6025-4429-8127-134da5670b18")
+		(property "Reference" "R7"
+			(at 243.84 142.2399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22k"
+			(at 243.84 144.7799 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+			(at 239.522 143.51 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 241.3 143.51 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 241.3 143.51 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "300572e0-1a41-4293-95ee-2f1f037491f3")
+		)
+		(pin "2"
+			(uuid "f3c781f7-08ea-41c6-b599-2b52ac8c31cf")
+		)
+		(instances
+			(project "FMTransmitterRaspi"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "R7")
 					(unit 1)
 				)
 			)
@@ -22351,6 +22673,86 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 236.22 137.16 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bf1480d2-cb3f-45b8-87c0-b481d16a5e92")
+		(property "Reference" "R6"
+			(at 236.22 130.81 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4k7"
+			(at 236.22 133.35 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+			(at 236.22 138.938 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 236.22 137.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 236.22 137.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "300572e0-1a41-4293-95ee-2f1f037491f3")
+		)
+		(pin "2"
+			(uuid "f3c781f7-08ea-41c6-b599-2b52ac8c31cf")
+		)
+		(instances
+			(project "FMTransmitterRaspi"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "R6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 232.41 125.73 0)
 		(unit 1)
@@ -22423,6 +22825,88 @@
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "#PWR021")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 241.3 121.92 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c26e5ffa-d878-4642-aa5f-e8eb9db6bf02")
+		(property "Reference" "R5"
+			(at 243.84 120.6499 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "22k"
+			(at 243.84 123.1899 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+			(at 243.078 121.92 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 241.3 121.92 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 241.3 121.92 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "300572e0-1a41-4293-95ee-2f1f037491f3")
+		)
+		(pin "2"
+			(uuid "f3c781f7-08ea-41c6-b599-2b52ac8c31cf")
+		)
+		(instances
+			(project "FMTransmitterRaspi"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "R5")
 					(unit 1)
 				)
 			)
@@ -22783,7 +23267,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 236.22 137.16 90)
+		(at 256.54 137.16 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -22794,7 +23278,7 @@
 		(fields_autoplaced yes)
 		(uuid "c779d0ba-dfed-4e77-a024-5f7f38633fc2")
 		(property "Reference" "C14"
-			(at 236.22 129.54 90)
+			(at 256.54 129.54 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22804,7 +23288,7 @@
 			)
 		)
 		(property "Value" "470n"
-			(at 236.22 132.08 90)
+			(at 256.54 132.08 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22813,8 +23297,8 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Rect_L7.2mm_W6.0mm_P5.00mm"
-			(at 240.03 136.1948 0)
+		(property "Footprint" "Capacitor_THT:C_Rect_L7.2mm_W3.5mm_P5.00mm"
+			(at 260.35 136.1948 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22825,7 +23309,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 236.22 137.16 0)
+			(at 256.54 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22836,7 +23320,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 236.22 137.16 0)
+			(at 256.54 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23159,7 +23643,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 236.22 115.57 90)
+		(at 256.54 115.57 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -23170,7 +23654,7 @@
 		(fields_autoplaced yes)
 		(uuid "d516ea35-67b2-4594-9853-b8ca810001c2")
 		(property "Reference" "C9"
-			(at 236.22 107.95 90)
+			(at 256.54 107.95 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -23180,7 +23664,7 @@
 			)
 		)
 		(property "Value" "470n"
-			(at 236.22 110.49 90)
+			(at 256.54 110.49 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -23189,8 +23673,8 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Rect_L7.2mm_W6.0mm_P5.00mm"
-			(at 240.03 114.6048 0)
+		(property "Footprint" "Capacitor_THT:C_Rect_L7.2mm_W3.5mm_P5.00mm"
+			(at 260.35 114.6048 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23201,7 +23685,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 236.22 115.57 0)
+			(at 256.54 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23212,7 +23696,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 236.22 115.57 0)
+			(at 256.54 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23895,6 +24379,83 @@
 			(project "FMTransmitterRaspi"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "C19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 241.3 152.4 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "fb974bb3-7003-4541-8093-718c7a6d5bee")
+		(property "Reference" "#PWR019"
+			(at 241.3 158.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 245.618 154.432 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 241.3 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 241.3 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 241.3 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "593b05b0-2d14-4f00-8184-a1a0d7e82aff")
+		)
+		(instances
+			(project "FMTransmitterRaspi"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR019")
 					(unit 1)
 				)
 			)
