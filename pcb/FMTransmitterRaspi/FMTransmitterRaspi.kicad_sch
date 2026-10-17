@@ -14702,6 +14702,26 @@
 		)
 		(uuid "f821f61c-6b6a-4864-ace3-a78a834a9305")
 	)
+	(text_box "Pegelanpassung\nR4,R6 - 43k\nR5,R7 - nicht installiert\nPassend fuer QN8027 Setting\nRin=5K, GAIN_L=0 (3db)"
+		(exclude_from_sim no)
+		(at 254.635 147.955 0)
+		(size 27.305 14.1714)
+		(margins 0.9525 0.9525 0.9525 0.9525)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "61eb9676-fdc6-4272-88a0-0f92f04a9ef4")
+	)
 	(junction
 		(at 200.66 93.98)
 		(diameter 0)
@@ -21410,7 +21430,7 @@
 				)
 			)
 		)
-		(property "Value" "4k7"
+		(property "Value" "43k"
 			(at 236.22 111.76 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22460,7 +22480,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22k"
+		(property "Value" "NOT_INSTALLED"
 			(at 243.84 144.7799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22505,10 +22525,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "300572e0-1a41-4293-95ee-2f1f037491f3")
+			(uuid "300572e0-1a41-4293-95ee-2f1f037491f4")
 		)
 		(pin "2"
-			(uuid "f3c781f7-08ea-41c6-b599-2b52ac8c31cf")
+			(uuid "f3c781f7-08ea-41c6-b599-2b52ac8c31d0")
 		)
 		(instances
 			(project "FMTransmitterRaspi"
@@ -22694,7 +22714,7 @@
 				)
 			)
 		)
-		(property "Value" "4k7"
+		(property "Value" "43k"
 			(at 236.22 133.35 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22738,10 +22758,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "300572e0-1a41-4293-95ee-2f1f037491f3")
+			(uuid "300572e0-1a41-4293-95ee-2f1f037491f5")
 		)
 		(pin "2"
-			(uuid "f3c781f7-08ea-41c6-b599-2b52ac8c31cf")
+			(uuid "f3c781f7-08ea-41c6-b599-2b52ac8c31d1")
 		)
 		(instances
 			(project "FMTransmitterRaspi"
@@ -22853,7 +22873,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "22k"
+		(property "Value" "NOT_INSTALLED"
 			(at 243.84 123.1899 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22898,10 +22918,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "300572e0-1a41-4293-95ee-2f1f037491f3")
+			(uuid "300572e0-1a41-4293-95ee-2f1f037491f6")
 		)
 		(pin "2"
-			(uuid "f3c781f7-08ea-41c6-b599-2b52ac8c31cf")
+			(uuid "f3c781f7-08ea-41c6-b599-2b52ac8c31d2")
 		)
 		(instances
 			(project "FMTransmitterRaspi"
