@@ -14702,7 +14702,7 @@
 		)
 		(uuid "f821f61c-6b6a-4864-ace3-a78a834a9305")
 	)
-	(text_box "Pegelanpassung\nR4,R6 - 43k\nR5,R7 - nicht installiert\nPassend fuer QN8027 Setting\nRin=5K, GAIN_L=0 (3db)"
+	(text_box "Pegelanpassung\nR4,R6 - 200k\nR5,R7 - nicht installiert\nPassend fuer QN8027 Setting\nRin=10K, GAIN_L=2 (0db)"
 		(exclude_from_sim no)
 		(at 254.635 147.955 0)
 		(size 27.305 14.1714)
@@ -21430,7 +21430,7 @@
 				)
 			)
 		)
-		(property "Value" "43k"
+		(property "Value" "200k"
 			(at 236.22 111.76 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22714,7 +22714,7 @@
 				)
 			)
 		)
-		(property "Value" "43k"
+		(property "Value" "200k"
 			(at 236.22 133.35 90)
 			(show_name no)
 			(do_not_autoplace no)
