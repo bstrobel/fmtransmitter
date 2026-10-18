@@ -4,3 +4,5 @@ __pycache__/
 *$py.class
 .lgd-nfy*
 qn8027ctrl/fmtrans/**
+.*.un~
+.*.swp
