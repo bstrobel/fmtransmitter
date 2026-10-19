@@ -303,7 +303,7 @@ class qn8027:
     def dbg_print_reg_pac(self,hexvals=False):
         if (hexvals):
             print(f'[REG_PAC] 0x{self.state[REG_PAC]:02x} {self.state[REG_PAC]:2d} 0b{self.state[REG_PAC]:08b}')
-        print(f'[REG_PAC] txpd_clr={self.txpd_clr} pa_trgt={self.pa_trgt}dBu')
+        print(f'[REG_PAC] txpd_clr={self.txpd_clr} pa_trgt={self.pa_trgt}dBu (pa_trgt_reg={self.state[REG_PAC] & 0b01111111})')
 
     def dbg_print_reg_fdev(self,hexvals=False):
         if (hexvals):
@@ -519,7 +519,7 @@ def main():
             q.set_enable_tx(False)
             q.set_enable_tx(True)
         q.get_state()
-        print(f'Power amplifier target output power set to {q.pa_trgt}dBu (Level={args.pa_target})')
+        print(f'Power amplifier target output power set to {q.pa_trgt}dBu (Level={args.pa_target & 0b01111111})')
 
     if args.clear_apk:
         q.reset_aud_pk()
