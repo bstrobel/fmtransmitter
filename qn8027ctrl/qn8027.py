@@ -1,6 +1,4 @@
-import argparse
 import board
-import digitalio
 import busio
 import math
 import time
@@ -106,8 +104,6 @@ class VGA_R_IN(Enum):
     RIN_10KOHM = 0b01
     RIN_20KOHM = 0b10 # default
     RIN_40KOHM = 0b11
-    
-
 
 REG_CID1=0x05
 REG_CID1_CID0_BIT = 5 # reserved
@@ -265,72 +261,6 @@ class qn8027:
         reg_rds_val = self.state[REG_RDS]
         self.rdsen = RDS((reg_rds_val >> REG_RDS_RDSEN_BIT) & 0b00000001)
         self.rdsfdev = 0.35 * (reg_rds_val & 0b01111111)
-
-    def dbg_print_reg_system(self,hexvals=False):
-        if (hexvals):
-            print(f'[REG_SYSTEM] 0x{self.state[REG_SYSTEM]:02x} {self.state[REG_SYSTEM]:2d} 0b{self.state[REG_SYSTEM]:08b}')
-        print(f'[REG_SYSTEM] swrst={self.swrst.name} recal={self.recal.name} txreq={self.txreq.name} mono={self.mono.name} mute={self.mute.name} rdsrdy={self.rdsrdy.name}')
-
-    def dbg_print_freq(self,hexvals=False):
-        print(f'[FREQ] {str(self.freq)}MHz = 76 + freqhi={str(self.freqhi)} + freqlo={str(self.freqlo)}')
-    
-    def dbg_print_reg_gplt(self,hexvals=False):
-        if (hexvals):
-            print(f'[REG_GPLT] 0x{self.state[REG_GPLT]:02x} {self.state[REG_GPLT]:2d} 0b{self.state[REG_GPLT]:08b}')
-        print(f'[REG_GPLT] tc={self.tc.name} priv_en={self.priv_en.name} t1m_sel={self.t1m_sel.name} gain_txplt={self.gain_txplt.name}')
-
-    def dbg_print_reg_xtl(self,hexvals=False):
-        if (hexvals):
-            print(f'[REG_XTL] 0x{self.state[REG_XTL]:02x} {self.state[REG_XTL]:2d} 0b{self.state[REG_XTL]:08b}')
-        print(f'[REG_XTL] xinj={self.xinj.name} xisel={self.xisel}uA')
-
-    def dbg_print_reg_vga(self,hexvals=False):
-        if (hexvals):
-            print(f'[REG_VGA] 0x{self.state[REG_VGA]:02x} {self.state[REG_VGA]:2d} 0b{self.state[REG_VGA]:08b}')
-        print(f'[REG_VGA] xsel={self.xsel.name} tx_buffer_gain={self.tx_buffer_gain}dB gdb={self.gdb.name} rin={self.rin.name} gvga={self.gvga.name}')
-
-    def dbg_print_cid(self,hexvals=False):
-        if (hexvals):
-            print(f'[REG_CID1] 0x{self.state[REG_CID1]:02x} {self.state[REG_CID1]:2d} 0b{self.state[REG_CID1]:08b}')
-            print(f'[REG_CID2] 0x{self.state[REG_CID2]:02x} {self.state[REG_CID2]:2d} 0b{self.state[REG_CID2]:08b}')
-        print(f'[CID] familiy={self.cid_product_family} product={self.cid_product} revision={self.cid_major_revision}.{self.cid_minor_revision}')
-
-    def dbg_print_reg_status(self,hexvals=False):
-        if (hexvals):
-            print(f'[REG_STATUS] 0x{self.state[REG_STATUS]:02x} {self.state[REG_STATUS]:2d} 0b{self.state[REG_STATUS]:08b}')
-        print(f'[REG_STATUS] fsmstate={self.fsmstate.name} rds_upd={self.rds_upd.name} aud_pk={self.aud_pk}mV')
-
-    def dbg_print_reg_pac(self,hexvals=False):
-        if (hexvals):
-            print(f'[REG_PAC] 0x{self.state[REG_PAC]:02x} {self.state[REG_PAC]:2d} 0b{self.state[REG_PAC]:08b}')
-        print(f'[REG_PAC] txpd_clr={self.txpd_clr} pa_trgt={self.pa_trgt}dBu (pa_trgt_reg={self.state[REG_PAC] & 0b01111111})')
-
-    def dbg_print_reg_fdev(self,hexvals=False):
-        if (hexvals):
-            print(f'[REG_FDEV] 0x{self.state[REG_FDEV]:02x} {self.state[REG_FDEV]:2d} 0b{self.state[REG_FDEV]:08b}')
-        print(f'[REG_FDEV] tx_fdev={self.tx_fdev}kHz')
-
-    def dbg_print_reg_rds(self,hexvals=False):
-        if (hexvals):
-            print(f'[REG_RDS] 0x{self.state[REG_RDS]:02x} {self.state[REG_RDS]:2d} 0b{self.state[REG_RDS]:08b}')
-        print(f'[REG_RDS] rdsen={self.rdsen.name} rdsfdev={self.rdsfdev}kHz')
-
-    def dbg_print_reg_30(self):
-        print(f'[REG_30_ANTENNA] 0x{self.state[REG_30_ANTENNA]}')
-
-    def dbg_print_state(self, hexvals=False):
-        self.get_state()
-        self.dbg_print_reg_system(hexvals)
-        self.dbg_print_freq(hexvals)
-        self.dbg_print_reg_gplt(hexvals)
-        self.dbg_print_reg_xtl(hexvals)
-        self.dbg_print_reg_vga(hexvals)
-        self.dbg_print_cid(hexvals)
-        self.dbg_print_reg_status(hexvals)
-        self.dbg_print_reg_pac(hexvals)
-        self.dbg_print_reg_30()
-        self.dbg_print_reg_fdev(hexvals)
-        self.dbg_print_reg_rds(hexvals)
 
     def send_org_init(self):
         """Sends the same commands as the original microcontroller did"""

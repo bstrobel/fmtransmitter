@@ -1,9 +1,54 @@
 import argparse
 import qn8027
 
+q = qn8027.qn8027()
+
+def print_state(hexvals=False):
+    if (hexvals):
+        print(f'[REG_SYSTEM] 0x{q.state[qn8027.REG_SYSTEM]:02x} {q.state[qn8027.REG_SYSTEM]:2d} 0b{q.state[qn8027.REG_SYSTEM]:08b}')
+    print(f'[REG_SYSTEM] swrst={q.swrst.name} recal={q.recal.name} txreq={q.txreq.name} mono={q.mono.name} mute={q.mute.name} rdsrdy={q.rdsrdy.name}')
+
+    print(f'[FREQ] {str(q.freq)}MHz = 76 + freqhi={str(q.freqhi)} + freqlo={str(q.freqlo)}')
+  
+    if (hexvals):
+        print(f'[REG_GPLT] 0x{q.state[qn8027.REG_GPLT]:02x} {q.state[qn8027.REG_GPLT]:2d} 0b{q.state[qn8027.REG_GPLT]:08b}')
+    print(f'[REG_GPLT] tc={q.tc.name} priv_en={q.priv_en.name} t1m_sel={q.t1m_sel.name} gain_txplt={q.gain_txplt.name}')
+
+    if (hexvals):
+        print(f'[REG_XTL] 0x{q.state[qn8027.REG_XTL]:02x} {q.state[qn8027.REG_XTL]:2d} 0b{q.state[qn8027.REG_XTL]:08b}')
+    print(f'[REG_XTL] xinj={q.xinj.name} xisel={q.xisel}uA')
+
+    if (hexvals):
+        print(f'[REG_VGA] 0x{q.state[qn8027.REG_VGA]:02x} {q.state[qn8027.REG_VGA]:2d} 0b{q.state[qn8027.REG_VGA]:08b}')
+    print(f'[REG_VGA] xsel={q.xsel.name} tx_buffer_gain={q.tx_buffer_gain}dB gdb={q.gdb.name} rin={q.rin.name} gvga={q.gvga.name}')
+
+    if (hexvals):
+        print(f'[REG_CID1] 0x{q.state[qn8027.REG_CID1]:02x} {q.state[qn8027.REG_CID1]:2d} 0b{q.state[qn8027.REG_CID1]:08b}')
+        print(f'[REG_CID2] 0x{q.state[qn8027.REG_CID2]:02x} {q.state[qn8027.REG_CID2]:2d} 0b{q.state[qn8027.REG_CID2]:08b}')
+    print(f'[CID] familiy={q.cid_product_family} product={q.cid_product} revision={q.cid_major_revision}.{q.cid_minor_revision}')
+
+    if (hexvals):
+        print(f'[REG_STATUS] 0x{q.state[qn8027.REG_STATUS]:02x} {q.state[qn8027.REG_STATUS]:2d} 0b{q.state[qn8027.REG_STATUS]:08b}')
+    print(f'[REG_STATUS] fsmstate={q.fsmstate.name} rds_upd={q.rds_upd.name} aud_pk={q.aud_pk}mV')
+
+    if (hexvals):
+        print(f'[REG_PAC] 0x{q.state[qn8027.REG_PAC]:02x} {q.state[qn8027.REG_PAC]:2d} 0b{q.state[qn8027.REG_PAC]:08b}')
+    print(f'[REG_PAC] txpd_clr={q.txpd_clr} pa_trgt={q.pa_trgt}dBu (pa_trgt_reg={q.state[qn8027.REG_PAC] & 0b01111111})')
+
+    print(f'[REG_30_ANTENNA] 0x{q.state[qn8027.REG_30_ANTENNA]}')
+
+    if (hexvals):
+        print(f'[REG_FDEV] 0x{q.state[qn8027.REG_FDEV]:02x} {q.state[qn8027.REG_FDEV]:2d} 0b{q.state[qn8027.REG_FDEV]:08b}')
+    print(f'[REG_FDEV] tx_fdev={q.tx_fdev}kHz')
+
+    if (hexvals):
+        print(f'[REG_RDS] 0x{q.state[qn8027.REG_RDS]:02x} {q.state[qn8027.REG_RDS]:2d} 0b{q.state[qn8027.REG_RDS]:08b}')
+    print(f'[REG_RDS] rdsen={q.rdsen.name} rdsfdev={q.rdsfdev}kHz')
+
+
 def main():
     p = argparse.ArgumentParser()
-    # p.add_argument('-v','--verbose', action='store_true', help='verbose mode')
+    p.add_argument('-v','--verbose', action='store_true', help='verbose mode: print hex values of registers')
     ginit = p.add_mutually_exclusive_group()
     ginit.add_argument('-r','--reset', action='store_true', help='reset chip')
     ginit.add_argument('-c', '--recalibrate', action='store_true', help='recalibrate FSM')
@@ -28,7 +73,6 @@ def main():
 
     args = p.parse_args()
 
-    q = qn8027.qn8027()
     if args.reset:
         print('Resetting the chip')
         q.reset_chip()
@@ -114,7 +158,8 @@ def main():
         print(f'Digital gain set to {args.digital_gain}dB')
 
     if args.status:
-        q.dbg_print_state()
+        q.get_state()
+        print_state(args.verbose)
 
 if __name__ == '__main__':
     main()
