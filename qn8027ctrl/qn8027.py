@@ -3,6 +3,7 @@ import busio
 import math
 import time
 from enum import Enum
+from pydantic import BaseModel
 
 I2C_ADDR = 0x2c
 
@@ -165,6 +166,8 @@ REG_30_ANTENNA=0x1e # See QN8027 HW Application Note page 9
 # can cover the full span. Otherwise, it is necessary to change the inductor value to cover the full span.
 # Read only
 
+REG_MAX_IDX=REG_30_ANTENNA
+
 # default values for initializing the chip
 DEFAULT_RIN = VGA_R_IN.RIN_10KOHM
 DEFAULT_VGA_LEVEL = VGA_GVGA_LEVEL.L2
@@ -179,102 +182,122 @@ DEFAULT_PRIVEN = PRIVEN.PRIVEN_DISABLE
 DEFAULT_PA_TARGET = 40 # Minimal value where SDR connect does not display OVERLOAD
 DEFAULT_FREQ = 90.9
 
+class qn8027state(BaseModel):
+    swrst: SWRST = None
+    recal: RECAL = None
+    txreq: TXREQ = None
+    mono: MONO = None
+    mute: MUTE = None
+    rdsrdy: RDSRDY = None
+    freq: float = None
+    tc: TC = None
+    priv_en: PRIVEN = None
+    t1m_sel: GPLT_T1MSEL = None
+    gain_txplt: GPLT_GAINTXPLT = None
+    xinj: XTL_XINJ = None
+    xisel: float = None
+    xsel: VGA_XSEL = None
+    rin: VGA_R_IN = None
+    gdb: VGA_GDB = None
+    gvga: VGA_GVGA_LEVEL = None
+    tx_buffer_gain: str = None
+    cid_product_family: str = None
+    cid_product: str = None
+    cid_minor_revision: int = None
+    cid_major_revision: int = None
+    fsmstate: FSM = None
+    rds_upd: RDSUPD = None
+    aud_pk: int = None
+    txpd_clr: int = None
+    pa_trgt: float = None
+    tx_fdev: float = None
+    rdsen: RDS = None
+    rdsfdev: float = None
+
 class qn8027:
     def __init__(self):
-        self.i2c = busio.I2C(board.SCL, board.SDA)
-        self.state = bytearray(REG_30_ANTENNA + 1)
+        self.__i2c = busio.I2C(board.SCL, board.SDA)
+        self.__state = bytearray(REG_MAX_IDX + 1)
         self.get_state()
 
     def send_cmd(self,reg,val):
-        self.i2c.writeto(I2C_ADDR, bytes([reg,val]))
+        self.__i2c.writeto(I2C_ADDR, bytes([reg,val]))
 
     def get_state(self):
         """Reads the whole set of registers into self.state byte array and parses the values into class member variables"""
-        self.i2c.writeto_then_readfrom(I2C_ADDR, bytes([REG_SYSTEM]), self.state)
+        s = qn8027state()
+        self.__i2c.writeto_then_readfrom(I2C_ADDR, bytes([REG_SYSTEM]), self.__state)
 
-        reg_system_val = self.state[REG_SYSTEM]
-        self.swrst = SWRST((reg_system_val >> REG_SYSTEM_SWRST_BIT) & 0b00000001)
-        self.recal = RECAL((reg_system_val >> REG_SYSTEM_RECAL_BIT) & 0b00000001)
-        self.txreq = TXREQ((reg_system_val >> REG_SYSTEM_TXREQ_BIT) & 0b00000001)
-        self.mono = MONO((reg_system_val >> REG_SYSTEM_MONO_BIT) & 0b00000001)
-        self.mute = MUTE((reg_system_val >> REG_SYSTEM_MUTE_BIT) & 0b00000001)
-        self.rdsrdy = RDSRDY((reg_system_val >> REG_SYSTEM_RDSRDY_BIT) & 0b00000001)
-        self.freqhi = (reg_system_val & 0b00000011) * 256 * 0.05
-        self.freqlo = self.state[REG_CH1]  * 0.05
-        self.freq = self.freqhi + self.freqlo + 76
+        reg_system_val = self.__state[REG_SYSTEM]
+        s.swrst = SWRST((reg_system_val >> REG_SYSTEM_SWRST_BIT) & 0b00000001)
+        s.recal = RECAL((reg_system_val >> REG_SYSTEM_RECAL_BIT) & 0b00000001)
+        s.txreq = TXREQ((reg_system_val >> REG_SYSTEM_TXREQ_BIT) & 0b00000001)
+        s.mono = MONO((reg_system_val >> REG_SYSTEM_MONO_BIT) & 0b00000001)
+        s.mute = MUTE((reg_system_val >> REG_SYSTEM_MUTE_BIT) & 0b00000001)
+        s.rdsrdy = RDSRDY((reg_system_val >> REG_SYSTEM_RDSRDY_BIT) & 0b00000001)
+        freqhi = (reg_system_val & 0b00000011) * 256 * 0.05
+        freqlo = self.__state[REG_CH1]  * 0.05
+        s.freq = freqhi + freqlo + 76
 
-        reg_gplt_val = self.state[REG_GPLT]
-        self.tc = TC((reg_gplt_val >> REG_GPLT_TC_BIT) & 0b00000001)
-        self.priv_en = PRIVEN((reg_gplt_val >> REG_GPLT_PRIVEN_BIT) & 0b00000001)
-        self.t1m_sel = GPLT_T1MSEL((reg_gplt_val >> REG_GPLT_T1MSEL_BIT) & 0b00000011)
+        reg_gplt_val = self.__state[REG_GPLT]
+        s.tc = TC((reg_gplt_val >> REG_GPLT_TC_BIT) & 0b00000001)
+        s.priv_en = PRIVEN((reg_gplt_val >> REG_GPLT_PRIVEN_BIT) & 0b00000001)
+        s.t1m_sel = GPLT_T1MSEL((reg_gplt_val >> REG_GPLT_T1MSEL_BIT) & 0b00000011)
         gain_txplt_val = (reg_gplt_val & 0b00001111)
         try:
-            self.gain_txplt = GPLT_GAINTXPLT(gain_txplt_val)
+            s.gain_txplt = GPLT_GAINTXPLT(gain_txplt_val)
         except ValueError:
-            self.gain_txplt = GPLT_GAINTXPLT.GAINTXPLT_INVALID
-        reg_xtl_val = self.state[REG_XTL]
-        self.xinj = XTL_XINJ((reg_xtl_val >> REG_XTL_XINJ_BIT) & 0b00000011)
-        self.xisel = (reg_xtl_val & 0b0011111) * 6.25
+            s.gain_txplt = GPLT_GAINTXPLT.GAINTXPLT_INVALID
+        reg_xtl_val = self.__state[REG_XTL]
+        s.xinj = XTL_XINJ((reg_xtl_val >> REG_XTL_XINJ_BIT) & 0b00000011)
+        s.xisel = (reg_xtl_val & 0b0011111) * 6.25
 
-        reg_vga_val = self.state[REG_VGA]
-        self.xsel = VGA_XSEL((reg_vga_val >> REG_VGA_XSEL_BIT) & 0b00000001)
-        self.rin = VGA_R_IN(reg_vga_val & 0b00000011)
-        self.gdb = VGA_GDB((reg_vga_val >> REG_VGA_GDB_BIT) & 0b00000011)
+        reg_vga_val = self.__state[REG_VGA]
+        s.xsel = VGA_XSEL((reg_vga_val >> REG_VGA_XSEL_BIT) & 0b00000001)
+        s.rin = VGA_R_IN(reg_vga_val & 0b00000011)
+        s.gdb = VGA_GDB((reg_vga_val >> REG_VGA_GDB_BIT) & 0b00000011)
         try:
-            self.gvga = VGA_GVGA_LEVEL((reg_vga_val >> REG_VGA_GVGA_BIT) & 0b00000111)
+            s.gvga = VGA_GVGA_LEVEL((reg_vga_val >> REG_VGA_GVGA_BIT) & 0b00000111)
         except:
-            self.gvga = VGA_GVGA_LEVEL.INVALID
+            s.gvga = VGA_GVGA_LEVEL.INVALID
             print(f'WARNING: Invalid GVGA value: {(reg_vga_val >> REG_VGA_GVGA_BIT) & 0b00000111:03b}')
         try:
-            self.tx_buffer_gain = VGA_GAIN_MX[self.gvga.value][self.rin.value]
+            s.tx_buffer_gain = VGA_GAIN_MX[s.gvga.value][s.rin.value]
         except:
-            self.tx_buffer_gain = 'INVALID'
+            s.tx_buffer_gain = 'INVALID'
         
-        reg_cid1_val = self.state[REG_CID1]
-        reg_cid2_val = self.state[REG_CID2]
+        reg_cid1_val = self.__state[REG_CID1]
+        reg_cid2_val = self.__state[REG_CID2]
         if (reg_cid1_val >> REG_CID1_CID1_BIT) & 0b00000111 == REG_CID1_CID1_FM_FAMILY:
-            self.cid_product_family = 'FM'
+            s.cid_product_family = 'FM'
         else:
-            self.cid_product_family = 'UNKNOWN PRODUCT FAMILY'
+            s.cid_product_family = 'UNKNOWN PRODUCT FAMILY'
         if (reg_cid2_val >> REG_CID2_CID3_BIT) & 0b00001111 == REG_CID2_CID3_QN8027:
-            self.cid_product = 'QN8027'
+            s.cid_product = 'QN8027'
         else:
-            self.cid_product = 'UNKNOWN PRODUCT'
-        self.cid_minor_revision = (reg_cid1_val & 0b00000011) + 1
-        self.cid_major_revision = (reg_cid2_val & 0b00001111) + 1
+            s.cid_product = 'UNKNOWN PRODUCT'
+        s.cid_minor_revision = (reg_cid1_val & 0b00000011) + 1
+        s.cid_major_revision = (reg_cid2_val & 0b00001111) + 1
         # my chip has revision 5...
         # if (cid_major_revision > 4):
             # cid_major_revision = 'RESERVED'
 
-        reg_status_val = self.state[REG_STATUS]
-        self.fsmstate = FSM(reg_status_val & 0b00000111)
-        self.rds_upd = RDSUPD((reg_status_val >> REG_STATUS_RDSUPD_BIT) & 0b00000001)
-        self.aud_pk = ((reg_status_val >> REG_STATUS_AUDPK_BIT) & 0b00001111) * 45
+        reg_status_val = self.__state[REG_STATUS]
+        s.fsmstate = FSM(reg_status_val & 0b00000111)
+        s.rds_upd = RDSUPD((reg_status_val >> REG_STATUS_RDSUPD_BIT) & 0b00000001)
+        s.aud_pk = ((reg_status_val >> REG_STATUS_AUDPK_BIT) & 0b00001111) * 45
 
-        reg_pac_val = self.state[REG_PAC]
-        self.txpd_clr = (reg_pac_val >> REG_PAC_TXPDCLR_BIT) & 0b00000001
-        self.pa_trgt = 0.62 * (reg_pac_val & 0b01111111) + 71
+        reg_pac_val = self.__state[REG_PAC]
+        s.txpd_clr = (reg_pac_val >> REG_PAC_TXPDCLR_BIT) & 0b00000001
+        s.pa_trgt = 0.62 * (reg_pac_val & 0b01111111) + 71
 
-        reg_fdev_val = self.state[REG_FDEV]
-        self.tx_fdev = 0.58 * reg_fdev_val
+        reg_fdev_val = self.__state[REG_FDEV]
+        s.tx_fdev = 0.58 * reg_fdev_val
 
-        reg_rds_val = self.state[REG_RDS]
-        self.rdsen = RDS((reg_rds_val >> REG_RDS_RDSEN_BIT) & 0b00000001)
-        self.rdsfdev = 0.35 * (reg_rds_val & 0b01111111)
-
-    def send_org_init(self):
-        """Sends the same commands as the original microcontroller did"""
-        self.send_cmd(REG_XTL,0x3e)
-        # self.send_cmd(REG_VGA,0x36) # 12MHz xtal
-        self.send_cmd(REG_VGA,0xa6) # 24MHz xtal
-        self.send_cmd(REG_SYSTEM,0x41) # SYSTEM.RECAL=1 - Reset the FSM. After this bit is de-asserted, FSM will go through all the power up and calibration sequence.
-        self.send_cmd(REG_SYSTEM,0x01) # SYSTEM: No reset, no recal, idle (no txreq), stereo, no mute, no rdsrdy
-        # self.send_cmd(0x18,0xe4) # undocumented command
-        # self.send_cmd(0x1b,0xf0) # undocumented command
-        self.send_cmd(REG_GPLT,0xb9)
-        self.send_cmd(REG_CH1,0x74)
-        self.send_cmd(REG_SYSTEM,0x21) # SYSTEM: No reset, no recal, TXREQ, stereo, no mute, no rdsrdy
-        self.get_state()
+        reg_rds_val = self.__state[REG_RDS]
+        s.rdsen = RDS((reg_rds_val >> REG_RDS_RDSEN_BIT) & 0b00000001)
+        s.rdsfdev = 0.35 * (reg_rds_val & 0b01111111)
+        return s
 
     def reset_chip(self):
         self.send_cmd(REG_SYSTEM,1 << REG_SYSTEM_SWRST_BIT)
@@ -284,14 +307,14 @@ class qn8027:
         self.get_state()
         self.send_cmd(REG_SYSTEM, 1 << REG_SYSTEM_RECAL_BIT)
         time.sleep(0.1)
-        self.send_cmd(REG_SYSTEM, self.state[REG_SYSTEM] & ~(1 << REG_SYSTEM_RECAL_BIT))
+        self.send_cmd(REG_SYSTEM, self.__state[REG_SYSTEM] & ~(1 << REG_SYSTEM_RECAL_BIT))
 
     def set_freq(self, freqMHz):
         self.get_state()
         channel = int(math.floor(((freqMHz*1000000-76000000))/50000))
         fHiBits = (channel >> 8) & 255
         fLoBits = channel & 255
-        reg_system_new = (self.state[REG_SYSTEM] & 0b11111100) | fHiBits
+        reg_system_new = (self.__state[REG_SYSTEM] & 0b11111100) | fHiBits
         reg_ch1_new = fLoBits
         self.send_cmd(REG_CH1,reg_ch1_new)
         self.send_cmd(REG_SYSTEM,reg_system_new)
@@ -299,52 +322,52 @@ class qn8027:
     def set_enable_tx(self, enableTX=True):
         self.get_state()
         if enableTX:
-            reg_system_new = self.state[REG_SYSTEM] | (1 << REG_SYSTEM_TXREQ_BIT)
+            reg_system_new = self.__state[REG_SYSTEM] | (1 << REG_SYSTEM_TXREQ_BIT)
         else:
-            reg_system_new = self.state[REG_SYSTEM] & ~(1 << REG_SYSTEM_TXREQ_BIT)
+            reg_system_new = self.__state[REG_SYSTEM] & ~(1 << REG_SYSTEM_TXREQ_BIT)
         self.send_cmd(REG_SYSTEM,reg_system_new)
 
     def set_enable_stereo(self, stereoOn=True):
         self.get_state()
         if stereoOn:
-            reg_system_new = self.state[REG_SYSTEM] & ~(1 << REG_SYSTEM_MONO_BIT)
+            reg_system_new = self.__state[REG_SYSTEM] & ~(1 << REG_SYSTEM_MONO_BIT)
         else:
-            reg_system_new = self.state[REG_SYSTEM] | (1 << REG_SYSTEM_MONO_BIT)
+            reg_system_new = self.__state[REG_SYSTEM] | (1 << REG_SYSTEM_MONO_BIT)
         self.send_cmd(REG_SYSTEM,reg_system_new)
 
     def set_enable_mute(self, muteOn=True):
         self.get_state()
         if muteOn:
-            reg_system_new = self.state[REG_SYSTEM] | (1 << REG_SYSTEM_MUTE_BIT)
+            reg_system_new = self.__state[REG_SYSTEM] | (1 << REG_SYSTEM_MUTE_BIT)
         else:
-            reg_system_new = self.state[REG_SYSTEM] & ~(1 << REG_SYSTEM_MUTE_BIT)
+            reg_system_new = self.__state[REG_SYSTEM] & ~(1 << REG_SYSTEM_MUTE_BIT)
         self.send_cmd(REG_SYSTEM,reg_system_new)
 
     def set_vga(self, rin=VGA_R_IN.RIN_20KOHM, gvga=VGA_GVGA_LEVEL.L3, gdb=VGA_GDB.GDB_0DB):
         """Sets the values for the variable gain amplifier for the audio input stage"""
         self.get_state()
-        reg_vga_new = (self.state[REG_VGA] & (0b10000000)) | \
+        reg_vga_new = (self.__state[REG_VGA] & (0b10000000)) | \
             gvga.value << REG_VGA_GVGA_BIT | gdb.value << REG_VGA_GDB_BIT | rin.value << REG_VGA_RIN_BIT
         self.send_cmd(REG_VGA, reg_vga_new)
 
     def set_rin(self, rin):
         self.get_state()
-        reg_vga_new = (self.state[REG_VGA] & (0b11111100)) | rin.value << REG_VGA_RIN_BIT
+        reg_vga_new = (self.__state[REG_VGA] & (0b11111100)) | rin.value << REG_VGA_RIN_BIT
         self.send_cmd(REG_VGA, reg_vga_new)
 
     def set_gvga(self, gvga):
         self.get_state()
-        reg_vga_new = (self.state[REG_VGA] & (0b10001111)) | gvga.value << REG_VGA_GVGA_BIT
+        reg_vga_new = (self.__state[REG_VGA] & (0b10001111)) | gvga.value << REG_VGA_GVGA_BIT
         self.send_cmd(REG_VGA, reg_vga_new)
 
     def set_gdb(self, gdb):
         self.get_state()
-        reg_vga_new = (self.state[REG_VGA] & (0b11110011)) | gdb.value << REG_VGA_GDB_BIT
+        reg_vga_new = (self.__state[REG_VGA] & (0b11110011)) | gdb.value << REG_VGA_GDB_BIT
         self.send_cmd(REG_VGA, reg_vga_new)
 
     def set_xtal(self, xtal=VGA_XSEL.XTAL_24MHZ, xinj=XTL_XINJ.USE_CRYSTAL, xisel=REG_XTL_XISEL_CURRENT_100uA):
         self.get_state()
-        reg_vga_new = (self.state[REG_VGA] & (0b01111111)) | xtal.value << REG_VGA_XSEL_BIT
+        reg_vga_new = (self.__state[REG_VGA] & (0b01111111)) | xtal.value << REG_VGA_XSEL_BIT
         self.send_cmd(REG_VGA, reg_vga_new)
         xisel &= 0b111111
         reg_xtl_new = xinj.value << REG_XTL_XINJ_BIT | xisel
@@ -362,10 +385,23 @@ class qn8027:
 
     def reset_aud_pk(self):
         self.get_state()
-        self.send_cmd(REG_PAC, 0b10000000 | self.state[REG_PAC])
+        self.send_cmd(REG_PAC, 0b10000000 | self.__state[REG_PAC])
         time.sleep(0.01)
-        self.send_cmd(REG_PAC, 0b01111111 & self.state[REG_PAC])
+        self.send_cmd(REG_PAC, 0b01111111 & self.__state[REG_PAC])
 
+    def send_org_init(self):
+        """Sends the same commands as the original microcontroller did"""
+        self.send_cmd(REG_XTL,0x3e) # 0b00111110 - Use crystal, oscillator current of 387.5uA
+        # self.send_cmd(REG_VGA,0x36) # 0b00100110 - 12MHz xtal, Rin=20k, Gvga=-3dB, GDB=1dB
+        self.send_cmd(REG_VGA,0xa6) # 0b10100110 - 24MHz xtal, Rin=20k, Gvga=-3dB, GDB=1dB
+        self.send_cmd(REG_SYSTEM,0x41) # 0b01000001 - SYSTEM.RECAL=1: Reset the FSM. After this bit is de-asserted, FSM will go through all the power up and calibration sequence.
+        self.send_cmd(REG_SYSTEM,0x01) # 0b00000001 - SYSTEM.RECAL=0: No reset, no recal, idle (no txreq), stereo, no mute, no rdsrdy
+        self.send_cmd(0x18,0xe4) # 0b11100100 - undocumented command
+        self.send_cmd(0x1b,0xf0) # 0b11110000 - undocumented command
+        self.send_cmd(REG_GPLT,0xb9) # 0b10111001 - tc=75us, priv_en=false, t1m_sel=infinity, gain_txplt=9%*75kHz
+        self.send_cmd(REG_CH1,0x74) # 94.6MHz
+        self.send_cmd(REG_SYSTEM,0x21) # 0b00100001 - No reset, no recal, TXREQ, stereo, no mute, no rdsrdy
+        self.get_state()
 
     def default_init(self):
         self.reset_chip()
