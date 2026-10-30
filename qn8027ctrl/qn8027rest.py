@@ -44,7 +44,7 @@ async def stereo():
 async def mono():
     qn.set_enable_mute(False)
 
-@app.post("/fmtransmitter/pa_taget/{pa_target_value}")
+@app.post("/fmtransmitter/pa_target/{pa_target_value}")
 async def set_pa_target(pa_target_value: int):
     qn.set_pac(pa_target_value)
     s = qn.get_state()
