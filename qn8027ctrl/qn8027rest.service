@@ -1,0 +1,17 @@
+[Unit]
+Description=QN8027 REST Endpoint
+Wants=network.target sound.target
+After=network.target sound.target
+
+[Service]
+User=bernd
+Group=bernd
+PAMName=login
+TTYPath=/dev/tty1
+Restart=no
+RestartSec=10
+#ExecStart=/usr/bin/bash -c /home/bernd/develop/fmtransmitter/qn8027ctrl/qn8027rest.sh
+ExecStart=/home/bernd/develop/fmtransmitter/qn8027ctrl/qn8027rest.sh
+
+[Install]
+WantedBy=multi-user.target

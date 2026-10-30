@@ -1,3 +1,6 @@
 #!/bin/bash
+# set -x
+MYDIR=$(dirname $0)
+cd ${MYDIR}
 source fmtrans/bin/activate
-uvicorn qn8027rest:app --host 0.0.0.0
+exec uvicorn qn8027rest:app --host 0.0.0.0
