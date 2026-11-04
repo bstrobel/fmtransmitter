@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Signal Generator</title>
+<style>
+  :root {
+    --bg:       #0d1117;
+    --surface:  #161b22;
+    --border:   #30363d;
+    --text:     #e6edf3;
+    --muted:    #8b949e;
+    --accent:   #58a6ff;
+    --success:  #3fb950;
+    --danger:   #f85149;
+    --warn:     #e3b341;
+    --radius:   10px;
+    --gap:      14px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 16px;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .app {
+    width: 100%;
+    max-width: 520px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+  }
+
+  /* ── Header ── */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 0;
+  }
+  header h1 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; }
+  .nav-link { margin-left: auto; color: var(--accent); font-size: 0.75rem; text-decoration: none; white-space: nowrap; }
+  .nav-link:hover { text-decoration: underline; }
+  .status-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 10px;
+    transition: color .3s, border-color .3s;
+  }
+  .status-pill .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--muted);
+    transition: background .3s;
+  }
+  .status-pill.running { color: var(--success); border-color: var(--success); }
+  .status-pill.running .dot { background: var(--success); box-shadow: 0 0 6px var(--success); animation: pulse 1.4s infinite; }
+  .status-pill.sweeping { color: var(--warn); border-color: var(--warn); }
+  .status-pill.sweeping .dot { background: var(--warn); box-shadow: 0 0 6px var(--warn); animation: pulse 0.8s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  /* ── Canvas ── */
+  .scope-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+  }
+  #scope { display: block; width: 100%; height: 160px; }
+  .scope-label {
+    position: absolute;
+    top: 8px; left: 10px;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .card-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── Param label (with value on the right) ── */
+  .param-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .param-row .val { color: var(--text); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+  /* ── Waveform buttons ── */
+  .wave-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .wave-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 4px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: border-color .2s, color .2s, background .2s;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  .wave-btn svg { display: block; }
+  .wave-btn:active { background: #1c2128; }
+  .wave-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,0.08); }
+
+  /* ── Sliders ── */
+  .slider-row { display: flex; align-items: center; gap: 10px; }
+  .slider-row input[type=range] {
+    flex: 1;
+    height: 36px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+  }
+  .slider-row input[type=range]::-webkit-slider-runnable-track {
+    height: 4px; border-radius: 2px; background: var(--border);
+  }
+  .slider-row input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--accent); margin-top: -8px;
+    box-shadow: 0 0 0 2px var(--surface);
+  }
+  .slider-row input[type=range]::-moz-range-track { height: 4px; border-radius: 2px; background: var(--border); }
+  .slider-row input[type=range]::-moz-range-thumb {
+    width: 20px; height: 20px; border: none; border-radius: 50%; background: var(--accent);
+  }
+  .slider-row input[type=range]:disabled { opacity: 0.4; cursor: not-allowed; }
+  .slider-row input[type=range]:disabled::-webkit-slider-thumb { background: var(--muted); }
+
+  .value-badge {
+    display: flex; align-items: center; gap: 4px;
+    min-width: 90px;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+    padding: 0 8px; height: 36px;
+  }
+  .value-badge input[type=number] {
+    background: none; border: none; outline: none;
+    color: var(--text); font-size: 0.9rem; font-weight: 500;
+    width: 100%; text-align: right;
+    -moz-appearance: textfield;
+  }
+  .value-badge input[type=number]::-webkit-inner-spin-button,
+  .value-badge input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+  .value-badge input[type=number]:disabled { color: var(--muted); }
+  .value-badge .unit { color: var(--muted); font-size: 0.75rem; white-space: nowrap; flex-shrink: 0; }
+
+  /* ── Presets ── */
+  .presets { display: flex; gap: 6px; flex-wrap: wrap; }
+  .preset-btn {
+    padding: 5px 10px;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--muted); font-size: 0.72rem; font-weight: 500;
+    cursor: pointer; transition: border-color .2s, color .2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .preset-btn:active { background: #1c2128; }
+  .preset-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .preset-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ── Toggle options ── */
+  .options-row { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+  .toggle-label {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 0.85rem; color: var(--text);
+    cursor: pointer; user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .toggle-label input[type=checkbox] { accent-color: var(--accent); width: 16px; height: 16px; cursor: pointer; }
+
+  /* ── Progress bar ── */
+  .progress-wrap { display: flex; align-items: center; gap: 10px; }
+  .progress-bar {
+    flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--warn));
+    border-radius: 3px; width: 0%;
+    transition: width 0.8s linear;
+  }
+  .progress-pct { font-size: 0.72rem; color: var(--muted); min-width: 32px; text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* ── Divider ── */
+  .section-divider {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--muted); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .section-divider::before, .section-divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  /* ── Action buttons ── */
+  .action-btn {
+    width: 100%; padding: 16px; border: none; border-radius: var(--radius);
+    font-size: 1.05rem; font-weight: 600; cursor: pointer; letter-spacing: 0.02em;
+    transition: background .25s, transform .1s; -webkit-tap-highlight-color: transparent; user-select: none;
+  }
+  .action-btn:active { transform: scale(0.98); }
+  .action-btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+  .action-btn.stopped  { background: var(--success); color: #000; }
+  .action-btn.running  { background: var(--danger);  color: #fff; }
+  .action-btn.sweep-stopped { background: var(--accent);  color: #000; }
+  .action-btn.sweep-running { background: var(--warn);    color: #000; }
+
+  /* ── Error toast ── */
+  #error-toast {
+    display: none; background: #3d1a1a;
+    border: 1px solid var(--danger); border-radius: 8px;
+    padding: 10px 14px; font-size: 0.82rem; color: var(--danger); text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <h1>Signal Generator</h1>
+    <a class="nav-link" href="/">FM transmitter</a>
+    <div class="status-pill" id="status-pill">
+      <span class="dot"></span>
+      <span id="status-text">Offline</span>
+    </div>
+  </header>
+
+  <!-- Oscilloscope -->
+  <div class="scope-wrap">
+    <span class="scope-label">Oscilloscope</span>
+    <canvas id="scope"></canvas>
+  </div>
+
+  <!-- Waveform (shared between generator and sweep) -->
+  <div class="card">
+    <div class="card-title">Waveform</div>
+    <div class="wave-group">
+      <button class="wave-btn active" data-wave="sine">
+        <svg width="48" height="22" viewBox="0 0 48 22" fill="none">
+          <path d="M1 11 C5 11 5 2 12 2 C19 2 19 20 26 20 C33 20 33 11 37 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Sine
+      </button>
+      <button class="wave-btn" data-wave="triangle">
+        <svg width="48" height="22" viewBox="0 0 48 22" fill="none">
+          <polyline points="1,11 9,2 19,20 29,2 39,20 47,11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Triangle
+      </button>
+      <button class="wave-btn" data-wave="rectangle">
+        <svg width="48" height="22" viewBox="0 0 48 22" fill="none">
+          <polyline points="1,11 1,3 19,3 19,19 37,19 37,3 47,3 47,11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Rectangle
+      </button>
+    </div>
+  </div>
+
+  <div class="section-divider">Generator</div>
+
+  <!-- Frequency -->
+  <div class="card">
+    <div class="card-title">Frequency</div>
+    <div class="slider-row">
+      <input type="range" id="freq-slider" min="0" max="1000" value="566">
+      <div class="value-badge">
+        <input type="number" id="freq-input" min="20" max="20000" value="1000">
+        <span class="unit">Hz</span>
+      </div>
+    </div>
+    <div class="presets">
+      <button class="preset-btn" data-freq="20">20 Hz</button>
+      <button class="preset-btn" data-freq="100">100 Hz</button>
+      <button class="preset-btn" data-freq="440">440 Hz</button>
+      <button class="preset-btn" data-freq="1000">1 kHz</button>
+      <button class="preset-btn" data-freq="5000">5 kHz</button>
+      <button class="preset-btn" data-freq="10000">10 kHz</button>
+      <button class="preset-btn" data-freq="20000">20 kHz</button>
+    </div>
+  </div>
+
+  <!-- Amplitude -->
+  <div class="card">
+    <div class="card-title">Amplitude</div>
+    <div class="slider-row">
+      <input type="range" id="amp-slider" min="0" max="100" value="50">
+      <div class="value-badge">
+        <input type="number" id="amp-input" min="0" max="100" value="50">
+        <span class="unit">%</span>
+      </div>
+    </div>
+  </div>
+
+  <button id="start-stop" class="action-btn stopped" disabled>▶ Start</button>
+
+  <div class="section-divider">Frequency Sweep</div>
+
+  <!-- Sweep card -->
+  <div class="card">
+    <div class="card-title">Sweep Parameters</div>
+
+    <!-- Start frequency -->
+    <div class="param-row">
+      <span>Start frequency</span>
+      <span class="val" id="sweep-start-val">100 Hz</span>
+    </div>
+    <div class="slider-row">
+      <input type="range" id="sweep-start-slider" min="0" max="1000" value="397">
+      <div class="value-badge">
+        <input type="number" id="sweep-start-input" min="20" max="20000" value="100">
+        <span class="unit">Hz</span>
+      </div>
+    </div>
+
+    <!-- End frequency -->
+    <div class="param-row">
+      <span>End frequency</span>
+      <span class="val" id="sweep-end-val">10 kHz</span>
+    </div>
+    <div class="slider-row">
+      <input type="range" id="sweep-end-slider" min="0" max="1000" value="900">
+      <div class="value-badge">
+        <input type="number" id="sweep-end-input" min="20" max="20000" value="10000">
+        <span class="unit">Hz</span>
+      </div>
+    </div>
+
+    <!-- Duration -->
+    <div class="param-row">
+      <span>Duration</span>
+      <span class="val" id="sweep-dur-val">5.0 s</span>
+    </div>
+    <div class="slider-row">
+      <input type="range" id="sweep-dur-slider" min="0.1" max="60" step="0.1" value="5">
+      <div class="value-badge">
+        <input type="number" id="sweep-dur-input" min="0.1" max="300" step="0.1" value="5">
+        <span class="unit">s</span>
+      </div>
+    </div>
+
+    <!-- Options -->
+    <div class="options-row">
+      <label class="toggle-label">
+        <input type="checkbox" id="sweep-loop"> Loop
+      </label>
+      <label class="toggle-label">
+        <input type="checkbox" id="sweep-log"> Log scale
+      </label>
+    </div>
+
+    <!-- Progress (hidden until sweep runs) -->
+    <div class="progress-wrap" id="sweep-progress-wrap" style="display:none">
+      <div class="progress-bar"><div class="progress-fill" id="sweep-progress-fill"></div></div>
+      <span class="progress-pct" id="sweep-progress-pct">0%</span>
+    </div>
+  </div>
+
+  <button id="sweep-btn" class="action-btn sweep-stopped" disabled>↗ Start Sweep</button>
+
+  <div id="error-toast"></div>
+
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────────
+const state = {
+  running: false,
+  waveform: 'sine',
+  frequency: 1000,
+  amplitude: 0.5,
+  connected: false,
+  sweep: null,       // null or {active, start_freq, end_freq, duration, loop, log_scale, progress}
+};
+
+// Sweep form values (independent of running state)
+const sweepForm = {
+  startFreq: 100,
+  endFreq: 10000,
+  duration: 5.0,
+  loop: false,
+  logScale: false,
+};
+
+// ── Frequency log-scale helpers ───────────────────────────────────────────────
+const FMIN = 20, FMAX = 20000;
+function sliderToFreq(v) { return Math.round(FMIN * Math.pow(FMAX / FMIN, v / 1000)); }
+function freqToSlider(f) { return Math.round(1000 * Math.log(f / FMIN) / Math.log(FMAX / FMIN)); }
+function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+function fmtFreq(hz) {
+  if (hz >= 10000) return `${(hz / 1000).toFixed(1)} kHz`;
+  if (hz >= 1000)  return `${(hz / 1000).toFixed(2).replace(/\.?0+$/, '')} kHz`;
+  return `${Math.round(hz)} Hz`;
+}
+
+// ── API ────────────────────────────────────────────────────────────────────────
+async function api(method, path, body) {
+  const opts = { method, headers: {} };
+  if (body) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
+  const res = await fetch(`/signal-generator/api${path}`, opts);
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+// ── Error toast ────────────────────────────────────────────────────────────────
+let toastTimer;
+function showError(msg) {
+  const el = document.getElementById('error-toast');
+  el.textContent = msg;
+  el.style.display = 'block';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.style.display = 'none'; }, 4000);
+}
+
+// ── Full UI sync ───────────────────────────────────────────────────────────────
+function syncUI() {
+  const sweepActive = state.sweep && state.sweep.active;
+
+  // Waveform
+  document.querySelectorAll('.wave-btn').forEach(btn =>
+    btn.classList.toggle('active', btn.dataset.wave === state.waveform));
+
+  // Frequency (disabled during sweep — controlled by sweep)
+  document.getElementById('freq-slider').value = freqToSlider(state.frequency);
+  document.getElementById('freq-input').value = Math.round(state.frequency);
+  const freqDis = sweepActive;
+  document.getElementById('freq-slider').disabled = freqDis;
+  document.getElementById('freq-input').disabled  = freqDis;
+  document.querySelectorAll('.preset-btn').forEach(b => b.disabled = freqDis);
+
+  // Amplitude
+  const pct = Math.round(state.amplitude * 100);
+  document.getElementById('amp-slider').value = pct;
+  document.getElementById('amp-input').value  = pct;
+
+  // Start/stop button
+  const ssBtn = document.getElementById('start-stop');
+  ssBtn.disabled = !state.connected;
+  ssBtn.textContent = state.running ? '⏹ Stop' : '▶ Start';
+  ssBtn.className = `action-btn ${state.running ? 'running' : 'stopped'}`;
+
+  // Sweep button
+  const swBtn = document.getElementById('sweep-btn');
+  swBtn.disabled = !state.connected;
+  swBtn.textContent = sweepActive ? '⏹ Stop Sweep' : '↗ Start Sweep';
+  swBtn.className = `action-btn ${sweepActive ? 'sweep-running' : 'sweep-stopped'}`;
+
+  // Sweep controls — disable while sweep is active
+  ['sweep-start-slider','sweep-start-input',
+   'sweep-end-slider','sweep-end-input',
+   'sweep-dur-slider','sweep-dur-input',
+   'sweep-loop','sweep-log'].forEach(id => {
+    document.getElementById(id).disabled = sweepActive;
+  });
+
+  // Sweep progress
+  const progressWrap = document.getElementById('sweep-progress-wrap');
+  if (sweepActive) {
+    progressWrap.style.display = 'flex';
+    const pct = Math.round((state.sweep.progress || 0) * 100);
+    document.getElementById('sweep-progress-fill').style.width = `${pct}%`;
+    document.getElementById('sweep-progress-pct').textContent  = `${pct}%`;
+  } else {
+    progressWrap.style.display = 'none';
+  }
+
+  // Status pill
+  const pill = document.getElementById('status-pill');
+  const stxt = document.getElementById('status-text');
+  if (!state.connected) {
+    pill.className = 'status-pill';
+    stxt.textContent = 'Offline';
+  } else if (sweepActive) {
+    pill.className = 'status-pill sweeping';
+    stxt.textContent = `Sweep ${Math.round((state.sweep.progress || 0) * 100)}%`;
+  } else if (state.running) {
+    pill.className = 'status-pill running';
+    stxt.textContent = 'Running';
+  } else {
+    pill.className = 'status-pill';
+    stxt.textContent = 'Stopped';
+  }
+}
+
+function applyStatus(s) {
+  state.running   = s.running;
+  state.waveform  = s.waveform;
+  state.frequency = s.frequency;
+  state.amplitude = s.amplitude;
+  state.sweep     = s.sweep || null;
+  state.connected = true;
+  syncUI();
+}
+
+// ── Status polling ─────────────────────────────────────────────────────────────
+async function pollStatus() {
+  try {
+    applyStatus(await api('GET', '/status'));
+  } catch {
+    if (state.connected) { state.connected = false; syncUI(); }
+  }
+  // Poll faster during active sweep for smoother progress bar
+  setTimeout(pollStatus, (state.sweep && state.sweep.active) ? 800 : 2000);
+}
+
+// ── Waveform buttons ───────────────────────────────────────────────────────────
+document.querySelectorAll('.wave-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    state.waveform = btn.dataset.wave;
+    syncUI();
+    try { await api('PUT', '/params', { waveform: state.waveform }); }
+    catch (e) { showError(e.message); }
+  });
+});
+
+// ── Generator frequency controls ───────────────────────────────────────────────
+const freqSlider = document.getElementById('freq-slider');
+const freqInput  = document.getElementById('freq-input');
+
+let paramTimer;
+function scheduleParamUpdate(patch) {
+  clearTimeout(paramTimer);
+  paramTimer = setTimeout(async () => {
+    try { await api('PUT', '/params', patch); } catch (e) { showError(e.message); }
+  }, 80);
+}
+
+freqSlider.addEventListener('input', () => {
+  state.frequency = sliderToFreq(parseInt(freqSlider.value));
+  freqInput.value = Math.round(state.frequency);
+  scheduleParamUpdate({ frequency: state.frequency });
+});
+freqInput.addEventListener('change', () => {
+  const v = clamp(parseFloat(freqInput.value) || 1000, FMIN, FMAX);
+  state.frequency = v;
+  freqInput.value = Math.round(v);
+  freqSlider.value = freqToSlider(v);
+  scheduleParamUpdate({ frequency: state.frequency });
+});
+document.querySelectorAll('.preset-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const v = parseFloat(btn.dataset.freq);
+    state.frequency = v;
+    freqSlider.value = freqToSlider(v);
+    freqInput.value  = Math.round(v);
+    scheduleParamUpdate({ frequency: v });
+  });
+});
+
+// ── Amplitude controls ─────────────────────────────────────────────────────────
+const ampSlider = document.getElementById('amp-slider');
+const ampInput  = document.getElementById('amp-input');
+ampSlider.addEventListener('input', () => {
+  const pct = parseInt(ampSlider.value);
+  state.amplitude = pct / 100;
+  ampInput.value = pct;
+  scheduleParamUpdate({ amplitude: state.amplitude });
+});
+ampInput.addEventListener('change', () => {
+  const pct = clamp(parseInt(ampInput.value) || 50, 0, 100);
+  state.amplitude = pct / 100;
+  ampInput.value = pct;
+  ampSlider.value = pct;
+  scheduleParamUpdate({ amplitude: state.amplitude });
+});
+
+// ── Generator Start / Stop ─────────────────────────────────────────────────────
+document.getElementById('start-stop').addEventListener('click', async () => {
+  const btn = document.getElementById('start-stop');
+  btn.disabled = true;
+  try {
+    applyStatus(await api('POST', state.running ? '/stop' : '/start'));
+  } catch (e) { showError(e.message); btn.disabled = false; }
+});
+
+// ── Sweep form helpers ─────────────────────────────────────────────────────────
+function bindSweepFreqSlider(sliderId, inputId, labelId, key) {
+  const slider = document.getElementById(sliderId);
+  const input  = document.getElementById(inputId);
+  const label  = document.getElementById(labelId);
+
+  slider.addEventListener('input', () => {
+    sweepForm[key] = sliderToFreq(parseInt(slider.value));
+    input.value = Math.round(sweepForm[key]);
+    label.textContent = fmtFreq(sweepForm[key]);
+  });
+  input.addEventListener('change', () => {
+    const v = clamp(parseFloat(input.value) || sweepForm[key], FMIN, FMAX);
+    sweepForm[key] = v;
+    input.value  = Math.round(v);
+    slider.value = freqToSlider(v);
+    label.textContent = fmtFreq(v);
+  });
+}
+bindSweepFreqSlider('sweep-start-slider', 'sweep-start-input', 'sweep-start-val', 'startFreq');
+bindSweepFreqSlider('sweep-end-slider',   'sweep-end-input',   'sweep-end-val',   'endFreq');
+
+// Initialize label text
+document.getElementById('sweep-start-val').textContent = fmtFreq(sweepForm.startFreq);
+document.getElementById('sweep-end-val').textContent   = fmtFreq(sweepForm.endFreq);
+
+// Duration
+const durSlider = document.getElementById('sweep-dur-slider');
+const durInput  = document.getElementById('sweep-dur-input');
+const durVal    = document.getElementById('sweep-dur-val');
+durSlider.addEventListener('input', () => {
+  sweepForm.duration = parseFloat(durSlider.value);
+  durInput.value = sweepForm.duration.toFixed(1);
+  durVal.textContent = `${sweepForm.duration.toFixed(1)} s`;
+});
+durInput.addEventListener('change', () => {
+  const v = clamp(parseFloat(durInput.value) || 5, 0.1, 300);
+  sweepForm.duration = v;
+  durInput.value  = v.toFixed(1);
+  durSlider.value = Math.min(v, 60);
+  durVal.textContent = `${v.toFixed(1)} s`;
+});
+durVal.textContent = `${sweepForm.duration.toFixed(1)} s`;
+
+document.getElementById('sweep-loop').addEventListener('change', e => { sweepForm.loop = e.target.checked; });
+document.getElementById('sweep-log').addEventListener('change',  e => { sweepForm.logScale = e.target.checked; });
+
+// ── Sweep Start / Stop ─────────────────────────────────────────────────────────
+document.getElementById('sweep-btn').addEventListener('click', async () => {
+  const btn = document.getElementById('sweep-btn');
+  btn.disabled = true;
+  try {
+    if (state.sweep && state.sweep.active) {
+      applyStatus(await api('DELETE', '/sweep'));
+    } else {
+      applyStatus(await api('POST', '/sweep', {
+        start_freq: sweepForm.startFreq,
+        end_freq:   sweepForm.endFreq,
+        duration:   sweepForm.duration,
+        loop:       sweepForm.loop,
+        log_scale:  sweepForm.logScale,
+        waveform:   state.waveform,
+      }));
+    }
+  } catch (e) { showError(e.message); btn.disabled = false; }
+});
+
+// ── Keyboard shortcut ──────────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.target !== document.body) return;
+  if (e.code === 'Space')  { e.preventDefault(); document.getElementById('start-stop').click(); }
+  if (e.code === 'KeyS')   { e.preventDefault(); document.getElementById('sweep-btn').click(); }
+});
+
+// ── Oscilloscope canvas ────────────────────────────────────────────────────────
+const canvas = document.getElementById('scope');
+const dpr = window.devicePixelRatio || 1;
+let CW, CH;
+
+function resizeCanvas() {
+  CW = canvas.offsetWidth;
+  CH = canvas.offsetHeight;
+  canvas.width  = CW * dpr;
+  canvas.height = CH * dpr;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const ctx = canvas.getContext('2d');
+const startTs = performance.now();
+
+function drawScope(ts) {
+  const elapsed = (ts - startTs) / 1000;
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.fillStyle = '#0d1117';
+  ctx.fillRect(0, 0, CW, CH);
+
+  // Grid
+  ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+  ctx.lineWidth = 1;
+  for (const x of [CW*.25, CW*.5, CW*.75]) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, CH); ctx.stroke();
+  }
+  for (const y of [CH*.25, CH*.75]) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(CW, y); ctx.stroke();
+  }
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  ctx.beginPath(); ctx.moveTo(0, CH/2); ctx.lineTo(CW, CH/2); ctx.stroke();
+
+  if (!state.running) {
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(0, CH/2); ctx.lineTo(CW, CH/2); ctx.stroke();
+    requestAnimationFrame(drawScope);
+    return;
+  }
+
+  const sweepActive = state.sweep && state.sweep.active;
+  const color = sweepActive ? '#e3b341' : '#58a6ff';
+
+  const cycles = 3.5;
+  const scrollSpeed = 0.6;
+  const phaseOffset = (elapsed * scrollSpeed) % 1.0;
+  const amp = state.amplitude;
+  const margin = 14;
+
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = sweepActive ? 8 : 4;
+  ctx.beginPath();
+
+  for (let px = 0; px <= CW; px++) {
+    const phase = ((px / CW * cycles) + phaseOffset) % 1.0;
+    let y;
+    switch (state.waveform) {
+      case 'sine':      y = Math.sin(2 * Math.PI * phase); break;
+      case 'triangle':  y = 2 * Math.abs(2 * phase - 1) - 1; break;
+      default:          y = phase < 0.5 ? 1 : -1;
+    }
+    y *= amp;
+    const py = CH/2 - y * (CH/2 - margin);
+    px === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  // Frequency overlay
+  const freqLabel = fmtFreq(state.frequency);
+  const ampLabel  = `${Math.round(amp * 100)}%`;
+  ctx.fillStyle = sweepActive ? 'rgba(227,179,65,0.6)' : 'rgba(88,166,255,0.5)';
+  ctx.font = `${Math.round(11 * Math.min(1, CW / 300))}px monospace`;
+  ctx.textAlign = 'right';
+  ctx.fillText(`${freqLabel}  ${ampLabel}`, CW - 8, CH - 8);
+
+  // Sweep progress bar on canvas
+  if (sweepActive) {
+    const progress = state.sweep.progress || 0;
+    ctx.fillStyle = 'rgba(227,179,65,0.15)';
+    ctx.fillRect(0, CH - 3, CW, 3);
+    ctx.fillStyle = 'rgba(227,179,65,0.7)';
+    ctx.fillRect(0, CH - 3, CW * progress, 3);
+  }
+
+  requestAnimationFrame(drawScope);
+}
+requestAnimationFrame(drawScope);
+
+// ── Boot ───────────────────────────────────────────────────────────────────────
+// Initialise sweep slider positions
+document.getElementById('sweep-start-slider').value = freqToSlider(sweepForm.startFreq);
+document.getElementById('sweep-end-slider').value   = freqToSlider(sweepForm.endFreq);
+
+syncUI();
+pollStatus();
+</script>
+</body>
+</html>

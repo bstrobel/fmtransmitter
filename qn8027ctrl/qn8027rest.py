@@ -1,10 +1,24 @@
-from fastapi import FastAPI
-from fastapi.responses import FileResponse
+from contextlib import asynccontextmanager
 from pathlib import Path
+from fastapi import FastAPI
+from fastapi.responses import FileResponse, RedirectResponse
 import qn8027
+from signal_generator import main as signal_generator_service
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    try:
+        yield
+    finally:
+        signal_generator_service.generator.stop()
+
+app = FastAPI(lifespan=lifespan)
 qn = qn8027.qn8027()
+app.mount("/signal-generator", signal_generator_service.app, name="signal-generator")
+
+@app.get("/signal-generator", include_in_schema=False)
+async def signal_generator_redirect():
+    return RedirectResponse("/signal-generator/")
 
 @app.get("/", include_in_schema=False)
 async def dashboard():

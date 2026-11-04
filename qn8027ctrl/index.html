@@ -53,6 +53,8 @@
       color: var(--green);
       font-size: 16px;
     }
+    .app-link { margin-left: auto; margin-right: 28px; color: var(--green-dark); font-size: 12px; font-weight: 700; text-decoration: none; }
+    .app-link:hover { text-decoration: underline; }
     .connection { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: 12px; }
     .connection-dot { width: 8px; height: 8px; border-radius: 50%; background: #aaa; }
     .connection[data-online="true"] .connection-dot { background: #4b9b5b; box-shadow: 0 0 0 3px #4b9b5b22; }
@@ -104,6 +106,9 @@
     .notice[data-error="true"] { color: var(--red); }
     footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 20px; color: var(--muted); font-size: 11px; }
     @media (max-width: 620px) {
+      .topbar { flex-wrap: wrap; gap: 10px 14px; padding: 14px 20px; }
+      .app-link { margin-right: 0; }
+      .connection { flex-basis: 100%; justify-content: flex-end; }
       main { padding-top: 28px; }
       .frequency-section { padding: 28px 22px; }
       .frequency-readout { gap: 8px; }
@@ -118,6 +123,7 @@
 <body>
   <header class="topbar">
     <div class="brand"><span class="brand-mark" aria-hidden="true">≈</span><span>FM TRANSMITTER</span></div>
+    <a class="app-link" href="/signal-generator/">Signal generator</a>
     <div class="connection" id="connection" aria-live="polite"><span class="connection-dot"></span><span id="connection-text">Connecting</span></div>
   </header>
   <main>
