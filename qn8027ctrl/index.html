@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#172a24">
+  <title>FM Transmitter</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172a24;
+      --paper: #f1f0e8;
+      --panel: #fffef9;
+      --muted: #737b72;
+      --line: #d9dbd1;
+      --green: #b9ef64;
+      --green-dark: #203b2e;
+      --red: #c84c38;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Trebuchet MS", "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, input:focus-visible {
+      outline: 3px solid #477b56;
+      outline-offset: 3px;
+    }
+    .topbar {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(20px, 5vw, 72px);
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 700; }
+    .brand-mark {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--green);
+      font-size: 16px;
+    }
+    .connection { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: 12px; }
+    .connection-dot { width: 8px; height: 8px; border-radius: 50%; background: #aaa; }
+    .connection[data-online="true"] .connection-dot { background: #4b9b5b; box-shadow: 0 0 0 3px #4b9b5b22; }
+    main { width: min(940px, calc(100% - 40px)); margin: 0 auto; padding: 52px 0 64px; }
+    .eyebrow { margin: 0 0 12px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
+    .frequency-section { padding: clamp(26px, 6vw, 58px); background: var(--ink); color: #f6f5ee; overflow: hidden; position: relative; }
+    .frequency-section::after {
+      content: "";
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      right: -90px;
+      top: -110px;
+      border: 1px solid #ffffff12;
+      border-radius: 50%;
+      box-shadow: 0 0 0 28px #ffffff08, 0 0 0 56px #ffffff05;
+      pointer-events: none;
+    }
+    .frequency-section .eyebrow { color: #b4c0b5; }
+    .frequency-readout { display: flex; align-items: baseline; gap: 12px; margin: 0 0 24px; }
+    .frequency-value { font-family: var(--serif); font-size: clamp(76px, 15vw, 142px); line-height: .95; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+    .frequency-unit { color: var(--green); font-size: clamp(20px, 4vw, 30px); }
+    .dial { height: 22px; margin: 0 0 28px; border-top: 1px solid #52645a; position: relative; background: repeating-linear-gradient(90deg, transparent 0 4.8%, #a9b5aa 4.8% 5%, transparent 5% 9.8%); }
+    .dial::before, .dial::after { position: absolute; top: 7px; color: #a9b5aa; font-size: 10px; }
+    .dial::before { content: "76 MHz"; left: 0; }
+    .dial::after { content: "108 MHz"; right: 0; }
+    .frequency-form { display: flex; align-items: end; gap: 10px; max-width: 470px; }
+    .frequency-entry { flex: 1; min-width: 0; }
+    .frequency-entry label { display: block; margin-bottom: 7px; color: #b4c0b5; font-size: 11px; }
+    .input-wrap { display: flex; height: 48px; align-items: center; border: 1px solid #64746a; background: #20342c; }
+    .step-button { width: 42px; height: 46px; border: 0; background: transparent; color: #f6f5ee; font-size: 21px; }
+    .step-button:hover { background: #ffffff10; }
+    #frequency-input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: white; text-align: center; font-variant-numeric: tabular-nums; }
+    #frequency-input:focus-visible { outline: 0; }
+    .unit-input { padding-right: 14px; color: #b4c0b5; font-size: 13px; }
+    .set-button { height: 48px; padding: 0 22px; border: 0; background: var(--green); color: var(--ink); font-weight: 800; }
+    .set-button:hover { background: #d0ff8d; }
+    .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 24px; background: var(--line); border: 1px solid var(--line); }
+    .control-section { min-width: 0; padding: 28px clamp(20px, 4vw, 38px) 32px; background: var(--panel); }
+    .control-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 22px; }
+    .control-heading h2 { margin: 0; font-size: 13px; font-weight: 700; }
+    .state-label { color: var(--muted); font-size: 11px; text-transform: uppercase; }
+    .button-group { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .action-button { min-height: 50px; border: 1px solid var(--line); background: transparent; color: var(--ink); font-size: 12px; font-weight: 700; }
+    .action-button:hover { border-color: var(--ink); }
+    .action-button[aria-pressed="true"] { border-color: var(--green-dark); background: var(--green-dark); color: white; }
+    .action-button:disabled, .set-button:disabled, .step-button:disabled { cursor: wait; opacity: .58; }
+    .notice { min-height: 22px; margin: 17px 0 0; color: var(--muted); font-size: 12px; }
+    .notice[data-error="true"] { color: var(--red); }
+    footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 20px; color: var(--muted); font-size: 11px; }
+    @media (max-width: 620px) {
+      main { padding-top: 28px; }
+      .frequency-section { padding: 28px 22px; }
+      .frequency-readout { gap: 8px; }
+      .controls { grid-template-columns: 1fr; }
+      .control-section { padding: 24px 22px; }
+      .frequency-form { gap: 7px; }
+      .set-button { padding: 0 15px; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">≈</span><span>FM TRANSMITTER</span></div>
+    <div class="connection" id="connection" aria-live="polite"><span class="connection-dot"></span><span id="connection-text">Connecting</span></div>
+  </header>
+  <main>
+    <section class="frequency-section" aria-labelledby="frequency-title">
+      <p class="eyebrow" id="frequency-title">On air frequency</p>
+      <div class="frequency-readout" aria-live="polite"><span class="frequency-value" id="frequency-display">--.--</span><span class="frequency-unit">MHz</span></div>
+      <div class="dial" aria-hidden="true"></div>
+      <form class="frequency-form" id="frequency-form">
+        <div class="frequency-entry">
+          <label for="frequency-input">Tune frequency · 76.00–108.00 MHz</label>
+          <div class="input-wrap">
+            <button class="step-button" id="step-down" type="button" aria-label="Decrease frequency by 0.05 MHz">−</button>
+            <input id="frequency-input" type="number" min="76" max="108" step="0.05" value="90.90" required>
+            <span class="unit-input">MHz</span>
+            <button class="step-button" id="step-up" type="button" aria-label="Increase frequency by 0.05 MHz">+</button>
+          </div>
+        </div>
+        <button class="set-button" type="submit">Set frequency</button>
+      </form>
+    </section>
+
+    <div class="controls">
+      <section class="control-section" aria-labelledby="transmit-heading">
+        <div class="control-heading"><h2 id="transmit-heading">Transmitter</h2><span class="state-label" id="transmit-state">Unknown</span></div>
+        <div class="button-group" role="group" aria-label="Transmitter power">
+          <button class="action-button" id="tx-on" type="button" aria-pressed="false">Enable transmit</button>
+          <button class="action-button" id="tx-off" type="button" aria-pressed="false">Disable</button>
+        </div>
+      </section>
+      <section class="control-section" aria-labelledby="audio-heading">
+        <div class="control-heading"><h2 id="audio-heading">Audio mode</h2><span class="state-label" id="audio-state">Unknown</span></div>
+        <div class="button-group" role="group" aria-label="Audio channel mode">
+          <button class="action-button" id="stereo" type="button" aria-pressed="false">Stereo</button>
+          <button class="action-button" id="mono" type="button" aria-pressed="false">Mono</button>
+        </div>
+      </section>
+    </div>
+    <p class="notice" id="notice" role="status" aria-live="polite">Reading transmitter state…</p>
+    <footer><span>QN8027 control</span><span>Frequency range 76–108 MHz · 50 kHz steps</span></footer>
+  </main>
+  <script>
+    const $ = (selector) => document.querySelector(selector);
+    const controls = [...document.querySelectorAll("button, input")];
+    const connection = $("#connection");
+    let busy = false;
+
+    function setNotice(message, isError = false) {
+      $("#notice").textContent = message;
+      $("#notice").dataset.error = String(isError);
+    }
+
+    function pressed(id, active) {
+      $(id).setAttribute("aria-pressed", String(active));
+    }
+
+    async function refreshState() {
+      const response = await fetch("/fmtransmitter/get_state", { cache: "no-store" });
+      if (!response.ok) throw new Error(`State request failed (${response.status})`);
+      const state = await response.json();
+      const frequency = Number(state.freq);
+      if (!Number.isFinite(frequency)) throw new Error("Transmitter returned an invalid frequency");
+      $("#frequency-display").textContent = frequency.toFixed(2);
+      if (document.activeElement !== $("#frequency-input")) $("#frequency-input").value = frequency.toFixed(2);
+
+      const transmitting = Number(state.txreq) === 1 || state.txreq === "TRANSMIT";
+      const mono = Number(state.mono) === 1 || state.mono === "MONO";
+      $("#transmit-state").textContent = transmitting ? "Transmitting" : "Standby";
+      $("#audio-state").textContent = mono ? "Mono" : "Stereo";
+      pressed("#tx-on", transmitting);
+      pressed("#tx-off", !transmitting);
+      pressed("#mono", mono);
+      pressed("#stereo", !mono);
+      connection.dataset.online = "true";
+      $("#connection-text").textContent = "Connected";
+      return state;
+    }
+
+    async function runAction(action, successMessage) {
+      if (busy) return;
+      busy = true;
+      controls.forEach((control) => { control.disabled = true; });
+      setNotice("Sending command…");
+      try {
+        const response = await fetch(action, { method: "POST" });
+        if (!response.ok) throw new Error(`Command failed (${response.status})`);
+        await refreshState();
+        setNotice(successMessage);
+      } catch (error) {
+        connection.dataset.online = "false";
+        $("#connection-text").textContent = "Connection issue";
+        setNotice(error.message || "Could not reach the transmitter", true);
+      } finally {
+        busy = false;
+        controls.forEach((control) => { control.disabled = false; });
+      }
+    }
+
+    $("#frequency-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const input = $("#frequency-input");
+      const frequency = Number(input.value);
+      if (!input.reportValidity() || frequency < 76 || frequency > 108) {
+        setNotice("Enter a frequency from 76.00 to 108.00 MHz.", true);
+        return;
+      }
+      if (Math.abs(frequency * 20 - Math.round(frequency * 20)) > 0.001) {
+        setNotice("Frequency must use 50 kHz steps.", true);
+        return;
+      }
+      const value = frequency.toFixed(2);
+      runAction(`/fmtransmitter/set_freq/${encodeURIComponent(value)}`, `Frequency set to ${value} MHz`);
+    });
+
+    $("#step-down").addEventListener("click", () => { $("#frequency-input").stepDown(); });
+    $("#step-up").addEventListener("click", () => { $("#frequency-input").stepUp(); });
+    $("#tx-on").addEventListener("click", () => runAction("/fmtransmitter/enable_tx", "Transmitter enabled"));
+    $("#tx-off").addEventListener("click", () => runAction("/fmtransmitter/disable_tx", "Transmitter disabled"));
+    $("#stereo").addEventListener("click", () => runAction("/fmtransmitter/stereo", "Stereo mode selected"));
+    $("#mono").addEventListener("click", () => runAction("/fmtransmitter/mono", "Mono mode selected"));
+
+    refreshState().then(() => setNotice("Ready")).catch((error) => {
+      connection.dataset.online = "false";
+      $("#connection-text").textContent = "Connection issue";
+      setNotice(error.message || "Could not read transmitter state", true);
+    });
+    window.setInterval(() => {
+      if (!busy) refreshState().catch(() => {
+        connection.dataset.online = "false";
+        $("#connection-text").textContent = "Connection issue";
+      });
+    }, 5000);
+  </script>
+</body>
+</html>

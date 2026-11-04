@@ -81,8 +81,9 @@ def main():
 
     if args.pa_target:
         q.set_pac(args.pa_target)
+        s = q.get_state()
         # if transmitting, toggling the transmitter is required after changing the pa target
-        if qn8027.TXREQ(q.txreq.value) == qn8027.TXREQ.TRANSMIT:
+        if qn8027.TXREQ(s.txreq.value) == qn8027.TXREQ.TRANSMIT:
             q.set_enable_tx(False)
             q.set_enable_tx(True)
         s = q.get_state()

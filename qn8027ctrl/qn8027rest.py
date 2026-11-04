@@ -1,8 +1,14 @@
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from pathlib import Path
 import qn8027
 
 app = FastAPI()
 qn = qn8027.qn8027()
+
+@app.get("/", include_in_schema=False)
+async def dashboard():
+    return FileResponse(Path(__file__).with_name("index.html"))
 
 @app.post("/fmtransmitter/reset_chip")
 async def reset_chip():
