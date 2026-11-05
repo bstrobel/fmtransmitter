@@ -250,7 +250,7 @@ class qn8027:
             s.gain_txplt = GPLT_GAINTXPLT.GAINTXPLT_INVALID
         reg_xtl_val = self.__state[REG_XTL]
         s.xinj = XTL_XINJ((reg_xtl_val >> REG_XTL_XINJ_BIT) & 0b00000011)
-        s.xisel = (reg_xtl_val & 0b0011111) * 6.25
+        s.xisel = (reg_xtl_val & 0b00111111) * 6.25
 
         reg_vga_val = self.__state[REG_VGA]
         s.xsel = VGA_XSEL((reg_vga_val >> REG_VGA_XSEL_BIT) & 0b00000001)
@@ -382,6 +382,12 @@ class qn8027:
     
     def set_pac(self, pa_target=REG_PAC_PATRGT_MAX):
         self.send_cmd(REG_PAC,pa_target & 0b01111111)
+
+    def set_tx_fdev(self, fdev):
+        self.send_cmd(REG_FDEV, fdev & 0b11111111)
+
+    def set_rds(self, enabled, deviation=REG_RDS_RDSFDEV_2_1KHZ):
+        self.send_cmd(REG_RDS, (int(enabled) << REG_RDS_RDSEN_BIT) | (deviation & 0b01111111))
 
     def reset_aud_pk(self):
         self.get_state()

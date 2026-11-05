@@ -6,7 +6,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Signal Generator</title>
+<meta name="theme-color" content="#0d1117">
+<title>FM Transmitter</title>
 <style>
   :root {
     --bg:       #0d1117;
@@ -36,7 +37,7 @@
 
   .app {
     width: 100%;
-    max-width: 520px;
+    max-width: 920px;
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -46,11 +47,14 @@
   /* ── Header ── */
   header {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+    gap: 10px;
     padding: 4px 0;
   }
   header h1 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; }
+  .header-actions { display: flex; align-items: center; gap: 10px; }
   .nav-link { margin-left: auto; color: var(--accent); font-size: 0.75rem; text-decoration: none; white-space: nowrap; }
   .nav-link:hover { text-decoration: underline; }
   .status-pill {
@@ -258,19 +262,162 @@
     border: 1px solid var(--danger); border-radius: 8px;
     padding: 10px 14px; font-size: 0.82rem; color: var(--danger); text-align: center;
   }
+
+  /* ── Transmitter controls ── */
+  .tx-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--gap); }
+  .tx-readout { display: flex; align-items: baseline; gap: 8px; font-variant-numeric: tabular-nums; }
+  .tx-frequency-value { color: var(--text); font-size: 2rem; font-weight: 600; }
+  .tx-frequency-unit { color: var(--muted); font-size: 0.9rem; }
+  .tx-card-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .tx-state { color: var(--muted); font-size: 0.75rem; }
+  .tx-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .tx-actions .action-btn { padding: 12px 8px; font-size: 0.88rem; }
+  .tx-mode-group { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .tx-mode-group .wave-btn { flex-direction: row; justify-content: center; min-height: 42px; }
+  .tx-mute { padding-top: 2px; }
+  .settings-dialog {
+    width: min(680px, calc(100% - 24px)); max-height: min(90dvh, 900px);
+    margin: auto; padding: 20px; color: var(--text); background: var(--surface);
+    border: 1px solid var(--border); border-radius: var(--radius);
+  }
+  .settings-dialog::backdrop { background: rgba(0, 0, 0, 0.72); }
+  .settings-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); margin-top: 16px; }
+  .settings-dialog .card { min-width: 0; }
+  .settings-dialog select, .settings-dialog input[type=number] {
+    min-width: 0; height: 36px; border: 1px solid var(--border); border-radius: 6px;
+    background: var(--bg); color: var(--text); padding: 0 8px;
+  }
+  .settings-dialog select { width: 100%; }
+  .setting-row { display: grid; grid-template-columns: minmax(100px, 1fr) minmax(130px, 1.2fr); align-items: center; gap: 10px; color: var(--muted); font-size: 0.78rem; }
+  .setting-row output { color: var(--text); text-align: right; font-variant-numeric: tabular-nums; }
+  .settings-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .settings-heading h2 { font-size: 1rem; }
+  .notice { min-height: 18px; margin: 4px 0 0; color: var(--muted); font-size: 0.78rem; }
+  .notice[data-error="true"] { color: var(--danger); }
+  .settings-close { width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); cursor: pointer; }
+  .maintenance-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .maintenance-actions .preset-btn { min-height: 36px; }
+  .diagnostics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px 16px; }
+  .diagnostic { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .diagnostic span:first-child { color: var(--muted); font-size: 0.67rem; text-transform: uppercase; }
+  .diagnostic span:last-child { overflow-wrap: anywhere; font-size: 0.82rem; font-variant-numeric: tabular-nums; }
+  @media (max-width: 680px) {
+    .tx-grid, .settings-layout { grid-template-columns: 1fr; }
+    .diagnostics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .header-actions { gap: 6px; }
+    .header-actions .status-pill { font-size: 0.7rem; }
+  }
+  @media (max-width: 420px) {
+    .header-actions { width: 100%; justify-content: space-between; gap: 4px; }
+    .header-actions .status-pill { padding: 4px 6px; font-size: 0.64rem; }
+  }
 </style>
 </head>
 <body>
 <div class="app">
 
   <header>
-    <h1>Signal Generator</h1>
-    <a class="nav-link" href="/">FM transmitter</a>
-    <div class="status-pill" id="status-pill">
-      <span class="dot"></span>
-      <span id="status-text">Offline</span>
+    <h1>FM Transmitter</h1>
+    <div class="header-actions">
+      <button class="preset-btn" id="settings-open" type="button">Settings</button>
+      <div class="status-pill" id="tx-status"><span class="dot"></span><span id="tx-status-text">Transmitter offline</span></div>
+      <div class="status-pill" id="status-pill"><span class="dot"></span><span id="status-text">Generator offline</span></div>
     </div>
   </header>
+
+  <div class="section-divider">Transmitter</div>
+
+  <div class="tx-grid">
+    <section class="card" aria-labelledby="tx-frequency-title">
+      <div class="tx-card-head">
+        <div class="card-title" id="tx-frequency-title">On-air frequency</div>
+        <div class="tx-readout" aria-live="polite"><span class="tx-frequency-value" id="tx-frequency-display">--.--</span><span class="tx-frequency-unit">MHz</span></div>
+      </div>
+      <div class="slider-row">
+        <input type="range" id="tx-frequency-slider" min="76" max="108" step="0.05" value="90.9" aria-label="Transmitter frequency">
+        <div class="value-badge"><input type="number" id="tx-frequency-input" min="76" max="108" step="0.05" value="90.90"><span class="unit">MHz</span></div>
+      </div>
+      <button class="preset-btn" id="tx-frequency-set" type="button">Set frequency</button>
+      <div class="presets" aria-label="Frequency presets">
+        <button class="preset-btn tx-preset" data-frequency="88.1" type="button">88.10 MHz</button>
+        <button class="preset-btn tx-preset" data-frequency="90.9" type="button">90.90 MHz</button>
+        <button class="preset-btn tx-preset" data-frequency="100" type="button">100.00 MHz</button>
+        <button class="preset-btn tx-preset" data-frequency="107.9" type="button">107.90 MHz</button>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="tx-control-title">
+      <div class="tx-card-head"><div class="card-title" id="tx-control-title">Transmitter controls</div><span class="tx-state" id="transmit-state">Unknown</span></div>
+      <button id="tx-power" class="action-btn stopped" type="button" disabled>Enable transmit</button>
+      <div class="tx-mode-group" role="group" aria-label="Audio channel mode">
+        <button class="wave-btn active" id="tx-stereo" type="button" aria-pressed="true">Stereo</button>
+        <button class="wave-btn" id="tx-mono" type="button" aria-pressed="false">Mono</button>
+      </div>
+      <label class="toggle-label tx-mute"><input type="checkbox" id="tx-mute"> Mute audio</label>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1" aria-labelledby="tx-diagnostics-title">
+      <div class="card-title" id="tx-diagnostics-title">Transmitter status</div>
+      <div class="diagnostics">
+        <div class="diagnostic"><span>Chip state</span><span id="diag-fsm">--</span></div>
+        <div class="diagnostic"><span>Audio input peak</span><span id="diag-audio">--</span></div>
+        <div class="diagnostic"><span>Input gain</span><span id="diag-gain">--</span></div>
+        <div class="diagnostic"><span>PA target</span><span id="diag-pa">--</span></div>
+      </div>
+    </section>
+  </div>
+
+  <dialog class="settings-dialog" id="settings-dialog" aria-labelledby="settings-title">
+    <div class="settings-heading"><h2 id="settings-title">Transmitter settings</h2><button class="settings-close" id="settings-close" type="button" aria-label="Close settings">×</button></div>
+    <div class="settings-layout">
+      <section class="card">
+        <div class="card-title">Audio input</div>
+        <label class="setting-row" for="setting-rin"><span>Input impedance</span><select id="setting-rin"><option value="0">5 kΩ</option><option value="1" selected>10 kΩ</option><option value="2">20 kΩ</option><option value="3">40 kΩ</option></select></label>
+        <label class="setting-row" for="setting-gvga"><span>Buffer gain</span><select id="setting-gvga"><option value="0">Level 1</option><option value="1" selected>Level 2</option><option value="2">Level 3</option><option value="3">Level 4</option><option value="4">Level 5</option><option value="5">Level 6</option></select></label>
+        <label class="setting-row" for="setting-gdb"><span>Extra gain</span><select id="setting-gdb"><option value="0">0 dB</option><option value="1">1 dB</option><option value="2">2 dB</option></select></label>
+      </section>
+      <section class="card">
+        <div class="card-title">RF output</div>
+        <label class="setting-row" for="setting-pa"><span>PA target (register)</span><input id="setting-pa" type="number" min="20" max="75" step="1" value="40"></label>
+        <label class="setting-row" for="setting-pilot"><span>Pilot gain</span><select id="setting-pilot"><option value="7">7%</option><option value="8">8%</option><option value="9" selected>9%</option><option value="10">10%</option></select></label>
+        <label class="setting-row" for="setting-timeout"><span>No-audio timeout</span><select id="setting-timeout"><option value="0">58 seconds</option><option value="1">59 seconds</option><option value="2">60 seconds</option><option value="3" selected>Never</option></select></label>
+        <label class="setting-row" for="setting-privacy"><span>Privacy mode</span><input id="setting-privacy" type="checkbox"></label>
+      </section>
+      <section class="card">
+        <div class="card-title">Clock source</div>
+        <label class="setting-row" for="setting-xtal"><span>Crystal frequency</span><select id="setting-xtal"><option value="0">12 MHz</option><option value="1" selected>24 MHz</option></select></label>
+        <label class="setting-row" for="setting-clock"><span>Reference source</span><select id="setting-clock"><option value="0">Crystal</option><option value="1">Digital clock</option><option value="2">Single-ended sine</option><option value="3">Differential sine</option></select></label>
+        <div class="setting-row"><label for="setting-current">Oscillator current</label><div class="slider-row"><input id="setting-current" type="range" min="0" max="63" step="1" value="16"><output id="setting-current-value">100 μA</output></div></div>
+      </section>
+      <section class="card">
+        <div class="card-title">Audio transmission</div>
+        <label class="setting-row" for="setting-preemphasis"><span>Pre-emphasis</span><select id="setting-preemphasis"><option value="0">50 μs</option><option value="1">75 μs</option></select></label>
+        <label class="setting-row" for="setting-tx-fdev"><span>TX deviation code</span><input id="setting-tx-fdev" type="number" min="0" max="255" step="1" value="129"></label>
+        <div class="card-title">RDS</div>
+        <label class="setting-row" for="setting-rds-enabled"><span>RDS enabled</span><input id="setting-rds-enabled" type="checkbox"></label>
+        <label class="setting-row" for="setting-rds-deviation"><span>RDS deviation code</span><input id="setting-rds-deviation" type="number" min="0" max="127" step="1" value="6"></label>
+        <div class="card-title">Maintenance</div>
+        <div class="maintenance-actions">
+          <button class="preset-btn" id="tx-recalibrate" type="button">Recalibrate</button>
+          <button class="preset-btn" id="tx-defaults" type="button">Load defaults</button>
+          <button class="preset-btn" id="tx-reset" type="button">Reset chip</button>
+          <button class="preset-btn" id="tx-clear-audio" type="button">Clear peak</button>
+        </div>
+      </section>
+    </div>
+    <section class="card" style="margin-top: var(--gap)">
+      <div class="card-title">Read-only diagnostics</div>
+      <div class="diagnostics">
+        <div class="diagnostic"><span>TX deviation</span><span id="diag-deviation">--</span></div>
+        <div class="diagnostic"><span>RDS</span><span id="diag-rds">--</span></div>
+        <div class="diagnostic"><span>PA power target</span><span id="diag-pa-db">--</span></div>
+        <div class="diagnostic"><span>Audio peak hold</span><span id="diag-peak">--</span></div>
+      </div>
+    </section>
+    <p class="notice" id="tx-notice" role="status" aria-live="polite">Reading transmitter settings…</p>
+  </dialog>
+
+  <div class="section-divider">Signal Generator</div>
 
   <!-- Oscilloscope -->
   <div class="scope-wrap">
@@ -449,6 +596,209 @@ async function api(method, path, body) {
   return res.json();
 }
 
+// ── FM transmitter ────────────────────────────────────────────────────────────
+const txDialog = document.getElementById('settings-dialog');
+let txState = null;
+let txBusy = false;
+
+async function txRequest(path, { method = 'POST', body } = {}) {
+  const options = { method, headers: {} };
+  if (body !== undefined) {
+    options.headers['Content-Type'] = 'application/json';
+    options.body = JSON.stringify(body);
+  }
+  const response = await fetch(path, options);
+  if (!response.ok) {
+    const result = await response.json().catch(() => ({}));
+    throw new Error(result.detail || `Request failed (${response.status})`);
+  }
+  return response.json();
+}
+
+function setTxNotice(message, isError = false) {
+  const notice = document.getElementById('tx-notice');
+  notice.textContent = message;
+  notice.dataset.error = String(isError);
+}
+
+function syncSettings(s) {
+  if (!s) return;
+  document.getElementById('setting-pa').value = Math.round((Number(s.pa_trgt) - 71) / 0.62);
+  document.getElementById('setting-rin').value = s.rin;
+  document.getElementById('setting-gvga').value = s.gvga;
+  document.getElementById('setting-gdb').value = s.gdb;
+  document.getElementById('setting-xtal').value = s.xsel;
+  document.getElementById('setting-clock').value = s.xinj;
+  const currentCode = Math.round(Number(s.xisel) / 6.25);
+  document.getElementById('setting-current').value = currentCode;
+  document.getElementById('setting-current-value').textContent = `${(currentCode * 6.25).toFixed(2).replace(/\.00$/, '')} μA`;
+  document.getElementById('setting-preemphasis').value = s.tc;
+  document.getElementById('setting-timeout').value = s.t1m_sel;
+  document.getElementById('setting-pilot').value = s.gain_txplt;
+  document.getElementById('setting-privacy').checked = Number(s.priv_en) === 1;
+  document.getElementById('setting-tx-fdev').value = Math.round(Number(s.tx_fdev) / 0.58);
+  document.getElementById('setting-rds-enabled').checked = Number(s.rdsen) === 1;
+  document.getElementById('setting-rds-deviation').value = Math.round(Number(s.rdsfdev) / 0.35);
+}
+
+function applyTxState(s) {
+  txState = s;
+  const frequency = Number(s.freq);
+  document.getElementById('tx-frequency-display').textContent = frequency.toFixed(2);
+  if (document.activeElement !== document.getElementById('tx-frequency-input')) {
+    document.getElementById('tx-frequency-input').value = frequency.toFixed(2);
+  }
+  document.getElementById('tx-frequency-slider').value = frequency;
+
+  const transmitting = Number(s.txreq) === 1;
+  const mono = Number(s.mono) === 1;
+  const muted = Number(s.mute) === 1;
+  const powerButton = document.getElementById('tx-power');
+  powerButton.disabled = false;
+  powerButton.textContent = transmitting ? 'Disable transmit' : 'Enable transmit';
+  powerButton.className = `action-btn ${transmitting ? 'running' : 'stopped'}`;
+  document.getElementById('transmit-state').textContent = transmitting ? 'Transmitting' : 'Standby';
+  for (const [id, active] of [['tx-stereo', !mono], ['tx-mono', mono]]) {
+    const button = document.getElementById(id);
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', String(active));
+  }
+  document.getElementById('tx-mute').checked = muted;
+
+  const txPill = document.getElementById('tx-status');
+  txPill.className = `status-pill${transmitting ? ' running' : ''}`;
+  document.getElementById('tx-status-text').textContent = transmitting ? 'Transmitting' : 'Transmitter ready';
+  const fsmNames = ['Reset', 'Calibration', 'Idle', 'Transmit reset', 'PA calibration', 'Transmit', 'PA off', 'Reserved'];
+  document.getElementById('diag-fsm').textContent = fsmNames[Number(s.fsmstate)] || 'Unknown';
+  document.getElementById('diag-audio').textContent = `${s.aud_pk} mV`;
+  document.getElementById('diag-gain').textContent = `${s.tx_buffer_gain} dB`;
+  document.getElementById('diag-pa').textContent = `${Math.round((Number(s.pa_trgt) - 71) / 0.62)} / 127`;
+  document.getElementById('diag-deviation').textContent = `${Number(s.tx_fdev).toFixed(2)} kHz`;
+  document.getElementById('diag-rds').textContent = `${Number(s.rdsen) === 1 ? 'Enabled' : 'Disabled'} · ${Number(s.rdsfdev).toFixed(2)} kHz`;
+  document.getElementById('diag-pa-db').textContent = `${Number(s.pa_trgt).toFixed(1)} dBu`;
+  document.getElementById('diag-peak').textContent = `${s.aud_pk} mV`;
+}
+
+async function refreshTransmitter() {
+  if (txBusy) return;
+  try {
+    applyTxState(await txRequest('/fmtransmitter/get_state', { method: 'GET' }));
+  } catch (error) {
+    const pill = document.getElementById('tx-status');
+    pill.className = 'status-pill';
+    document.getElementById('tx-status-text').textContent = 'Transmitter offline';
+    document.getElementById('tx-power').disabled = true;
+    setTxNotice(error.message || 'Could not read transmitter state', true);
+  }
+}
+
+async function runTxCommand(path, message, confirmMessage) {
+  if (txBusy || (confirmMessage && !window.confirm(confirmMessage))) return;
+  txBusy = true;
+  setTxNotice('Sending command…');
+  try {
+    await txRequest(path);
+    applyTxState(await txRequest('/fmtransmitter/get_state', { method: 'GET' }));
+    setTxNotice(message);
+  } catch (error) {
+    setTxNotice(error.message || 'Could not reach the transmitter', true);
+  } finally {
+    txBusy = false;
+  }
+}
+
+async function updateTxSetting(field, value, input) {
+  if (txBusy) return;
+  txBusy = true;
+  input.disabled = true;
+  setTxNotice('Applying setting…');
+  try {
+    applyTxState(await txRequest('/fmtransmitter/settings', { body: { [field]: value } }));
+    setTxNotice('Setting applied');
+  } catch (error) {
+    if (txState) syncSettings(txState);
+    setTxNotice(error.message || 'Could not apply setting', true);
+  } finally {
+    input.disabled = false;
+    txBusy = false;
+  }
+}
+
+document.getElementById('settings-open').addEventListener('click', () => {
+  if (txState) syncSettings(txState);
+  txDialog.showModal();
+});
+document.getElementById('settings-close').addEventListener('click', () => txDialog.close());
+txDialog.addEventListener('click', event => { if (event.target === txDialog) txDialog.close(); });
+
+document.getElementById('tx-frequency-slider').addEventListener('input', event => {
+  document.getElementById('tx-frequency-input').value = Number(event.target.value).toFixed(2);
+});
+document.getElementById('tx-frequency-input').addEventListener('input', event => {
+  document.getElementById('tx-frequency-slider').value = event.target.value;
+});
+async function setTxFrequency(value) {
+  const frequency = Number(value);
+  const input = document.getElementById('tx-frequency-input');
+  if (!Number.isFinite(frequency) || frequency < 76 || frequency > 108 || Math.abs(frequency * 20 - Math.round(frequency * 20)) > 0.001) {
+    setTxNotice('Enter 76.00–108.00 MHz in 50 kHz steps.', true);
+    return;
+  }
+  txBusy = true;
+  document.getElementById('tx-frequency-set').disabled = true;
+  setTxNotice('Tuning transmitter…');
+  try {
+    await txRequest(`/fmtransmitter/set_freq/${encodeURIComponent(frequency.toFixed(2))}`);
+    applyTxState(await txRequest('/fmtransmitter/get_state', { method: 'GET' }));
+    setTxNotice(`Frequency set to ${frequency.toFixed(2)} MHz`);
+  } catch (error) {
+    setTxNotice(error.message || 'Could not set frequency', true);
+  } finally {
+    txBusy = false;
+    document.getElementById('tx-frequency-set').disabled = false;
+  }
+}
+document.getElementById('tx-frequency-set').addEventListener('click', () => setTxFrequency(document.getElementById('tx-frequency-input').value));
+document.getElementById('tx-frequency-input').addEventListener('keydown', event => {
+  if (event.key === 'Enter') { event.preventDefault(); setTxFrequency(event.target.value); }
+});
+document.querySelectorAll('.tx-preset').forEach(button => button.addEventListener('click', () => {
+  document.getElementById('tx-frequency-input').value = Number(button.dataset.frequency).toFixed(2);
+  document.getElementById('tx-frequency-slider').value = button.dataset.frequency;
+  setTxFrequency(button.dataset.frequency);
+}));
+
+document.getElementById('tx-power').addEventListener('click', () => {
+  runTxCommand(txState && Number(txState.txreq) === 1 ? '/fmtransmitter/disable_tx' : '/fmtransmitter/enable_tx', 'Transmitter state updated');
+});
+document.getElementById('tx-stereo').addEventListener('click', () => runTxCommand('/fmtransmitter/stereo', 'Stereo mode selected'));
+document.getElementById('tx-mono').addEventListener('click', () => runTxCommand('/fmtransmitter/mono', 'Mono mode selected'));
+document.getElementById('tx-mute').addEventListener('change', event => updateTxSetting('mute', event.target.checked, event.target));
+
+const settingFields = [
+  ['setting-pa', 'pa_target'], ['setting-rin', 'rin'], ['setting-gvga', 'gvga'], ['setting-gdb', 'gdb'],
+  ['setting-xtal', 'xtal'], ['setting-clock', 'clock_source'], ['setting-preemphasis', 'preemphasis'],
+  ['setting-timeout', 'pa_timeout'], ['setting-pilot', 'pilot_gain'],
+  ['setting-tx-fdev', 'tx_fdev_code'], ['setting-rds-deviation', 'rds_deviation_code'],
+];
+for (const [id, field] of settingFields) {
+  const input = document.getElementById(id);
+  input.addEventListener('change', () => updateTxSetting(field, Number(input.value), input));
+}
+document.getElementById('setting-privacy').addEventListener('change', event => updateTxSetting('privacy_mode', event.target.checked, event.target));
+document.getElementById('setting-rds-enabled').addEventListener('change', event => updateTxSetting('rds_enabled', event.target.checked, event.target));
+document.getElementById('setting-current').addEventListener('input', event => {
+  document.getElementById('setting-current-value').textContent = `${(Number(event.target.value) * 6.25).toFixed(2).replace(/\.00$/, '')} μA`;
+});
+document.getElementById('setting-current').addEventListener('change', event => updateTxSetting('oscillator_current_code', Number(event.target.value), event.target));
+document.getElementById('tx-recalibrate').addEventListener('click', () => runTxCommand('/fmtransmitter/recalibrate', 'Chip recalibration started'));
+document.getElementById('tx-defaults').addEventListener('click', () => runTxCommand('/fmtransmitter/initialize', 'Default settings loaded', 'Load default settings and enable the transmitter?'));
+document.getElementById('tx-reset').addEventListener('click', () => runTxCommand('/fmtransmitter/reset_chip', 'Chip reset', 'Reset the transmitter chip?'));
+document.getElementById('tx-clear-audio').addEventListener('click', () => runTxCommand('/fmtransmitter/clear_apk', 'Audio peak cleared'));
+
+refreshTransmitter();
+window.setInterval(refreshTransmitter, 5000);
+
 // ── Error toast ────────────────────────────────────────────────────────────────
 let toastTimer;
 function showError(msg) {
@@ -464,7 +814,7 @@ function syncUI() {
   const sweepActive = state.sweep && state.sweep.active;
 
   // Waveform
-  document.querySelectorAll('.wave-btn').forEach(btn =>
+  document.querySelectorAll('.wave-btn[data-wave]').forEach(btn =>
     btn.classList.toggle('active', btn.dataset.wave === state.waveform));
 
   // Frequency (disabled during sweep — controlled by sweep)
@@ -551,7 +901,7 @@ async function pollStatus() {
 }
 
 // ── Waveform buttons ───────────────────────────────────────────────────────────
-document.querySelectorAll('.wave-btn').forEach(btn => {
+document.querySelectorAll('.wave-btn[data-wave]').forEach(btn => {
   btn.addEventListener('click', async () => {
     state.waveform = btn.dataset.wave;
     syncUI();
